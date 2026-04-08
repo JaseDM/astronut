@@ -4,7 +4,8 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://nutroteca.es',
+  site: 'https://jasedm.github.io',
+  base: '/astronut',
   integrations: [
     mdx(),
     sitemap(),
