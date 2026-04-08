@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* ─── Colores ─────────────────────────────────────── */
+    --nt-color-stone-50:  #faf9f7;
+    --nt-color-stone-100: #f2ede6;
+    --nt-color-stone-200: #e5ddd0;
+    --nt-color-stone-300: #ccc0ac;
+    --nt-color-stone-400: #a89070;
+    --nt-color-stone-500: #8a7055;
+
+    --nt-color-green-900: #1a2e1e;
+    --nt-color-green-800: #243b28;
+    --nt-color-green-700: #2e4d32;
+    --nt-color-green-600: #3a6140;
+    --nt-color-green-500: #4a7a52;
+    --nt-color-green-400: #6a9e72;
+    --nt-color-green-100: #dceedd;
+
+    --nt-color-earth-700: #5c3d1e;
+    --nt-color-earth-600: #7a5230;
+    --nt-color-earth-500: #9a6b44;
+    --nt-color-earth-400: #b88a62;
+    --nt-color-earth-100: #f5ead8;
+
+    /* Semánticos */
+    --nt-bg:          var(--nt-color-stone-50);
+    --nt-bg-muted:    var(--nt-color-stone-100);
+    --nt-text:        var(--nt-color-green-900);
+    --nt-text-muted:  var(--nt-color-stone-500);
+    --nt-border:      var(--nt-color-stone-200);
+    --nt-accent:      var(--nt-color-green-700);
+    --nt-accent-hover:var(--nt-color-green-600);
+    --nt-highlight:   var(--nt-color-earth-500);
+
+    /* ─── Tipografía ──────────────────────────────────── */
+    --nt-font-display: 'Playfair Display', Georgia, serif;
+    --nt-font-body:    'Source Serif 4', Georgia, serif;
+    --nt-font-ui:      'DM Sans', system-ui, sans-serif;
+
+    /* ─── Espaciado ───────────────────────────────────── */
+    --nt-space-xs:  0.5rem;
+    --nt-space-sm:  1rem;
+    --nt-space-md:  1.5rem;
+    --nt-space-lg:  2.5rem;
+    --nt-space-xl:  4rem;
+    --nt-space-2xl: 6rem;
+    --nt-space-3xl: 9rem;
+
+    /* ─── Contenedor ──────────────────────────────────── */
+    --nt-container: 72rem;    /* 1152px */
+    --nt-container-narrow: 48rem; /* 768px — para artículos */
+
+    /* ─── Gradientes ──────────────────────────────────── */
+    /* Monocromáticos — añaden profundidad sin romper la paleta */
+    --nt-gradient-warm:  linear-gradient(160deg, var(--nt-color-stone-50) 0%, var(--nt-color-stone-100) 100%);
+    --nt-gradient-warm-r:linear-gradient(160deg, var(--nt-color-stone-100) 0%, var(--nt-color-stone-50) 100%);
+    --nt-gradient-dark:  linear-gradient(160deg, var(--nt-color-green-900) 0%, var(--nt-color-green-800) 100%);
+    --nt-gradient-earth: linear-gradient(160deg, var(--nt-color-earth-100) 0%, var(--nt-color-stone-100) 100%);
+    --nt-gradient-green: linear-gradient(160deg, var(--nt-color-green-800) 0%, var(--nt-color-green-700) 100%);
+  }
+}
+
+@layer base {
+  html {
+    background-color: var(--nt-bg);
+    color: var(--nt-text);
+    font-family: var(--nt-font-body);
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--nt-font-display);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--nt-color-green-900);
+  }
+
+  p {
+    line-height: 1.75;
+    color: var(--nt-text);
+  }
+
+  a {
+    color: var(--nt-accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  a:hover {
+    color: var(--nt-accent-hover);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--nt-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  /* ── Textura grain ──────────────────────────────────────
+     Uso: añade clase "nt-grain" a cualquier elemento con
+     position relativa o que pueda tener un ::after.
+     Intensidad recomendada: fondos claros 0.035, oscuros 0.055
+  ──────────────────────────────────────────────────────── */
+  .nt-grain {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .nt-grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
+    mix-blend-mode: multiply;
+    z-index: 1;
+  }
+
+  .nt-grain-dark::after {
+    opacity: 0.055;
+    mix-blend-mode: overlay;
+  }
+}

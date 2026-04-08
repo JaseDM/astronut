@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Disallow: /guia-estilos
+
+Sitemap: https://nutroteca.es/sitemap-index.xml

@@ -1,0 +1,977 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Guía de estilos"
+  description="Sistema de diseño de Nutroteca: tipografía, colores, espaciado y componentes base."
+>
+  <main class="min-h-screen py-16 px-6">
+    <div style="max-width: var(--nt-container)" class="mx-auto space-y-24">
+      <!-- Encabezado -->
+      <header class="border-b pb-10" style="border-color: var(--nt-border)">
+        <p
+          class="text-sm font-medium uppercase tracking-widest mb-3"
+          style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+        >
+          Sistema de diseño
+        </p>
+        <h1 class="text-5xl md:text-6xl mb-4">Nutroteca</h1>
+        <p
+          class="text-xl"
+          style="color: var(--nt-text-muted); font-family: var(--nt-font-body)"
+        >
+          Guía de estilos — tokens, tipografía, colores y componentes base.
+        </p>
+      </header>
+
+      <!-- ── LOGOTIPO ───────────────────────────────────────── -->
+      <section>
+        <h2 class="text-4xl mb-2">Logotipo</h2>
+        <p class="mb-10" style="color: var(--nt-text-muted)">
+          Cuatro variantes: completo vertical, completo horizontal, isotipo y
+          wordmark.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Sobre fondo claro -->
+          <div>
+            <p
+              class="text-xs font-medium uppercase tracking-widest mb-3"
+              style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+            >
+              Sobre fondo claro
+            </p>
+            <div
+              class="flex items-center justify-center p-12 rounded"
+              style="background: var(--nt-color-stone-100); border: 1px solid var(--nt-border)"
+            >
+              <img
+                src="/logos/logo fondo negro.svg"
+                alt="Nutroteca — Nutrición · Movimiento · Equilibrio"
+                width="220"
+                height="163"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <!-- Sobre fondo oscuro -->
+          <div>
+            <p
+              class="text-xs font-medium uppercase tracking-widest mb-3"
+              style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+            >
+              Sobre fondo oscuro
+            </p>
+            <div
+              class="flex items-center justify-center p-12 rounded"
+              style="background: var(--nt-color-green-900)"
+            >
+              <img
+                src="/logos/logo blanco.svg"
+                alt="Nutroteca — Nutrición · Movimiento · Equilibrio"
+                width="220"
+                height="160"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <!-- Horizontal -->
+          <div>
+            <p
+              class="text-xs font-medium uppercase tracking-widest mb-3"
+              style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+            >
+              Variante horizontal
+            </p>
+            <div
+              class="flex items-center justify-center p-12 rounded"
+              style="background: var(--nt-color-stone-100); border: 1px solid var(--nt-border)"
+            >
+              <img
+                src="/logos/logo fondo negro-2.svg"
+                alt="Nutroteca"
+                width="320"
+                height="96"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <!-- Isotipo solo -->
+          <div>
+            <p
+              class="text-xs font-medium uppercase tracking-widest mb-3"
+              style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+            >
+              Isotipo
+            </p>
+            <div
+              class="flex items-center justify-center p-12 rounded"
+              style="background: var(--nt-color-stone-100); border: 1px solid var(--nt-border)"
+            >
+              <img
+                src="/logos/logo fondo negro-1.svg"
+                alt="Nutroteca isotipo"
+                width="80"
+                height="87"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Zona de exclusión -->
+        <div
+          class="mt-8 p-6 rounded"
+          style="background: var(--nt-bg-muted); border: 1px solid var(--nt-border)"
+        >
+          <p
+            class="text-sm font-medium mb-2"
+            style="font-family: var(--nt-font-ui)"
+          >
+            Uso del color en el logotipo
+          </p>
+          <p
+            class="text-sm"
+            style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+          >
+            El isotipo usa el verde <code
+              style="background: white; padding: 1px 5px; border-radius: 2px; font-size: 11px"
+              >#01A453</code
+            > — más saturado que la paleta del sistema. En la web se usa como está;
+            para materiales impresos o sobre fondos del sistema, considera usar la
+            variante blanca.
+          </p>
+        </div>
+      </section>
+
+      <!-- ── PALETA DE COLOR ─────────────────────────────── -->
+      <section>
+        <h2 class="text-4xl mb-2">Color</h2>
+        <p class="mb-8" style="color: var(--nt-text-muted)">
+          Tonos tierra, verde oscuro y crema. Cálidos pero sobrios.
+        </p>
+
+        <div class="space-y-8">
+          <!-- Verde -->
+          <div>
+            <p
+              class="text-sm font-medium mb-3"
+              style="font-family: var(--nt-font-ui)"
+            >
+              Verde
+            </p>
+            <div class="flex gap-2 flex-wrap">
+              {
+                [
+                  { name: "green-900", bg: "#1a2e1e" },
+                  { name: "green-800", bg: "#243b28" },
+                  { name: "green-700", bg: "#2e4d32" },
+                  { name: "green-600", bg: "#3a6140" },
+                  { name: "green-500", bg: "#4a7a52" },
+                  { name: "green-400", bg: "#6a9e72" },
+                  { name: "green-100", bg: "#dceedd" },
+                ].map(({ name, bg }) => (
+                  <div class="flex flex-col items-center gap-1">
+                    <div
+                      class="w-14 h-14 rounded"
+                      style={`background:${bg}; border: 1px solid rgba(0,0,0,0.08)`}
+                    />
+                    <span
+                      class="text-xs"
+                      style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+                    >
+                      {name}
+                    </span>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+
+          <!-- Tierra -->
+          <div>
+            <p
+              class="text-sm font-medium mb-3"
+              style="font-family: var(--nt-font-ui)"
+            >
+              Tierra
+            </p>
+            <div class="flex gap-2 flex-wrap">
+              {
+                [
+                  { name: "earth-700", bg: "#5c3d1e" },
+                  { name: "earth-600", bg: "#7a5230" },
+                  { name: "earth-500", bg: "#9a6b44" },
+                  { name: "earth-400", bg: "#b88a62" },
+                  { name: "earth-100", bg: "#f5ead8" },
+                ].map(({ name, bg }) => (
+                  <div class="flex flex-col items-center gap-1">
+                    <div
+                      class="w-14 h-14 rounded"
+                      style={`background:${bg}; border: 1px solid rgba(0,0,0,0.08)`}
+                    />
+                    <span
+                      class="text-xs"
+                      style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+                    >
+                      {name}
+                    </span>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+
+          <!-- Piedra (neutros) -->
+          <div>
+            <p
+              class="text-sm font-medium mb-3"
+              style="font-family: var(--nt-font-ui)"
+            >
+              Piedra (neutros)
+            </p>
+            <div class="flex gap-2 flex-wrap">
+              {
+                [
+                  { name: "stone-50", bg: "#faf9f7" },
+                  { name: "stone-100", bg: "#f2ede6" },
+                  { name: "stone-200", bg: "#e5ddd0" },
+                  { name: "stone-300", bg: "#ccc0ac" },
+                  { name: "stone-400", bg: "#a89070" },
+                  { name: "stone-500", bg: "#8a7055" },
+                ].map(({ name, bg }) => (
+                  <div class="flex flex-col items-center gap-1">
+                    <div
+                      class="w-14 h-14 rounded"
+                      style={`background:${bg}; border: 1px solid rgba(0,0,0,0.08)`}
+                    />
+                    <span
+                      class="text-xs"
+                      style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+                    >
+                      {name}
+                    </span>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+
+          <!-- Colores semánticos -->
+          <div>
+            <p
+              class="text-sm font-medium mb-3"
+              style="font-family: var(--nt-font-ui)"
+            >
+              Semánticos
+            </p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {
+                [
+                  {
+                    token: "--nt-bg",
+                    label: "bg",
+                    desc: "Fondo principal",
+                    dark: false,
+                  },
+                  {
+                    token: "--nt-bg-muted",
+                    label: "bg-muted",
+                    desc: "Fondo secundario",
+                    dark: false,
+                  },
+                  {
+                    token: "--nt-accent",
+                    label: "accent",
+                    desc: "Acento / links",
+                    dark: true,
+                  },
+                  {
+                    token: "--nt-highlight",
+                    label: "highlight",
+                    desc: "Énfasis cálido",
+                    dark: true,
+                  },
+                ].map(({ token, label, desc, dark }) => (
+                  <div
+                    class="p-4 rounded"
+                    style={`background: var(${token}); border: 1px solid var(--nt-border)`}
+                  >
+                    <p
+                      class="text-xs font-medium"
+                      style={`font-family: var(--nt-font-ui); color: ${dark ? "#fff" : "var(--nt-text)"}`}
+                    >
+                      {label}
+                    </p>
+                    <p
+                      class="text-xs mt-0.5"
+                      style={`font-family: var(--nt-font-ui); color: ${dark ? "rgba(255,255,255,0.7)" : "var(--nt-text-muted)"}`}
+                    >
+                      {desc}
+                    </p>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TIPOGRAFÍA ──────────────────────────────────── -->
+      <section>
+        <h2 class="text-4xl mb-2">Tipografía</h2>
+        <p class="mb-10" style="color: var(--nt-text-muted)">
+          Tres familias: display (Playfair), cuerpo (Source Serif 4) y UI (DM
+          Sans).
+        </p>
+
+        <!-- Escala de titulares -->
+        <div class="space-y-6 mb-12">
+          <div class="pb-6" style="border-bottom: 1px solid var(--nt-border)">
+            <p
+              class="text-xs font-medium uppercase tracking-widest mb-2"
+              style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+            >
+              H1 — 5xl
+            </p>
+            <h1 style="font-size: clamp(2.5rem, 5vw, 4rem)">
+              La salud que construyes, no la dieta que aguantas.
+            </h1>
+          </div>
+          <div class="pb-6" style="border-bottom: 1px solid var(--nt-border)">
+            <p
+              class="text-xs font-medium uppercase tracking-widest mb-2"
+              style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+            >
+              H2 — 4xl
+            </p>
+            <h2 class="text-4xl">
+              Nutrición, movimiento y equilibrio emocional
+            </h2>
+          </div>
+          <div class="pb-6" style="border-bottom: 1px solid var(--nt-border)">
+            <p
+              class="text-xs font-medium uppercase tracking-widest mb-2"
+              style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+            >
+              H3 — 2xl
+            </p>
+            <h3 class="text-2xl">
+              ¿Por qué los tres pilares funcionan juntos?
+            </h3>
+          </div>
+          <div class="pb-6" style="border-bottom: 1px solid var(--nt-border)">
+            <p
+              class="text-xs font-medium uppercase tracking-widest mb-2"
+              style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+            >
+              H4 — xl
+            </p>
+            <h4 class="text-xl">Titular en cursiva (variante)</h4>
+          </div>
+        </div>
+
+        <!-- Body text -->
+        <div class="space-y-6">
+          <div>
+            <p
+              class="text-xs font-medium uppercase tracking-widest mb-2"
+              style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+            >
+              Body — Source Serif 4
+            </p>
+            <p
+              class="text-lg leading-relaxed"
+              style="max-width: var(--nt-container-narrow)"
+            >
+              En Nutroteca no separamos lo que comes, cómo te mueves y cómo te
+              sientes. Los tres pilares forman un sistema: cuando uno cambia,
+              los otros responden. Por eso nuestro acompañamiento es coordinado
+              desde el primer día.
+            </p>
+          </div>
+          <div>
+            <p
+              class="text-xs font-medium uppercase tracking-widest mb-2"
+              style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+            >
+              Texto muted / secundario
+            </p>
+            <p style="color: var(--nt-text-muted)">
+              Primera consulta gratuita · Atención presencial en Asturias y
+              online
+            </p>
+          </div>
+          <div>
+            <p
+              class="text-xs font-medium uppercase tracking-widest mb-2"
+              style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+            >
+              Eyebrow / etiqueta
+            </p>
+            <p
+              class="text-sm font-medium uppercase tracking-widest"
+              style="font-family: var(--nt-font-ui); color: var(--nt-highlight); letter-spacing: 0.12em"
+            >
+              Metodología · Tres pilares
+            </p>
+          </div>
+          <div>
+            <p
+              class="text-xs font-medium uppercase tracking-widest mb-2"
+              style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+            >
+              UI — DM Sans
+            </p>
+            <p style="font-family: var(--nt-font-ui)">
+              Botones, formularios, navegación, etiquetas — Texto de interfaz
+              sin serifa.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── BOTONES ─────────────────────────────────────── -->
+      <section>
+        <h2 class="text-4xl mb-2">Botones</h2>
+        <p class="mb-8" style="color: var(--nt-text-muted)">
+          Tres variantes: primario, secundario y fantasma.
+        </p>
+
+        <div class="flex flex-wrap gap-4 items-center mb-8">
+          <!-- Primario -->
+          <a
+            href="#"
+            style="
+              display: inline-flex;
+              align-items: center;
+              gap: 0.5rem;
+              background: var(--nt-color-green-800);
+              color: var(--nt-color-stone-50);
+              font-family: var(--nt-font-ui);
+              font-weight: 500;
+              padding: 0.75rem 1.75rem;
+              border-radius: 3px;
+              text-decoration: none;
+              letter-spacing: 0.01em;
+              transition: background 0.15s;
+            "
+            onmouseover="this.style.background='var(--nt-color-green-700)'"
+            onmouseout="this.style.background='var(--nt-color-green-800)'"
+          >
+            Primera consulta gratuita
+          </a>
+
+          <!-- Secundario -->
+          <a
+            href="#"
+            style="
+              display: inline-flex;
+              align-items: center;
+              gap: 0.5rem;
+              background: transparent;
+              color: var(--nt-color-green-800);
+              font-family: var(--nt-font-ui);
+              font-weight: 500;
+              padding: 0.75rem 1.75rem;
+              border-radius: 3px;
+              border: 1.5px solid var(--nt-color-green-800);
+              text-decoration: none;
+              letter-spacing: 0.01em;
+            "
+          >
+            Conoce la metodología
+          </a>
+
+          <!-- Fantasma / texto -->
+          <a
+            href="#"
+            style="
+              display: inline-flex;
+              align-items: center;
+              gap: 0.375rem;
+              color: var(--nt-highlight);
+              font-family: var(--nt-font-ui);
+              font-weight: 500;
+              text-decoration: none;
+              letter-spacing: 0.01em;
+            "
+          >
+            Ver todos los servicios →
+          </a>
+        </div>
+
+        <!-- Variante sobre fondo oscuro -->
+        <div
+          class="p-8 rounded flex flex-wrap gap-4 items-center"
+          style="background: var(--nt-color-green-900)"
+        >
+          <p
+            class="text-xs font-medium uppercase tracking-widest w-full mb-2"
+            style="font-family: var(--nt-font-ui); color: var(--nt-color-green-400)"
+          >
+            Sobre fondo oscuro
+          </p>
+          <a
+            href="#"
+            style="
+              display: inline-flex;
+              align-items: center;
+              background: var(--nt-color-stone-50);
+              color: var(--nt-color-green-900);
+              font-family: var(--nt-font-ui);
+              font-weight: 500;
+              padding: 0.75rem 1.75rem;
+              border-radius: 3px;
+              text-decoration: none;
+            "
+          >
+            Primera consulta gratuita
+          </a>
+          <a
+            href="#"
+            style="
+              display: inline-flex;
+              align-items: center;
+              color: var(--nt-color-stone-100);
+              font-family: var(--nt-font-ui);
+              font-weight: 500;
+              padding: 0.75rem 0;
+              text-decoration: none;
+            "
+          >
+            Conoce el equipo →
+          </a>
+        </div>
+      </section>
+
+      <!-- ── ESPACIADO ───────────────────────────────────── -->
+      <section>
+        <h2 class="text-4xl mb-2">Espaciado</h2>
+        <p class="mb-8" style="color: var(--nt-text-muted)">
+          Escala generosa. La web respira.
+        </p>
+
+        <div class="space-y-3">
+          {
+            [
+              { token: "--nt-space-xs", value: "0.5rem / 8px", size: 8 },
+              { token: "--nt-space-sm", value: "1rem / 16px", size: 16 },
+              { token: "--nt-space-md", value: "1.5rem / 24px", size: 24 },
+              { token: "--nt-space-lg", value: "2.5rem / 40px", size: 40 },
+              { token: "--nt-space-xl", value: "4rem / 64px", size: 64 },
+              { token: "--nt-space-2xl", value: "6rem / 96px", size: 96 },
+              { token: "--nt-space-3xl", value: "9rem / 144px", size: 144 },
+            ].map(({ token, value, size }) => (
+              <div class="flex items-center gap-4">
+                <div
+                  style={`
+                  height: 20px;
+                  width: ${Math.min(size, 144)}px;
+                  background: var(--nt-color-green-400);
+                  border-radius: 2px;
+                  flex-shrink: 0;
+                `}
+                />
+                <span
+                  class="text-sm"
+                  style="font-family: var(--nt-font-ui); color: var(--nt-text-muted); min-width: 14rem"
+                >
+                  {token}
+                </span>
+                <span class="text-sm" style="font-family: var(--nt-font-ui)">
+                  {value}
+                </span>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- ── CARDS ───────────────────────────────────────── -->
+      <section>
+        <h2 class="text-4xl mb-2">Cards</h2>
+        <p class="mb-8" style="color: var(--nt-text-muted)">
+          Sin sombras azuladas. Sin bordes redondeados exagerados.
+        </p>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- Card pilar -->
+          {
+            [
+              {
+                eyebrow: "Primer pilar",
+                title: "Nutrición clínica",
+                body: "Planes personalizados basados en tu historial, analíticas y objetivos reales. No dietas genéricas.",
+              },
+              {
+                eyebrow: "Segundo pilar",
+                title: "Entrenamiento funcional",
+                body: "Movimiento que mejora tu calidad de vida, no que te prepara para una competición.",
+              },
+              {
+                eyebrow: "Tercer pilar",
+                title: "Salud emocional",
+                body: "La relación con la comida es tan importante como la comida misma. Trabajamos también eso.",
+              },
+            ].map(({ eyebrow, title, body }) => (
+              <article
+                style="
+                background: var(--nt-bg);
+                border: 1px solid var(--nt-border);
+                padding: var(--nt-space-lg);
+                border-radius: 4px;
+              "
+              >
+                <p
+                  class="text-xs font-medium uppercase tracking-widest mb-3"
+                  style="font-family: var(--nt-font-ui); color: var(--nt-highlight)"
+                >
+                  {eyebrow}
+                </p>
+                <h3 class="text-xl mb-3">{title}</h3>
+                <p style="color: var(--nt-text-muted); line-height: 1.7">
+                  {body}
+                </p>
+              </article>
+            ))
+          }
+        </div>
+
+        <!-- Card sobre fondo muted -->
+        <div class="mt-6">
+          <p
+            class="text-xs font-medium uppercase tracking-widest mb-4"
+            style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+          >
+            Variante sobre fondo muted
+          </p>
+          <div
+            class="grid md:grid-cols-2 gap-4 p-6 rounded"
+            style="background: var(--nt-bg-muted)"
+          >
+            {
+              [
+                {
+                  label: "Primera consulta",
+                  desc: "Gratuita y sin compromiso · 30 min",
+                },
+                {
+                  label: "Plan integral",
+                  desc: "Nutrición + movimiento + emocional",
+                },
+              ].map(({ label, desc }) => (
+                <div
+                  style="
+                  background: white;
+                  border: 1px solid var(--nt-border);
+                  padding: var(--nt-space-md);
+                  border-radius: 4px;
+                "
+                >
+                  <p style="font-family: var(--nt-font-ui); font-weight: 500">
+                    {label}
+                  </p>
+                  <p
+                    class="text-sm mt-1"
+                    style="color: var(--nt-text-muted); font-family: var(--nt-font-ui)"
+                  >
+                    {desc}
+                  </p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- ── FORMULARIO ──────────────────────────────────── -->
+      <section>
+        <h2 class="text-4xl mb-2">Formulario</h2>
+        <p class="mb-8" style="color: var(--nt-text-muted)">
+          Estilos de inputs, labels y estados.
+        </p>
+
+        <form
+          class="space-y-5"
+          style="max-width: 36rem"
+          onsubmit="return false"
+        >
+          <div>
+            <label
+              for="sg-nombre"
+              class="block text-sm font-medium mb-1.5"
+              style="font-family: var(--nt-font-ui)"
+            >
+              Nombre
+            </label>
+            <input
+              id="sg-nombre"
+              type="text"
+              placeholder="Tu nombre"
+              style="
+                width: 100%;
+                padding: 0.625rem 0.875rem;
+                border: 1.5px solid var(--nt-border);
+                border-radius: 3px;
+                background: white;
+                font-family: var(--nt-font-ui);
+                color: var(--nt-text);
+                outline: none;
+                transition: border-color 0.15s;
+              "
+              onfocus="this.style.borderColor='var(--nt-accent)'"
+              onblur="this.style.borderColor='var(--nt-border)'"
+            />
+          </div>
+          <div>
+            <label
+              for="sg-email"
+              class="block text-sm font-medium mb-1.5"
+              style="font-family: var(--nt-font-ui)"
+            >
+              Email
+            </label>
+            <input
+              id="sg-email"
+              type="email"
+              placeholder="tu@email.com"
+              style="
+                width: 100%;
+                padding: 0.625rem 0.875rem;
+                border: 1.5px solid var(--nt-border);
+                border-radius: 3px;
+                background: white;
+                font-family: var(--nt-font-ui);
+                color: var(--nt-text);
+                outline: none;
+              "
+            />
+          </div>
+          <div>
+            <label
+              for="sg-mensaje"
+              class="block text-sm font-medium mb-1.5"
+              style="font-family: var(--nt-font-ui)"
+            >
+              Mensaje
+            </label>
+            <textarea
+              id="sg-mensaje"
+              rows="4"
+              placeholder="¿En qué podemos ayudarte?"
+              style="
+                width: 100%;
+                padding: 0.625rem 0.875rem;
+                border: 1.5px solid var(--nt-border);
+                border-radius: 3px;
+                background: white;
+                font-family: var(--nt-font-ui);
+                color: var(--nt-text);
+                outline: none;
+                resize: vertical;
+              "
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            style="
+              background: var(--nt-color-green-800);
+              color: var(--nt-color-stone-50);
+              font-family: var(--nt-font-ui);
+              font-weight: 500;
+              padding: 0.75rem 1.75rem;
+              border-radius: 3px;
+              border: none;
+              cursor: pointer;
+              letter-spacing: 0.01em;
+            "
+          >
+            Enviar mensaje
+          </button>
+        </form>
+      </section>
+
+      <!-- ── GRADIENTES Y TEXTURAS ─────────────────────── -->
+      <section>
+        <h2 class="text-4xl mb-2">Gradientes y textura</h2>
+        <p class="mb-10" style="color: var(--nt-text-muted)">
+          Gradientes monocromáticos para añadir profundidad. Grain sutil para
+          riqueza táctil sin ruido visual.
+        </p>
+
+        <!-- Gradientes -->
+        <div class="mb-12">
+          <p
+            class="text-xs font-medium uppercase tracking-widest mb-4"
+            style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+          >
+            Gradientes
+          </p>
+          <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+            {
+              [
+                { token: "--nt-gradient-warm", label: "warm", dark: false },
+                { token: "--nt-gradient-warm-r", label: "warm-r", dark: false },
+                { token: "--nt-gradient-earth", label: "earth", dark: false },
+                { token: "--nt-gradient-green", label: "green", dark: true },
+                { token: "--nt-gradient-dark", label: "dark", dark: true },
+              ].map(({ token, label }) => (
+                <div
+                  class="rounded overflow-hidden"
+                  style="border: 1px solid var(--nt-border)"
+                >
+                  <div class="h-24" style={`background: var(${token})`} />
+                  <div style="padding: 0.625rem 0.75rem; background: var(--nt-bg-muted)">
+                    <p
+                      class="text-xs font-medium"
+                      style="font-family: var(--nt-font-ui)"
+                    >
+                      {label}
+                    </p>
+                    <p
+                      class="text-xs mt-0.5"
+                      style="font-family: var(--nt-font-ui); color: var(--nt-text-muted); font-size: 10px"
+                    >
+                      {token}
+                    </p>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Grain — comparativa -->
+        <div>
+          <p
+            class="text-xs font-medium uppercase tracking-widest mb-4"
+            style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+          >
+            Textura grain
+          </p>
+          <div class="grid md:grid-cols-3 gap-4">
+            <!-- Sin grain -->
+            <div
+              class="rounded overflow-hidden"
+              style="border: 1px solid var(--nt-border)"
+            >
+              <div
+                class="h-36 flex items-end p-4"
+                style="background: var(--nt-gradient-warm)"
+              >
+                <p
+                  class="text-xs"
+                  style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+                >
+                  Sin grain
+                </p>
+              </div>
+            </div>
+
+            <!-- Con grain — fondo claro -->
+            <div
+              class="rounded overflow-hidden"
+              style="border: 1px solid var(--nt-border)"
+            >
+              <div
+                class="nt-grain h-36 flex items-end p-4"
+                style="background: var(--nt-gradient-warm)"
+              >
+                <p
+                  class="text-xs"
+                  style="font-family: var(--nt-font-ui); color: var(--nt-text-muted); position: relative; z-index: 2"
+                >
+                  Con grain · fondo claro
+                </p>
+              </div>
+            </div>
+
+            <!-- Con grain — fondo oscuro -->
+            <div
+              class="rounded overflow-hidden"
+              style="border: 1px solid var(--nt-border)"
+            >
+              <div
+                class="nt-grain nt-grain-dark h-36 flex items-end p-4"
+                style="background: var(--nt-gradient-dark)"
+              >
+                <p
+                  class="text-xs"
+                  style="font-family: var(--nt-font-ui); color: var(--nt-color-green-400); position: relative; z-index: 2"
+                >
+                  Con grain · fondo oscuro
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aplicación real — card de ejemplo -->
+        <div class="mt-10">
+          <p
+            class="text-xs font-medium uppercase tracking-widest mb-4"
+            style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+          >
+            Aplicación — hero de sección
+          </p>
+          <div
+            class="nt-grain nt-grain-dark rounded-lg p-12 md:p-16 flex flex-col gap-4"
+            style="background: var(--nt-gradient-dark)"
+          >
+            <p
+              class="text-xs font-medium uppercase tracking-widest"
+              style="font-family: var(--nt-font-ui); color: var(--nt-color-green-400); letter-spacing: 0.12em; position: relative; z-index: 2"
+            >
+              Metodología · Tres pilares
+            </p>
+            <h2
+              class="text-4xl md:text-5xl"
+              style="color: var(--nt-color-stone-50); position: relative; z-index: 2; max-width: 28rem"
+            >
+              Un sistema, no tres servicios separados.
+            </h2>
+            <p
+              style="color: var(--nt-color-stone-300); font-family: var(--nt-font-body); line-height: 1.7; max-width: 36rem; position: relative; z-index: 2"
+            >
+              Nutrición, movimiento y equilibrio emocional se trabajan de forma
+              coordinada desde el primer día.
+            </p>
+            <div style="position: relative; z-index: 2; margin-top: 0.5rem">
+              <a
+                href="#"
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  background: var(--nt-color-stone-50);
+                  color: var(--nt-color-green-900);
+                  font-family: var(--nt-font-ui);
+                  font-weight: 500;
+                  padding: 0.75rem 1.75rem;
+                  border-radius: 3px;
+                  text-decoration: none;
+                "
+              >
+                Conoce la metodología
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer de la guía -->
+      <footer class="pt-10 border-t" style="border-color: var(--nt-border)">
+        <p
+          class="text-sm"
+          style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
+        >
+          Nutroteca · Sistema de diseño interno · No indexado
+        </p>
+      </footer>
+    </div>
+  </main>
+</BaseLayout>
