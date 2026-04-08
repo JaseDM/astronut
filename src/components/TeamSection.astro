@@ -1,0 +1,288 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const team = [
+  {
+    initials: 'JM',
+    name: 'José Miguel',
+    age: 50,
+    role: 'Dietista-Nutricionista · Entrenador Personal',
+    credentials: 'Titulado en Dietética y Nutrición, con especialización en nutrición deportiva y rendimiento.',
+    human: 'Deportista y vegano desde hace años, José Miguel ha construido su propia salud exactamente como construye la de sus pacientes: sin restricciones absurdas, con coherencia y disfrute. Con 50 años, conoce de primera mano los cambios metabólicos y hormonales de esta etapa, y sabe que el cuerpo responde — si le das las herramientas adecuadas.',
+    accent: 'var(--nt-color-green-700)',
+    accentLight: 'var(--nt-color-green-100)',
+  },
+  {
+    initials: 'E',
+    name: 'Erika',
+    age: 44,
+    role: 'Enfermera · Especialista en Deporte y Gestión del Estrés',
+    credentials: 'Graduada en Enfermería con especialización en Enfermería del Deporte y técnicas de control del estrés.',
+    human: 'Apasionada de la montaña y las actividades al aire libre, Erika aporta la mirada clínica que va más allá de la dieta: prevención, bienestar integral y ese equilibrio entre exigirse y cuidarse que tantas personas pierden a partir de los 40. A sus 44 años, sabe que la salud real no se consigue a golpe de fuerza de voluntad — se construye con hábitos que tienen sentido.',
+    accent: 'var(--nt-color-earth-500)',
+    accentLight: 'var(--nt-color-earth-100)',
+  },
+];
+---
+
+<section
+  style="
+    padding: var(--nt-space-3xl) var(--nt-space-md);
+    background: var(--nt-color-stone-100);
+    border-top: 1px solid var(--nt-color-stone-200);
+  "
+  aria-labelledby="team-heading"
+>
+  <div style="max-width: var(--nt-container); margin: 0 auto">
+
+    <!-- Encabezado -->
+    <div style="text-align: center; max-width: 38rem; margin: 0 auto var(--nt-space-2xl)">
+      <p
+        style="
+          font-family: var(--nt-font-ui);
+          font-size: 0.75rem;
+          font-weight: 500;
+          text-transform: uppercase;
+          letter-spacing: 0.14em;
+          color: var(--nt-highlight);
+          margin-bottom: var(--nt-space-sm);
+        "
+      >
+        El equipo
+      </p>
+      <h2
+        id="team-heading"
+        style="
+          font-family: var(--nt-font-display);
+          font-size: clamp(1.75rem, 3vw, 2.5rem);
+          font-weight: 700;
+          line-height: 1.15;
+          letter-spacing: -0.02em;
+          color: var(--nt-color-green-900);
+          margin-bottom: var(--nt-space-md);
+        "
+      >
+        Detrás de Nutroteca:<br />
+        <em style="font-style: italic; color: var(--nt-highlight)">pasión por el movimiento y la salud consciente.</em>
+      </h2>
+      <p
+        style="
+          font-family: var(--nt-font-body);
+          font-size: 1.0625rem;
+          line-height: 1.75;
+          color: var(--nt-text-muted);
+        "
+      >
+        Dos profesionales en la misma etapa vital que tú. No te hablan de la salud desde los libros — te hablan desde la experiencia real de construirla cada día.
+      </p>
+    </div>
+
+    <!-- Perfiles -->
+    <div class="team-grid">
+      {team.map(({ initials, name, age, role, credentials, human, accent, accentLight }) => (
+        <article
+          style="
+            background: var(--nt-bg);
+            border: 1px solid var(--nt-border);
+            border-radius: 4px;
+            overflow: hidden;
+          "
+        >
+          <!-- Foto placeholder -->
+          <div
+            style={`
+              height: 280px;
+              background: ${accentLight};
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              position: relative;
+            `}
+            aria-hidden="true"
+          >
+            <!-- Placeholder circular con iniciales -->
+            <div
+              style={`
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                background: ${accent};
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: var(--nt-font-display);
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: white;
+                letter-spacing: -0.02em;
+              `}
+            >
+              {initials}
+            </div>
+
+            <!-- Badge de edad -->
+            <div
+              style={`
+                position: absolute;
+                bottom: var(--nt-space-md);
+                right: var(--nt-space-md);
+                background: ${accent};
+                color: white;
+                font-family: var(--nt-font-ui);
+                font-size: 0.75rem;
+                font-weight: 600;
+                padding: 0.3rem 0.75rem;
+                border-radius: 99px;
+              `}
+            >
+              {age} años
+            </div>
+
+            <!-- Nota para cuando haya foto real -->
+            <p
+              style="
+                position: absolute;
+                bottom: var(--nt-space-md);
+                left: var(--nt-space-md);
+                font-family: var(--nt-font-ui);
+                font-size: 0.6875rem;
+                color: var(--nt-text-muted);
+                opacity: 0.6;
+              "
+              aria-hidden="true"
+            >
+              Foto próximamente
+            </p>
+          </div>
+
+          <!-- Contenido -->
+          <div style="padding: var(--nt-space-lg)">
+
+            <!-- Nombre y rol -->
+            <div style="margin-bottom: var(--nt-space-md)">
+              <div style="display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.375rem">
+                <h3
+                  style="
+                    font-family: var(--nt-font-display);
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: var(--nt-color-green-900);
+                    letter-spacing: -0.01em;
+                  "
+                >
+                  {name}
+                </h3>
+              </div>
+              <p
+                style={`
+                  font-family: var(--nt-font-ui);
+                  font-size: 0.8125rem;
+                  font-weight: 500;
+                  color: ${accent};
+                  text-transform: uppercase;
+                  letter-spacing: 0.06em;
+                `}
+              >
+                {role}
+              </p>
+            </div>
+
+            <!-- Credenciales -->
+            <p
+              style="
+                font-family: var(--nt-font-body);
+                font-size: 0.9375rem;
+                line-height: 1.6;
+                color: var(--nt-color-green-900);
+                margin-bottom: var(--nt-space-md);
+                padding-bottom: var(--nt-space-md);
+                border-bottom: 1px solid var(--nt-border);
+              "
+            >
+              {credentials}
+            </p>
+
+            <!-- Lado humano -->
+            <p
+              style="
+                font-family: var(--nt-font-body);
+                font-size: 1rem;
+                line-height: 1.75;
+                color: var(--nt-text-muted);
+                font-style: italic;
+              "
+            >
+              {human}
+            </p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Mensaje de unión -->
+    <div
+      style="
+        margin-top: var(--nt-space-2xl);
+        text-align: center;
+        max-width: 42rem;
+        margin-left: auto;
+        margin-right: auto;
+        padding: var(--nt-space-xl);
+        background: var(--nt-color-green-900);
+        border-radius: 4px;
+        position: relative;
+      "
+    >
+      <span
+        aria-hidden="true"
+        style="
+          font-family: var(--nt-font-display);
+          font-size: 5rem;
+          line-height: 0.4;
+          color: var(--nt-color-green-700);
+          display: block;
+          margin-bottom: var(--nt-space-md);
+        "
+      >
+        "
+      </span>
+      <p
+        style="
+          font-family: var(--nt-font-display);
+          font-size: clamp(1.125rem, 2vw, 1.375rem);
+          font-style: italic;
+          font-weight: 700;
+          line-height: 1.5;
+          color: var(--nt-color-stone-100);
+          margin-bottom: var(--nt-space-md);
+        "
+      >
+        No somos solo dos profesionales en una consulta. Somos un equipo que ha llegado a la salud por caminos distintos, y que cree en ella como un equilibrio entre ciencia, hábito y disfrute.
+      </p>
+      <p
+        style="
+          font-family: var(--nt-font-ui);
+          font-size: 0.875rem;
+          color: var(--nt-color-green-400);
+        "
+      >
+        José Miguel &amp; Erika · Nutroteca
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-lg);
+  }
+
+  @media (min-width: 720px) {
+    .team-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

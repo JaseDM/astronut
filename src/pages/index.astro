@@ -5,6 +5,7 @@ import HeroHome from '../components/HeroHome.astro';
 import PillarsSection from '../components/PillarsSection.astro';
 import DifferentialSection from '../components/DifferentialSection.astro';
 import ForWhomSection from '../components/ForWhomSection.astro';
+import TeamSection from '../components/TeamSection.astro';
 import TestimonialsSection from '../components/TestimonialsSection.astro';
 import LocalSection from '../components/LocalSection.astro';
 import CtaFinal from '../components/CtaFinal.astro';
@@ -76,6 +77,30 @@ const schemaWebSite = {
   publisher: { '@id': `${siteUrl}/#business` },
 };
 
+// Person Schema — E-E-A-T: profesionales reales vinculados al negocio
+const schemaPeople = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': `${siteUrl}/#jose-miguel`,
+    name: 'José Miguel',
+    jobTitle: 'Dietista-Nutricionista y Entrenador Personal',
+    description: 'Dietista-Nutricionista titulado con especialización en nutrición deportiva y rendimiento. Entrenador personal. Deportista y vegano.',
+    worksFor: { '@id': `${siteUrl}/#business` },
+    knowsAbout: ['Nutrición clínica', 'Nutrición deportiva', 'Entrenamiento funcional', 'Alimentación vegana'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': `${siteUrl}/#erika`,
+    name: 'Erika',
+    jobTitle: 'Enfermera especialista en Deporte y Gestión del Estrés',
+    description: 'Graduada en Enfermería con especialización en Enfermería del Deporte y técnicas de control del estrés.',
+    worksFor: { '@id': `${siteUrl}/#business` },
+    knowsAbout: ['Enfermería del deporte', 'Gestión del estrés', 'Salud emocional', 'Prevención y cuidado integral'],
+  },
+];
+
 // FAQ Schema — ayuda a obtener featured snippets para búsquedas locales
 const schemaFAQ = {
   '@context': 'https://schema.org',
@@ -125,6 +150,9 @@ const schemaFAQ = {
   <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaLocalBusiness)} slot="head" />
   <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaWebSite)} slot="head" />
   <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaFAQ)} slot="head" />
+  {schemaPeople.map(p => (
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(p)} slot="head" />
+  ))}
 
   <SiteNav />
 
@@ -133,6 +161,7 @@ const schemaFAQ = {
     <PillarsSection />
     <DifferentialSection />
     <ForWhomSection />
+    <TeamSection />
     <TestimonialsSection />
     <LocalSection />
     <CtaFinal />
