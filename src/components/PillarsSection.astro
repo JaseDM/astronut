@@ -1,0 +1,197 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const pillars = [
+  {
+    num: '01',
+    eyebrow: 'Primer pilar',
+    title: 'Nutrición clínica',
+    body: 'Planes nutricionales personalizados basados en tu historial, analíticas y objetivos reales. Sin restricciones genéricas ni dietas de moda.',
+    detail: 'Evaluación completa · Seguimiento continuo · Sin alimentos prohibidos',
+  },
+  {
+    num: '02',
+    eyebrow: 'Segundo pilar',
+    title: 'Entrenamiento funcional',
+    body: 'Movimiento que mejora tu calidad de vida: fuerza, movilidad y energía. No te preparamos para una competición; te preparamos para tu vida.',
+    detail: 'Adaptado a tu condición · Sin lesiones · Progresión real',
+  },
+  {
+    num: '03',
+    eyebrow: 'Tercer pilar',
+    title: 'Salud emocional',
+    body: 'La relación con la comida y con tu cuerpo es tan importante como lo que comes. Trabajamos el hambre emocional, el estrés y la adherencia al cambio.',
+    detail: 'Relación sana con la comida · Gestión del estrés · Adherencia',
+  },
+];
+---
+
+<section
+  style="
+    padding: var(--nt-space-3xl) var(--nt-space-md);
+    background: var(--nt-bg);
+  "
+  aria-labelledby="pillars-heading"
+>
+  <div style="max-width: var(--nt-container); margin: 0 auto">
+
+    <!-- Encabezado -->
+    <div style="max-width: 42rem; margin-bottom: var(--nt-space-2xl)">
+      <p
+        style="
+          font-family: var(--nt-font-ui);
+          font-size: 0.75rem;
+          font-weight: 500;
+          text-transform: uppercase;
+          letter-spacing: 0.14em;
+          color: var(--nt-highlight);
+          margin-bottom: var(--nt-space-sm);
+        "
+      >
+        Metodología
+      </p>
+      <h2
+        id="pillars-heading"
+        style="
+          font-family: var(--nt-font-display);
+          font-size: clamp(1.875rem, 3.5vw, 2.75rem);
+          font-weight: 700;
+          line-height: 1.15;
+          letter-spacing: -0.02em;
+          color: var(--nt-color-green-900);
+          margin-bottom: var(--nt-space-md);
+        "
+      >
+        Tres pilares que funcionan como un sistema
+      </h2>
+      <p
+        style="
+          font-family: var(--nt-font-body);
+          font-size: 1.125rem;
+          line-height: 1.75;
+          color: var(--nt-text-muted);
+        "
+      >
+        La mayoría de las consultas tratan la nutrición, el ejercicio o el bienestar emocional por separado.
+        Nosotros los trabajamos de forma coordinada desde el primer día, porque el cuerpo funciona como un todo.
+      </p>
+    </div>
+
+    <!-- Cards de pilares -->
+    <div class="pillars-grid">
+      {pillars.map(({ num, eyebrow, title, body, detail }) => (
+        <article
+          style="
+            background: var(--nt-bg);
+            border: 1px solid var(--nt-border);
+            border-radius: 4px;
+            padding: var(--nt-space-xl);
+            display: flex;
+            flex-direction: column;
+            gap: var(--nt-space-md);
+            position: relative;
+            overflow: hidden;
+          "
+        >
+          <!-- Número decorativo -->
+          <span
+            aria-hidden="true"
+            style="
+              position: absolute;
+              top: var(--nt-space-md);
+              right: var(--nt-space-lg);
+              font-family: var(--nt-font-display);
+              font-size: 4rem;
+              font-weight: 800;
+              color: var(--nt-color-stone-200);
+              line-height: 1;
+              user-select: none;
+            "
+          >
+            {num}
+          </span>
+
+          <p
+            style="
+              font-family: var(--nt-font-ui);
+              font-size: 0.7rem;
+              font-weight: 500;
+              text-transform: uppercase;
+              letter-spacing: 0.12em;
+              color: var(--nt-highlight);
+            "
+          >
+            {eyebrow}
+          </p>
+
+          <h3
+            style="
+              font-family: var(--nt-font-display);
+              font-size: 1.5rem;
+              font-weight: 700;
+              color: var(--nt-color-green-900);
+              line-height: 1.2;
+            "
+          >
+            {title}
+          </h3>
+
+          <p
+            style="
+              font-family: var(--nt-font-body);
+              font-size: 1rem;
+              line-height: 1.75;
+              color: var(--nt-text-muted);
+              flex: 1;
+            "
+          >
+            {body}
+          </p>
+
+          <p
+            style="
+              font-family: var(--nt-font-ui);
+              font-size: 0.8125rem;
+              color: var(--nt-color-green-600);
+              padding-top: var(--nt-space-sm);
+              border-top: 1px solid var(--nt-border);
+            "
+          >
+            {detail}
+          </p>
+        </article>
+      ))}
+    </div>
+
+    <!-- Link a metodología -->
+    <div style="margin-top: var(--nt-space-xl); text-align: center">
+      <a
+        href={`${base}/metodologia`}
+        style="
+          color: var(--nt-highlight);
+          font-family: var(--nt-font-ui);
+          font-weight: 500;
+          text-decoration: none;
+          font-size: 0.9375rem;
+        "
+      >
+        Descubre cómo funciona el sistema integrado →
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-md);
+  }
+
+  @media (min-width: 768px) {
+    .pillars-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

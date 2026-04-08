@@ -1,0 +1,202 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<section
+  style="
+    padding: var(--nt-space-3xl) var(--nt-space-md);
+    background: var(--nt-color-earth-100);
+    border-top: 1px solid var(--nt-color-stone-200);
+  "
+  aria-labelledby="local-heading"
+>
+  <div style="max-width: var(--nt-container); margin: 0 auto">
+
+    <div class="local-grid">
+
+      <!-- Texto -->
+      <div>
+        <p
+          style="
+            font-family: var(--nt-font-ui);
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--nt-highlight);
+            margin-bottom: var(--nt-space-sm);
+          "
+        >
+          Dónde estamos
+        </p>
+        <h2
+          id="local-heading"
+          style="
+            font-family: var(--nt-font-display);
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            color: var(--nt-color-green-900);
+            margin-bottom: var(--nt-space-md);
+          "
+        >
+          Consulta presencial en Asturias.<br />
+          Atención online para toda España.
+        </h2>
+        <p
+          style="
+            font-family: var(--nt-font-body);
+            font-size: 1.0625rem;
+            line-height: 1.75;
+            color: var(--nt-text-muted);
+            margin-bottom: var(--nt-space-xl);
+            max-width: 36rem;
+          "
+        >
+          Si estás en Asturias, puedes venir a vernos en persona. Si estás en cualquier otro punto de España, trabajamos exactamente igual de forma online: misma metodología, misma calidad de seguimiento.
+        </p>
+
+        <!-- Datos de contacto -->
+        <div style="display: flex; flex-direction: column; gap: var(--nt-space-md)">
+          {[
+            {
+              label: 'Ubicación',
+              value: 'Asturias, España',
+              icon: '📍',
+            },
+            {
+              label: 'Atención online',
+              value: 'Para toda España',
+              icon: '💻',
+            },
+            {
+              label: 'Primera consulta',
+              value: 'Gratuita y sin compromiso',
+              icon: '📅',
+            },
+          ].map(({ label, value, icon }) => (
+            <div style="display: flex; align-items: center; gap: var(--nt-space-md)">
+              <span
+                aria-hidden="true"
+                style="
+                  width: 2.5rem;
+                  height: 2.5rem;
+                  background: var(--nt-bg);
+                  border: 1px solid var(--nt-border);
+                  border-radius: 4px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  flex-shrink: 0;
+                  font-size: 1rem;
+                "
+              >
+                {icon}
+              </span>
+              <div>
+                <p style="font-family: var(--nt-font-ui); font-size: 0.75rem; color: var(--nt-text-muted); text-transform: uppercase; letter-spacing: 0.08em">{label}</p>
+                <p style="font-family: var(--nt-font-ui); font-size: 0.9375rem; font-weight: 500; color: var(--nt-color-green-900)">{value}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <a
+          href={`${base}/contacto`}
+          style="
+            display: inline-flex;
+            align-items: center;
+            margin-top: var(--nt-space-xl);
+            background: var(--nt-color-green-800);
+            color: var(--nt-color-stone-50);
+            font-family: var(--nt-font-ui);
+            font-weight: 500;
+            padding: 0.75rem 1.75rem;
+            border-radius: 3px;
+            text-decoration: none;
+          "
+        >
+          Contactar con Nutroteca
+        </a>
+      </div>
+
+      <!-- Bloque SEO local — información estructurada visible -->
+      <aside
+        style="
+          background: var(--nt-bg);
+          border: 1px solid var(--nt-border);
+          border-radius: 4px;
+          padding: var(--nt-space-xl);
+          align-self: start;
+        "
+        aria-label="Información de la consulta"
+      >
+        <p
+          style="
+            font-family: var(--nt-font-ui);
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--nt-text-muted);
+            margin-bottom: var(--nt-space-md);
+          "
+        >
+          Nutroteca · Consulta de salud integral
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: var(--nt-space-md)">
+          {[
+            ['Especialidad',  'Nutrición clínica, entrenamiento funcional y salud emocional'],
+            ['Modalidad',     'Presencial en Asturias y online para toda España'],
+            ['Primera visita','Gratuita · Sin compromiso · 30–45 minutos'],
+            ['Seguimiento',   'Acompañamiento continuo, no visitas sueltas'],
+          ].map(([key, val]) => (
+            <div style="border-bottom: 1px solid var(--nt-border); padding-bottom: var(--nt-space-md)">
+              <p style="font-family: var(--nt-font-ui); font-size: 0.75rem; color: var(--nt-text-muted); margin-bottom: 0.25rem">{key}</p>
+              <p style="font-family: var(--nt-font-body); font-size: 0.9375rem; color: var(--nt-color-green-900)">{val}</p>
+            </div>
+          ))}
+        </div>
+
+        <!-- Áreas de cobertura — importante para SEO local -->
+        <div style="margin-top: var(--nt-space-md)">
+          <p style="font-family: var(--nt-font-ui); font-size: 0.75rem; color: var(--nt-text-muted); margin-bottom: var(--nt-space-xs)">Atendemos en</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem">
+            {['Asturias', 'Oviedo', 'Gijón', 'Avilés', 'Toda España (online)'].map(zone => (
+              <span
+                style="
+                  font-family: var(--nt-font-ui);
+                  font-size: 0.75rem;
+                  background: var(--nt-color-green-100);
+                  color: var(--nt-color-green-800);
+                  padding: 0.25rem 0.625rem;
+                  border-radius: 99px;
+                "
+              >
+                {zone}
+              </span>
+            ))}
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .local-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-2xl);
+  }
+
+  @media (min-width: 900px) {
+    .local-grid {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+  }
+</style>

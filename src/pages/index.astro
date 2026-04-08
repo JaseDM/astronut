@@ -1,22 +1,142 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteNav from '../components/SiteNav.astro';
+import HeroHome from '../components/HeroHome.astro';
+import PillarsSection from '../components/PillarsSection.astro';
+import DifferentialSection from '../components/DifferentialSection.astro';
+import ForWhomSection from '../components/ForWhomSection.astro';
+import TestimonialsSection from '../components/TestimonialsSection.astro';
+import LocalSection from '../components/LocalSection.astro';
+import CtaFinal from '../components/CtaFinal.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const siteUrl = 'https://nutroteca.es';
+
+// Schema.org — LocalBusiness + WebSite
+const schemaLocalBusiness = {
+  '@context': 'https://schema.org',
+  '@type': ['LocalBusiness', 'HealthAndBeautyBusiness'],
+  '@id': `${siteUrl}/#business`,
+  name: 'Nutroteca',
+  description: 'Consulta de salud integral en Asturias: nutrición clínica, entrenamiento funcional y salud emocional. Un sistema coordinado para un cambio real.',
+  url: siteUrl,
+  logo: `${siteUrl}/logos/logo-fondo-negro.svg`,
+  image: `${siteUrl}/images/og-default.jpg`,
+  priceRange: '€€',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Asturias',
+    addressRegion: 'Asturias',
+    addressCountry: 'ES',
+  },
+  areaServed: [
+    { '@type': 'State',   name: 'Asturias' },
+    { '@type': 'Country', name: 'España' },
+  ],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Servicios de Nutroteca',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Nutrición clínica',
+          description: 'Planes nutricionales personalizados basados en historial, analíticas y objetivos reales.',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Entrenamiento funcional',
+          description: 'Entrenamiento adaptado para mejorar la calidad de vida, movilidad y energía.',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Salud emocional',
+          description: 'Acompañamiento en la relación con la comida, gestión del estrés y adherencia al cambio.',
+        },
+      },
+    ],
+  },
+  sameAs: [],
+};
+
+const schemaWebSite = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${siteUrl}/#website`,
+  name: 'Nutroteca',
+  url: siteUrl,
+  description: 'Consulta de salud integral en Asturias: nutrición, movimiento y equilibrio emocional.',
+  publisher: { '@id': `${siteUrl}/#business` },
+};
+
+// FAQ Schema — ayuda a obtener featured snippets para búsquedas locales
+const schemaFAQ = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '¿Qué es Nutroteca?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Nutroteca es una consulta de salud integral en Asturias que trabaja simultáneamente tres pilares: nutrición clínica, entrenamiento funcional y salud emocional. A diferencia de las consultas tradicionales, los tres servicios están coordinados en un mismo plan personalizado.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿Ofrecéis atención online?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Sí. Además de la consulta presencial en Asturias, Nutroteca ofrece atención online para toda España con la misma metodología y calidad de seguimiento.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿La primera consulta es gratuita?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Sí, la primera consulta en Nutroteca es completamente gratuita y sin compromiso. Dura entre 30 y 45 minutos, y sirve para conocernos, entender tu situación y explicarte cómo trabajamos.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿En qué se diferencia Nutroteca de una consulta de nutrición tradicional?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Nutroteca trabaja los tres pilares de la salud de forma coordinada: lo que comes, cómo te mueves y cómo te sientes. La mayoría de consultas tratan solo uno de estos aspectos. En Nutroteca, el plan nutricional, el entrenamiento y el trabajo emocional se diseñan juntos y se ajustan de forma interdependiente.',
+      },
+    },
+  ],
+};
 ---
 
 <BaseLayout
-  title="Nutroteca"
-  description="Consulta de salud integral en Asturias: nutrición clínica, entrenamiento funcional y salud emocional. Un sistema coordinado, no tres servicios separados."
+  title="Nutricionista en Asturias | Nutroteca — Nutrición, Movimiento y Equilibrio"
+  description="Consulta de salud integral en Asturias. Nutrición clínica, entrenamiento funcional y salud emocional en un sistema coordinado. Primera consulta gratuita. Atención online para toda España."
 >
-  <main>
-    <!-- En construcción -->
-    <div class="min-h-screen flex items-center justify-center px-6">
-      <div class="text-center" style="max-width: 36rem">
-        <p class="text-sm font-medium uppercase tracking-widest mb-4" style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)">Próximamente</p>
-        <h1 class="text-4xl md:text-5xl mb-6">Nutroteca</h1>
-        <p class="text-lg" style="color: var(--nt-text-muted)">
-          Consulta de salud integral en Asturias.<br />
-          Nutrición clínica, entrenamiento funcional y salud emocional.
-        </p>
-      </div>
-    </div>
+  <!-- Schema.org JSON-LD -->
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaLocalBusiness)} slot="head" />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaWebSite)} slot="head" />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaFAQ)} slot="head" />
+
+  <SiteNav />
+
+  <main id="main-content">
+    <HeroHome />
+    <PillarsSection />
+    <DifferentialSection />
+    <ForWhomSection />
+    <TestimonialsSection />
+    <LocalSection />
+    <CtaFinal />
   </main>
+
+  <SiteFooter />
 </BaseLayout>

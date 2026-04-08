@@ -1,0 +1,158 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<section
+  class="nt-grain"
+  style="
+    background: var(--nt-gradient-warm-r);
+    padding: var(--nt-space-3xl) var(--nt-space-md);
+  "
+  aria-labelledby="differential-heading"
+>
+  <div style="max-width: var(--nt-container); margin: 0 auto">
+
+    <div class="differential-grid">
+
+      <!-- Columna texto -->
+      <div style="position: relative; z-index: 2">
+        <p
+          style="
+            font-family: var(--nt-font-ui);
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--nt-highlight);
+            margin-bottom: var(--nt-space-sm);
+          "
+        >
+          ¿Por qué Nutroteca?
+        </p>
+        <h2
+          id="differential-heading"
+          style="
+            font-family: var(--nt-font-display);
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            color: var(--nt-color-green-900);
+            margin-bottom: var(--nt-space-lg);
+          "
+        >
+          Por qué el enfoque integral funciona cuando lo demás no
+        </h2>
+        <div
+          style="
+            font-family: var(--nt-font-body);
+            font-size: 1.0625rem;
+            line-height: 1.8;
+            color: var(--nt-text-muted);
+            display: flex;
+            flex-direction: column;
+            gap: var(--nt-space-md);
+          "
+        >
+          <p>
+            Si has probado dietas, planes de entrenamiento o terapia por separado y los resultados no han durado, no es un problema de fuerza de voluntad. Es un problema de enfoque.
+          </p>
+          <p>
+            El cuerpo no distingue entre lo que comes, cómo te mueves y cómo te sientes. Cuando solo abordas una parte, las otras dos compensan y vuelven al punto de partida.
+          </p>
+          <p>
+            En Nutroteca, los tres pilares se trabajan de forma simultánea y coordinada. El plan nutricional tiene en cuenta tu nivel de actividad y tu relación con la comida. El entrenamiento se adapta a tu energía y tu estado físico. El trabajo emocional refuerza la adherencia a los dos anteriores.
+          </p>
+        </div>
+        <a
+          href={`${base}/metodologia`}
+          style="
+            display: inline-flex;
+            align-items: center;
+            margin-top: var(--nt-space-xl);
+            background: var(--nt-color-green-800);
+            color: var(--nt-color-stone-50);
+            font-family: var(--nt-font-ui);
+            font-weight: 500;
+            padding: 0.75rem 1.75rem;
+            border-radius: 3px;
+            text-decoration: none;
+          "
+        >
+          Ver la metodología completa
+        </a>
+      </div>
+
+      <!-- Columna comparativa -->
+      <div>
+        <div
+          style="
+            background: var(--nt-bg);
+            border: 1px solid var(--nt-border);
+            border-radius: 4px;
+            overflow: hidden;
+          "
+        >
+          <!-- Cabecera -->
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              border-bottom: 1px solid var(--nt-border);
+            "
+          >
+            <div style="padding: var(--nt-space-sm) var(--nt-space-md); background: var(--nt-bg-muted)">
+              <p style="font-family: var(--nt-font-ui); font-size: 0.75rem; font-weight: 500; color: var(--nt-text-muted)">Enfoque tradicional</p>
+            </div>
+            <div style="padding: var(--nt-space-sm) var(--nt-space-md); background: var(--nt-color-green-900)">
+              <p style="font-family: var(--nt-font-ui); font-size: 0.75rem; font-weight: 500; color: var(--nt-color-green-400)">Nutroteca</p>
+            </div>
+          </div>
+
+          <!-- Filas comparativas -->
+          {[
+            ['Un servicio cada vez',         'Los tres pilares a la vez'],
+            ['Dieta estándar',               'Plan personalizado'],
+            ['Resultados a corto plazo',     'Cambio de hábitos duradero'],
+            ['Sin contexto emocional',       'Relación con la comida incluida'],
+            ['Objetivo estético',            'Salud real y calidad de vida'],
+            ['Sin coordinación entre áreas', 'Un plan unificado'],
+          ].map(([left, right], i) => (
+            <div
+              style={`
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                border-bottom: ${i < 5 ? '1px solid var(--nt-border)' : 'none'};
+              `}
+            >
+              <div style="padding: var(--nt-space-sm) var(--nt-space-md); display: flex; align-items: center; gap: 0.5rem">
+                <span style="color: var(--nt-color-stone-400); font-size: 0.75rem" aria-hidden="true">✕</span>
+                <p style="font-family: var(--nt-font-ui); font-size: 0.8125rem; color: var(--nt-text-muted); line-height: 1.4">{left}</p>
+              </div>
+              <div style="padding: var(--nt-space-sm) var(--nt-space-md); background: var(--nt-color-green-100); display: flex; align-items: center; gap: 0.5rem">
+                <span style="color: var(--nt-color-green-600); font-size: 0.75rem" aria-hidden="true">✓</span>
+                <p style="font-family: var(--nt-font-ui); font-size: 0.8125rem; color: var(--nt-color-green-800); font-weight: 500; line-height: 1.4">{right}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .differential-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-2xl);
+  }
+
+  @media (min-width: 900px) {
+    .differential-grid {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+  }
+</style>

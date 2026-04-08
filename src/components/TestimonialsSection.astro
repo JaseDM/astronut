@@ -1,0 +1,146 @@
+---
+// Placeholders — reemplazar con testimonios reales cuando estén disponibles
+const testimonials = [
+  {
+    quote: 'Llevaba años probando dietas que funcionaban dos meses y luego todo volvía. Con Nutroteca entendí que el problema no era la comida: era cómo me relacionaba con ella. Es la primera vez que siento que el cambio es mío.',
+    name: 'María G.',
+    detail: 'Asturias · 6 meses en programa integral',
+  },
+  {
+    quote: 'Nunca había juntado nutrición y entrenamiento con apoyo emocional. Al principio me parecía demasiado, pero es exactamente lo que necesitaba. Todo encaja.',
+    name: 'Carlos M.',
+    detail: 'Gijón · 4 meses en programa integral',
+  },
+  {
+    quote: 'Lo que más valoro es que no me dieron una lista de alimentos prohibidos. Me escucharon, entendieron mi situación y construimos algo que realmente puedo mantener.',
+    name: 'Laura F.',
+    detail: 'Online · 3 meses en seguimiento nutricional',
+  },
+];
+---
+
+<section
+  class="nt-grain nt-grain-dark"
+  style="
+    background: var(--nt-gradient-dark);
+    padding: var(--nt-space-3xl) var(--nt-space-md);
+  "
+  aria-labelledby="testimonials-heading"
+>
+  <div style="max-width: var(--nt-container); margin: 0 auto">
+
+    <!-- Encabezado -->
+    <div style="text-align: center; max-width: 36rem; margin: 0 auto var(--nt-space-2xl)">
+      <p
+        style="
+          font-family: var(--nt-font-ui);
+          font-size: 0.75rem;
+          font-weight: 500;
+          text-transform: uppercase;
+          letter-spacing: 0.14em;
+          color: var(--nt-color-green-400);
+          margin-bottom: var(--nt-space-sm);
+        "
+      >
+        Testimonios
+      </p>
+      <h2
+        id="testimonials-heading"
+        style="
+          font-family: var(--nt-font-display);
+          font-size: clamp(1.75rem, 3vw, 2.5rem);
+          font-weight: 700;
+          line-height: 1.15;
+          letter-spacing: -0.02em;
+          color: var(--nt-color-stone-50);
+        "
+      >
+        Lo que dicen quienes ya han empezado
+      </h2>
+    </div>
+
+    <!-- Testimonios -->
+    <div class="testimonials-grid">
+      {testimonials.map(({ quote, name, detail }) => (
+        <figure
+          style="
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 4px;
+            padding: var(--nt-space-xl);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: var(--nt-space-lg);
+          "
+        >
+          <!-- Comillas decorativas -->
+          <span
+            aria-hidden="true"
+            style="
+              font-family: var(--nt-font-display);
+              font-size: 3.5rem;
+              line-height: 0.5;
+              color: var(--nt-color-green-600);
+              display: block;
+            "
+          >
+            "
+          </span>
+
+          <blockquote style="margin: 0">
+            <p
+              style="
+                font-family: var(--nt-font-body);
+                font-size: 1.0625rem;
+                line-height: 1.75;
+                color: var(--nt-color-stone-200);
+                font-style: italic;
+              "
+            >
+              {quote}
+            </p>
+          </blockquote>
+
+          <figcaption style="margin-top: auto">
+            <p
+              style="
+                font-family: var(--nt-font-ui);
+                font-weight: 600;
+                font-size: 0.9375rem;
+                color: var(--nt-color-stone-100);
+              "
+            >
+              {name}
+            </p>
+            <p
+              style="
+                font-family: var(--nt-font-ui);
+                font-size: 0.8125rem;
+                color: var(--nt-color-stone-500);
+                margin-top: 0.25rem;
+              "
+            >
+              {detail}
+            </p>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-md);
+  }
+
+  @media (min-width: 768px) {
+    .testimonials-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

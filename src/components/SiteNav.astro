@@ -1,0 +1,113 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const currentPath = Astro.url.pathname;
+
+const links = [
+  { href: `${base}/metodologia`, label: 'Metodología' },
+  { href: `${base}/servicios`,   label: 'Servicios' },
+  { href: `${base}/alimentos`,   label: 'Alimentos' },
+  { href: `${base}/herramientas`,label: 'Herramientas' },
+  { href: `${base}/blog`,        label: 'Blog' },
+];
+---
+
+<header
+  style="
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--nt-bg);
+    border-bottom: 1px solid var(--nt-border);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  "
+>
+  <nav
+    style="
+      max-width: var(--nt-container);
+      margin: 0 auto;
+      padding: 0 var(--nt-space-md);
+      height: 4.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--nt-space-lg);
+    "
+    aria-label="Navegación principal"
+  >
+    <!-- Logo -->
+    <a
+      href={`${base}/`}
+      style="display: flex; align-items: center; text-decoration: none; flex-shrink: 0"
+      aria-label="Nutroteca — Inicio"
+    >
+      <img
+        src={`${base}/logos/logo-fondo-negro-2.svg`}
+        alt="Nutroteca"
+        height="38"
+        width="190"
+        style="height: 38px; width: auto"
+        loading="eager"
+      />
+    </a>
+
+    <!-- Links — desktop -->
+    <ul
+      style="
+        display: none;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        gap: var(--nt-space-lg);
+        align-items: center;
+      "
+      class="nav-links"
+    >
+      {links.map(({ href, label }) => (
+        <li>
+          <a
+            href={href}
+            style={`
+              font-family: var(--nt-font-ui);
+              font-size: 0.875rem;
+              color: ${currentPath.startsWith(href) ? 'var(--nt-accent)' : 'var(--nt-text-muted)'};
+              text-decoration: none;
+              transition: color 0.15s;
+            `}
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- CTA -->
+    <a
+      href={`${base}/contacto`}
+      style="
+        display: inline-flex;
+        align-items: center;
+        background: var(--nt-color-green-800);
+        color: var(--nt-color-stone-50);
+        font-family: var(--nt-font-ui);
+        font-size: 0.875rem;
+        font-weight: 500;
+        padding: 0.625rem 1.25rem;
+        border-radius: 3px;
+        text-decoration: none;
+        white-space: nowrap;
+        flex-shrink: 0;
+      "
+    >
+      Primera consulta
+    </a>
+  </nav>
+</header>
+
+<style>
+  @media (min-width: 768px) {
+    .nav-links {
+      display: flex !important;
+    }
+  }
+</style>

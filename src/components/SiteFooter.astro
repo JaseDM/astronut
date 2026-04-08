@@ -1,0 +1,129 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<footer
+  style="background: var(--nt-color-green-900); color: var(--nt-color-stone-300)"
+  aria-label="Pie de página"
+>
+  <div
+    style="
+      max-width: var(--nt-container);
+      margin: 0 auto;
+      padding: var(--nt-space-2xl) var(--nt-space-md);
+    "
+  >
+    <!-- Grid principal -->
+    <div class="footer-grid">
+
+      <!-- Columna marca -->
+      <div style="grid-column: span 2">
+        <a href={`${base}/`} style="display: inline-block; margin-bottom: var(--nt-space-md); text-decoration: none">
+          <img
+            src={`${base}/logos/logo-blanco.svg`}
+            alt="Nutroteca"
+            width="120"
+            height="89"
+            style="height: 72px; width: auto"
+            loading="lazy"
+          />
+        </a>
+        <p style="font-family: var(--nt-font-body); font-size: 0.9375rem; line-height: 1.7; max-width: 22rem; color: var(--nt-color-stone-400)">
+          Consulta de salud integral en Asturias. Nutrición clínica, entrenamiento funcional y equilibrio emocional. Un sistema coordinado, no tres servicios separados.
+        </p>
+        <p style="margin-top: var(--nt-space-md); font-family: var(--nt-font-ui); font-size: 0.8125rem; color: var(--nt-color-green-400)">
+          Atención presencial en Asturias · Online para toda España
+        </p>
+      </div>
+
+      <!-- Columna servicios -->
+      <nav aria-label="Servicios">
+        <p style="font-family: var(--nt-font-ui); font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--nt-color-stone-500); margin-bottom: var(--nt-space-md)">
+          Servicios
+        </p>
+        <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--nt-space-sm)">
+          {[
+            ['Nutrición clínica',        `${base}/servicios`],
+            ['Entrenamiento funcional',  `${base}/servicios`],
+            ['Salud emocional',          `${base}/servicios`],
+            ['Programa integral',        `${base}/servicios`],
+            ['Primera consulta gratuita',`${base}/contacto`],
+          ].map(([label, href]) => (
+            <li>
+              <a
+                href={href}
+                style="font-family: var(--nt-font-ui); font-size: 0.875rem; color: var(--nt-color-stone-400); text-decoration: none"
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <!-- Columna recursos -->
+      <nav aria-label="Recursos">
+        <p style="font-family: var(--nt-font-ui); font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--nt-color-stone-500); margin-bottom: var(--nt-space-md)">
+          Recursos
+        </p>
+        <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--nt-space-sm)">
+          {[
+            ['Blog',                  `${base}/blog`],
+            ['Fichas de alimentos',   `${base}/alimentos`],
+            ['Calculadora GET',       `${base}/herramientas/calculadora-get`],
+            ['Calculadora IMC',       `${base}/herramientas/calculadora-imc`],
+            ['Test relación comida',  `${base}/herramientas/test-relacion-comida`],
+          ].map(([label, href]) => (
+            <li>
+              <a
+                href={href}
+                style="font-family: var(--nt-font-ui); font-size: 0.875rem; color: var(--nt-color-stone-400); text-decoration: none"
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+    </div>
+
+    <!-- Separador -->
+    <div style="border-top: 1px solid var(--nt-color-green-800); margin-top: var(--nt-space-2xl); padding-top: var(--nt-space-lg); display: flex; flex-wrap: wrap; gap: var(--nt-space-md); align-items: center; justify-content: space-between">
+      <p style="font-family: var(--nt-font-ui); font-size: 0.8125rem; color: var(--nt-color-stone-500); margin: 0">
+        © {new Date().getFullYear()} Nutroteca. Todos los derechos reservados.
+      </p>
+      <div style="display: flex; gap: var(--nt-space-md)">
+        {[
+          ['Aviso legal',             `${base}/aviso-legal`],
+          ['Política de privacidad',  `${base}/politica-de-privacidad`],
+        ].map(([label, href]) => (
+          <a
+            href={href}
+            style="font-family: var(--nt-font-ui); font-size: 0.8125rem; color: var(--nt-color-stone-500); text-decoration: none"
+          >
+            {label}
+          </a>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<style>
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--nt-space-2xl) var(--nt-space-xl);
+  }
+
+  @media (min-width: 768px) {
+    .footer-grid {
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+    .footer-grid > div:first-child {
+      grid-column: span 1;
+    }
+  }
+</style>
