@@ -129,4 +129,29 @@
     opacity: 0.055;
     mix-blend-mode: overlay;
   }
+
+  /* ── Patrón hexagonal ───────────────────────────────────
+     Basado en el hexágono del isotipo de Nutroteca.
+     Uso: combinar con un fondo oscuro (gradient-dark / green-900)
+     El doble background crea la cuadrícula hexagonal escalonada.
+  ──────────────────────────────────────────────────────── */
+  .nt-hex-pattern {
+    position: relative;
+  }
+
+  .nt-hex-pattern::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.07;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='70'%3E%3Cpolygon points='30,4 52,17 52,43 30,56 8,43 8,17' fill='none' stroke='white' stroke-width='1'/%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='70'%3E%3Cpolygon points='30,4 52,17 52,43 30,56 8,43 8,17' fill='none' stroke='white' stroke-width='1'/%3E%3C/svg%3E");
+    background-size: 60px 70px;
+    background-position: 0 0, 30px 35px;
+    background-repeat: repeat;
+    z-index: 0;
+  }
 }

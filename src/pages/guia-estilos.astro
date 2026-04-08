@@ -560,36 +560,126 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         <div class="space-y-3">
           {
             [
-              { token: "--nt-space-xs", value: "0.5rem / 8px", size: 8 },
-              { token: "--nt-space-sm", value: "1rem / 16px", size: 16 },
-              { token: "--nt-space-md", value: "1.5rem / 24px", size: 24 },
-              { token: "--nt-space-lg", value: "2.5rem / 40px", size: 40 },
-              { token: "--nt-space-xl", value: "4rem / 64px", size: 64 },
-              { token: "--nt-space-2xl", value: "6rem / 96px", size: 96 },
-              { token: "--nt-space-3xl", value: "9rem / 144px", size: 144 },
-            ].map(({ token, value, size }) => (
-              <div class="flex items-center gap-4">
-                <div
-                  style={`
-                  height: 20px;
-                  width: ${Math.min(size, 144)}px;
-                  background: var(--nt-color-green-400);
-                  border-radius: 2px;
-                  flex-shrink: 0;
-                `}
-                />
+              { token: "--nt-space-xs",  rem: "0.5rem", px: "8px"   },
+              { token: "--nt-space-sm",  rem: "1rem",   px: "16px"  },
+              { token: "--nt-space-md",  rem: "1.5rem", px: "24px"  },
+              { token: "--nt-space-lg",  rem: "2.5rem", px: "40px"  },
+              { token: "--nt-space-xl",  rem: "4rem",   px: "64px"  },
+              { token: "--nt-space-2xl", rem: "6rem",   px: "96px"  },
+              { token: "--nt-space-3xl", rem: "9rem",   px: "144px" },
+            ].map(({ token, rem, px }) => (
+              <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
                 <span
-                  class="text-sm"
-                  style="font-family: var(--nt-font-ui); color: var(--nt-text-muted); min-width: 14rem"
+                  class="text-xs shrink-0"
+                  style="font-family: var(--nt-font-ui); color: var(--nt-text-muted); width: 9rem"
                 >
                   {token}
                 </span>
-                <span class="text-sm" style="font-family: var(--nt-font-ui)">
-                  {value}
-                </span>
+                <div class="flex items-center gap-3">
+                  <div
+                    style={`height: 20px; width: ${px}; max-width: min(${px}, 60vw); background: var(--nt-color-green-400); border-radius: 2px; flex-shrink: 0`}
+                  />
+                  <span class="text-xs shrink-0" style="font-family: var(--nt-font-ui)">{rem} / {px}</span>
+                </div>
               </div>
             ))
           }
+        </div>
+      </section>
+
+      <!-- ── RITMO VERTICAL ─────────────────────────────── -->
+      <section>
+        <h2 class="text-4xl mb-2">Ritmo vertical</h2>
+        <p class="mb-10" style="color: var(--nt-text-muted)">
+          Cómo se separan los elementos entre sí en un bloque de contenido. La distancia entre cada pieza define si la página respira o agobia.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-8">
+
+          <!-- Columna izquierda: tabla de valores -->
+          <div class="space-y-6">
+            <div>
+              <p class="text-xs font-medium uppercase tracking-widest mb-4" style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)">Separaciones entre elementos</p>
+              <div class="space-y-3">
+                {[
+                  { elemento: "H1 → párrafo",        token: "--nt-space-md",  px: "24px" },
+                  { elemento: "H2 → párrafo",        token: "--nt-space-md",  px: "24px" },
+                  { elemento: "H3 → párrafo",        token: "--nt-space-sm",  px: "16px" },
+                  { elemento: "Párrafo → párrafo",   token: "--nt-space-md",  px: "24px" },
+                  { elemento: "Párrafo → H2",        token: "--nt-space-xl",  px: "64px" },
+                  { elemento: "Párrafo → H3",        token: "--nt-space-lg",  px: "40px" },
+                  { elemento: "Sección → sección",   token: "--nt-space-2xl", px: "96px" },
+                ].map(({ elemento, token, px }) => (
+                  <div class="flex items-baseline justify-between gap-4 pb-3" style="border-bottom: 1px solid var(--nt-border)">
+                    <span class="text-sm" style="font-family: var(--nt-font-body)">{elemento}</span>
+                    <div class="flex items-baseline gap-2 shrink-0">
+                      <span class="text-xs" style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)">{token}</span>
+                      <span class="text-xs font-medium" style="font-family: var(--nt-font-ui)">{px}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <p class="text-xs font-medium uppercase tracking-widest mb-3" style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)">Interlineado (line-height)</p>
+              <div class="space-y-2">
+                {[
+                  { tipo: "Titulares (H1–H4)", valor: "1.15", uso: "Ajustado, para display" },
+                  { tipo: "Cuerpo de texto",   valor: "1.75", uso: "Cómodo, para leer" },
+                  { tipo: "Texto UI",          valor: "1.4",  uso: "Compacto, para botones y etiquetas" },
+                ].map(({ tipo, valor, uso }) => (
+                  <div class="flex items-start justify-between gap-4 pb-2" style="border-bottom: 1px solid var(--nt-border)">
+                    <div>
+                      <p class="text-sm" style="font-family: var(--nt-font-body)">{tipo}</p>
+                      <p class="text-xs mt-0.5" style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)">{uso}</p>
+                    </div>
+                    <span class="text-sm font-medium shrink-0" style="font-family: var(--nt-font-ui)">{valor}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna derecha: ejemplo real con guías visuales -->
+          <div>
+            <p class="text-xs font-medium uppercase tracking-widest mb-4" style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)">Ejemplo real</p>
+            <div
+              class="p-6 rounded"
+              style="background: var(--nt-bg-muted); border: 1px solid var(--nt-border)"
+            >
+              <!-- Eyebrow -->
+              <p style="font-family: var(--nt-font-ui); font-size: 0.7rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--nt-highlight); margin-bottom: var(--nt-space-sm)">
+                Metodología
+              </p>
+
+              <!-- H2 -->
+              <h2 style="font-size: 1.75rem; margin-bottom: var(--nt-space-md)">
+                Tres pilares, un sistema.
+              </h2>
+
+              <!-- Párrafo 1 -->
+              <p style="margin-bottom: var(--nt-space-md); color: var(--nt-text-muted)">
+                En Nutroteca no separamos lo que comes, cómo te mueves y cómo te sientes. Los tres pilares forman un sistema coordinado desde el primer día.
+              </p>
+
+              <!-- Guía visual: gap entre párrafo y H3 -->
+              <div style="margin-bottom: var(--nt-space-lg); border-left: 2px solid var(--nt-color-green-400); padding-left: var(--nt-space-sm)">
+                <p style="font-family: var(--nt-font-ui); font-size: 0.65rem; color: var(--nt-color-green-500)">↕ space-lg — 40px — separación párrafo → H3</p>
+              </div>
+
+              <!-- H3 -->
+              <h3 style="font-size: 1.2rem; margin-bottom: var(--nt-space-sm)">
+                Nutrición clínica
+              </h3>
+
+              <!-- Párrafo 2 -->
+              <p style="color: var(--nt-text-muted)">
+                Planes personalizados basados en tu historial real, no plantillas genéricas.
+              </p>
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -914,6 +1004,23 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
         <!-- Aplicación real — card de ejemplo -->
         <div class="mt-10">
+          <!-- Comparativa patrón hexagonal -->
+          <p class="text-xs font-medium uppercase tracking-widest mb-4" style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)">Patrón hexagonal</p>
+          <div class="grid grid-cols-3 gap-3 mb-10">
+            <div>
+              <div class="h-28 rounded" style="background: var(--nt-gradient-dark)"></div>
+              <p class="text-xs mt-2 text-center" style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)">Sin patrón</p>
+            </div>
+            <div>
+              <div class="nt-hex-pattern h-28 rounded" style="background: var(--nt-gradient-dark)"></div>
+              <p class="text-xs mt-2 text-center" style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)">Solo hexágonos</p>
+            </div>
+            <div>
+              <div class="nt-grain nt-grain-dark nt-hex-pattern h-28 rounded" style="background: var(--nt-gradient-dark)"></div>
+              <p class="text-xs mt-2 text-center" style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)">Hexágonos + grain</p>
+            </div>
+          </div>
+
           <p
             class="text-xs font-medium uppercase tracking-widest mb-4"
             style="font-family: var(--nt-font-ui); color: var(--nt-text-muted)"
@@ -921,7 +1028,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
             Aplicación — hero de sección
           </p>
           <div
-            class="nt-grain nt-grain-dark rounded-lg p-12 md:p-16 flex flex-col gap-4"
+            class="nt-grain nt-grain-dark nt-hex-pattern rounded-lg p-12 md:p-16 flex flex-col gap-4"
             style="background: var(--nt-gradient-dark)"
           >
             <p
