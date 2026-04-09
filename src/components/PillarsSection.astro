@@ -8,6 +8,9 @@ const pillars = [
     title: 'Nutrición clínica',
     body: 'Planes nutricionales personalizados basados en tu historial, analíticas y objetivos reales. Sin restricciones genéricas ni dietas de moda.',
     detail: 'Evaluación completa · Seguimiento continuo · Sin alimentos prohibidos',
+    // Imagen: alimentos frescos sobre mesa de madera, luz natural cálida — estética consulta real, no stock de dieta
+    imgDesc: 'Alimentos frescos y variados sobre superficie natural. Luz cálida.',
+    imgFile: 'pillar-nutricion.webp',
   },
   {
     num: '02',
@@ -15,6 +18,9 @@ const pillars = [
     title: 'Entrenamiento funcional',
     body: 'Movimiento que mejora tu calidad de vida: fuerza, movilidad y energía. No te preparamos para una competición; te preparamos para tu vida.',
     detail: 'Adaptado a tu condición · Sin lesiones · Progresión real',
+    // Imagen: persona adulta (45-60 años) haciendo movimiento funcional — yoga, pilates, trabajo con peso ligero. Sin contexto de gym de élite.
+    imgDesc: 'Persona activa en torno a 50 años en movimiento funcional. Natural, sin posado.',
+    imgFile: 'pillar-entrenamiento.webp',
   },
   {
     num: '03',
@@ -22,6 +28,9 @@ const pillars = [
     title: 'Salud emocional',
     body: 'La relación con la comida y con tu cuerpo es tan importante como lo que comes. Trabajamos el hambre emocional, el estrés y la adherencia al cambio.',
     detail: 'Relación sana con la comida · Gestión del estrés · Adherencia',
+    // Imagen: escena de calma — persona leyendo, en la naturaleza, o en conversación tranquila. Tonos suaves.
+    imgDesc: 'Escena de calma y equilibrio. Persona en la naturaleza o momento de pausa consciente.',
+    imgFile: 'pillar-emocional.webp',
   },
 ];
 ---
@@ -79,86 +88,122 @@ const pillars = [
 
     <!-- Cards de pilares -->
     <div class="pillars-grid">
-      {pillars.map(({ num, eyebrow, title, body, detail }) => (
+      {pillars.map(({ num, eyebrow, title, body, detail, imgDesc, imgFile }) => (
         <article
           style="
             background: var(--nt-bg);
             border: 1px solid var(--nt-border);
             border-radius: 4px;
-            padding: var(--nt-space-xl);
             display: flex;
             flex-direction: column;
-            gap: var(--nt-space-md);
-            position: relative;
             overflow: hidden;
           "
         >
-          <!-- Número decorativo -->
-          <span
+          <!-- Imagen / Placeholder -->
+          <div
+            style="
+              height: 200px;
+              background: var(--nt-color-stone-100);
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              gap: 0.625rem;
+              padding: 1.25rem;
+              text-align: center;
+              border-bottom: 1px solid var(--nt-border);
+              position: relative;
+            "
             aria-hidden="true"
-            style="
-              position: absolute;
-              top: var(--nt-space-md);
-              right: var(--nt-space-lg);
-              font-family: var(--nt-font-display);
-              font-size: 4rem;
-              font-weight: 800;
-              color: var(--nt-color-stone-200);
-              line-height: 1;
-              user-select: none;
-            "
           >
-            {num}
-          </span>
+            <!-- Número decorativo de fondo -->
+            <span
+              style="
+                position: absolute;
+                top: 0.5rem;
+                right: 1rem;
+                font-family: var(--nt-font-display);
+                font-size: 4.5rem;
+                font-weight: 800;
+                color: var(--nt-color-stone-200);
+                line-height: 1;
+                user-select: none;
+              "
+            >
+              {num}
+            </span>
 
-          <p
-            style="
-              font-family: var(--nt-font-ui);
-              font-size: 0.7rem;
-              font-weight: 500;
-              text-transform: uppercase;
-              letter-spacing: 0.12em;
-              color: var(--nt-highlight);
-            "
-          >
-            {eyebrow}
-          </p>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" style={`color: var(--nt-color-stone-300)`}>
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+              <circle cx="12" cy="13" r="4"/>
+            </svg>
+            <p style="font-family: var(--nt-font-ui); font-size: 0.6875rem; color: var(--nt-color-stone-400); max-width: 16rem; line-height: 1.5">
+              {imgDesc}
+            </p>
+            <p style="font-family: var(--nt-font-ui); font-size: 0.625rem; color: var(--nt-color-stone-300); text-transform: uppercase; letter-spacing: 0.08em">
+              {imgFile}
+            </p>
+          </div>
 
-          <h3
+          <!-- Contenido textual -->
+          <div
             style="
-              font-family: var(--nt-font-display);
-              font-size: 1.5rem;
-              font-weight: 700;
-              color: var(--nt-color-green-900);
-              line-height: 1.2;
-            "
-          >
-            {title}
-          </h3>
-
-          <p
-            style="
-              font-family: var(--nt-font-body);
-              font-size: 1rem;
-              line-height: 1.75;
-              color: var(--nt-text-muted);
+              padding: var(--nt-space-lg);
+              display: flex;
+              flex-direction: column;
+              gap: var(--nt-space-md);
               flex: 1;
             "
           >
-            {body}
-          </p>
+            <p
+              style="
+                font-family: var(--nt-font-ui);
+                font-size: 0.7rem;
+                font-weight: 500;
+                text-transform: uppercase;
+                letter-spacing: 0.12em;
+                color: var(--nt-highlight);
+              "
+            >
+              {eyebrow}
+            </p>
 
-          <p
-            style="
-              font-family: var(--nt-font-ui);
-              font-size: 0.8125rem;
-              color: var(--nt-color-green-600);
-              padding-top: var(--nt-space-sm);
-              border-top: 1px solid var(--nt-border);
-            "
-          >
-            {detail}
-          </p>
+            <h3
+              style="
+                font-family: var(--nt-font-display);
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: var(--nt-color-green-900);
+                line-height: 1.2;
+              "
+            >
+              {title}
+            </h3>
+
+            <p
+              style="
+                font-family: var(--nt-font-body);
+                font-size: 1rem;
+                line-height: 1.75;
+                color: var(--nt-text-muted);
+                flex: 1;
+              "
+            >
+              {body}
+            </p>
+
+            <p
+              style="
+                font-family: var(--nt-font-ui);
+                font-size: 0.8125rem;
+                color: var(--nt-color-green-600);
+                padding-top: var(--nt-space-sm);
+                border-top: 1px solid var(--nt-border);
+              "
+            >
+              {detail}
+            </p>
+          </div>
         </article>
       ))}
     </div>
