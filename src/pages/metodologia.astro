@@ -1,0 +1,704 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaFinal from '../components/CtaFinal.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const siteUrl = 'https://jasedm.github.io/astronut';
+
+const phases = [
+  {
+    num: '01',
+    tag: 'Primera fase',
+    name: 'El Entendimiento',
+    tagline: 'Saber de dónde partimos y hacia dónde vamos.',
+    duration: '1–2 semanas',
+    focus: 'Diagnóstico y plan',
+    intro: 'Antes de prescribir nada, escuchamos y medimos. Sin un diagnóstico real del punto de partida, cualquier plan es una suposición.',
+    body: 'La primera consulta es gratuita y sin compromiso: una conversación de 30 a 45 minutos para conocerte y explicarte cómo trabajamos. Si decides continuar, realizamos una consulta conjunta — la enfermera y el dietista-entrenador contigo, al mismo tiempo. No recibirás dos informes separados: recibirás un único plan integrado construido desde dos perspectivas complementarias.',
+    items: [
+      'Anamnesis completa: historial, hábitos y objetivos reales',
+      'Composición corporal: bioimpedancia, plicometría y contornos',
+      'Interpretación de analíticas aportadas',
+      'Valoración nutricional detallada',
+      'Análisis de hábitos de movimiento y estilo de vida',
+    ],
+    quote: 'No adivinamos. Medimos.',
+    // Imagen: José Miguel y Erika sentados frente a un cliente en la consulta.
+    // Espacio cálido, mesa de madera, cuadernos. Luz natural lateral. Sensación de escucha real.
+    // Archivo destino: public/images/fase-1-entendimiento.webp — proporción 3:4 (vertical)
+    imgDesc: 'Consulta inicial: José Miguel y Erika escuchando al cliente. Espacio cálido, mesa de madera, luz natural.',
+    imgFile: 'fase-1-entendimiento.webp',
+    imgAlt: 'Consulta inicial de evaluación en Nutroteca',
+    flip: false,
+  },
+  {
+    num: '02',
+    tag: 'Segunda fase',
+    name: 'El Ajuste',
+    tagline: 'Donde la teoría se convierte en hábito.',
+    duration: '2–3 meses',
+    focus: 'Implementación',
+    intro: 'El mapa ya existe. Ahora toca recorrerlo. Los tres pilares entran en acción de forma simultánea en la vida real.',
+    body: 'Esta es la fase más intensa en acompañamiento. El equipo está cerca porque los primeros meses son los más difíciles: los hábitos viejos resisten, el cuerpo se adapta a su propio ritmo y la motivación fluctúa. Es normal. Para eso estamos. El objetivo de esta fase no es la perfección — es el progreso sostenido.',
+    items: [
+      'Implementación del plan nutricional con ajustes continuos',
+      'Inicio del programa de entrenamiento funcional grupal',
+      'Primeras herramientas de gestión emocional vinculadas a la alimentación',
+      'Sustitución de mitos por conocimiento con criterio clínico',
+      'Sesiones de seguimiento periódicas con nutrición y enfermería',
+    ],
+    quote: 'El objetivo no es la perfección. Es el progreso sostenido.',
+    // Imagen: persona de ~50 años en su cocina preparando comida o en movimiento funcional al aire libre.
+    // Real, sin posado de stock. Asturias exterior si es posible. Luz natural, actividad cotidiana.
+    // Archivo destino: public/images/fase-2-ajuste.webp — proporción 3:4 (vertical)
+    imgDesc: 'Persona activa (~50 años) implementando nuevos hábitos. Cocina real o exterior natural asturiano.',
+    imgFile: 'fase-2-ajuste.webp',
+    imgAlt: 'Implementación de hábitos en el día a día',
+    flip: true,
+  },
+  {
+    num: '03',
+    tag: 'Tercera fase',
+    name: 'La Maestría',
+    tagline: 'Convertirse en experto de uno mismo.',
+    duration: '2–3 meses',
+    focus: 'Profundización',
+    intro: 'Cuando los hábitos básicos están asentados, empieza el trabajo más profundo: entender por qué comes como comes y qué hace tu cuerpo mientras vives.',
+    body: 'La Fase 3 dota al cliente de las herramientas para gestionar no solo el contenido del plato, sino todo lo que rodea el acto de comer y de vivir. Incluye acceso a los talleres de Nutroteca Academy: formación práctica en grupo sobre alimentación consciente, microbiota, descanso y relaciones sociales como salud emocional.',
+    items: [
+      'Gestión del hambre emocional: distinguir físico de emocional',
+      'Mindful Eating: comer con atención, sin culpa ni piloto automático',
+      'Microbiota y salud digestiva: más allá de las calorías',
+      'Ciclos circadianos y descanso: cómo el sueño afecta a todo',
+      'Lectura de etiquetas y criterio propio en cualquier contexto',
+      'Talleres Nutroteca Academy con el equipo y la comunidad',
+    ],
+    quote: 'El cliente que termina la Fase 3 ya no sigue un plan ajeno. Ha construido el suyo.',
+    // Imagen: escena de taller o alimentación consciente. Grupo pequeño en espacio cálido,
+    // o persona sola en pausa consciente frente a un plato. Luz suave, ambiente de aprendizaje.
+    // Archivo destino: public/images/fase-3-maestria.webp — proporción 3:4 (vertical)
+    imgDesc: 'Taller Nutroteca Academy o escena de alimentación consciente. Espacio cálido, grupo pequeño o pausa individual.',
+    imgFile: 'fase-3-maestria.webp',
+    imgAlt: 'Taller de alimentación consciente en Nutroteca Academy',
+    flip: false,
+  },
+  {
+    num: '04',
+    tag: 'Cuarta fase',
+    name: 'La Libertad',
+    tagline: 'La salud como identidad, no como esfuerzo.',
+    duration: '1–2 meses',
+    focus: 'Autonomía',
+    intro: 'El éxito del Método Nutroteca se define por un momento concreto: cuando el cliente ya no necesita al equipo para mantener su salud.',
+    body: 'La Fase 4 consolida todo lo aprendido y trabaja el paso más difícil de cualquier cambio real: que deje de ser algo que "estás haciendo" y se convierta en algo que "eres". Tras el alta, Nutroteca no desaparece — se convierte en tu comunidad de referencia, con entrenamientos grupales, talleres y plataforma digital.',
+    items: [
+      'Autogestión y toma de decisiones autónoma ante situaciones nuevas',
+      'Cambio de identidad: de "estoy a dieta" a "así es como vivo"',
+      'Alta terapéutica con plan de mantenimiento personalizado',
+      'Acceso a la comunidad Nutroteca: entrenamientos, talleres, plataforma',
+    ],
+    quote: 'Una vez que has construido algo, merece la pena cuidarlo.',
+    // Imagen: persona en la naturaleza asturiana (montaña, costa o bosque). Energía, libertad, vitalidad.
+    // ~50 años, activa, en movimiento o contemplativa. Luz natural de calidad. Sin posado.
+    // Archivo destino: public/images/fase-4-libertad.webp — proporción 3:4 (vertical)
+    imgDesc: 'Persona ~50 años en naturaleza asturiana. Energía y libertad. Montaña, costa o bosque. Sin posado.',
+    imgFile: 'fase-4-libertad.webp',
+    imgAlt: 'Libertad y autonomía: vida activa en la naturaleza asturiana',
+    flip: true,
+  },
+];
+
+// Schema.org
+const schemaBreadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Nutroteca', item: siteUrl },
+    { '@type': 'ListItem', position: 2, name: 'El Método', item: `${siteUrl}/metodologia` },
+  ],
+};
+
+const schemaHowTo = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'El Método Nutroteca: proceso de 4 fases hacia la salud integral',
+  description: 'Sistema estructurado en cuatro fases que trabaja nutrición, movimiento y bienestar emocional de forma coordinada para conseguir un cambio real y duradero.',
+  totalTime: 'P9M',
+  step: phases.map((p, i) => ({
+    '@type': 'HowToStep',
+    position: i + 1,
+    name: `Fase ${p.num}: ${p.name}`,
+    text: p.body,
+  })),
+};
+---
+
+<BaseLayout
+  title="El Método Nutroteca: proceso de 4 fases hacia la salud integral"
+  description="Descubre cómo funciona el Método Nutroteca: cuatro fases estructuradas que trabajan nutrición clínica, entrenamiento funcional y salud emocional de forma coordinada. Del diagnóstico a la autonomía total."
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaBreadcrumb)} slot="head" />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaHowTo)} slot="head" />
+
+  <SiteNav />
+
+  <main>
+
+    <!-- ─── HERO DE PÁGINA ──────────────────────────────── -->
+    <section
+      class="nt-grain nt-grain-dark nt-hex-pattern"
+      style="
+        background: var(--nt-gradient-dark);
+        padding: calc(var(--nt-space-3xl) + 4rem) var(--nt-space-md) var(--nt-space-3xl);
+        position: relative;
+      "
+    >
+      <div style="max-width: var(--nt-container); margin: 0 auto; position: relative; z-index: 2">
+
+        <!-- Breadcrumb -->
+        <nav aria-label="Ruta de navegación" style="margin-bottom: var(--nt-space-lg)">
+          <ol style="display: flex; gap: 0.5rem; align-items: center; list-style: none; padding: 0; margin: 0; font-family: var(--nt-font-ui); font-size: 0.8125rem; color: var(--nt-color-green-400)">
+            <li><a href={`${base}/`} style="color: var(--nt-color-green-400); text-decoration: none">Inicio</a></li>
+            <li aria-hidden="true" style="opacity: 0.4">·</li>
+            <li style="color: var(--nt-color-stone-300)">El Método</li>
+          </ol>
+        </nav>
+
+        <div style="max-width: 42rem">
+          <p style="
+            font-family: var(--nt-font-ui);
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--nt-color-earth-400);
+            margin-bottom: var(--nt-space-md);
+          ">
+            El Método Nutroteca
+          </p>
+
+          <h1 style="
+            font-family: var(--nt-font-display);
+            font-size: clamp(2.25rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.025em;
+            color: var(--nt-color-stone-50);
+            margin-bottom: var(--nt-space-lg);
+          ">
+            Cuatro fases.<br />
+            <em style="font-style: italic; color: var(--nt-color-earth-400)">Un solo destino: tu autonomía.</em>
+          </h1>
+
+          <p style="
+            font-family: var(--nt-font-body);
+            font-size: clamp(1rem, 1.75vw, 1.1875rem);
+            line-height: 1.75;
+            color: var(--nt-color-stone-300);
+            margin-bottom: var(--nt-space-xl);
+            max-width: 38rem;
+          ">
+            No es una dieta. No es un plan de entrenamiento. Es un sistema que trabaja nutrición, movimiento y bienestar emocional de forma simultánea y coordinada — porque el cuerpo no funciona por compartimentos.
+          </p>
+
+          <!-- Datos del proceso -->
+          <div style="
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--nt-space-lg);
+            padding-top: var(--nt-space-lg);
+            border-top: 1px solid rgba(255,255,255,0.08);
+          ">
+            {[
+              { num: '4',       label: 'fases estructuradas' },
+              { num: '6–9',     label: 'meses de proceso' },
+              { num: '3',       label: 'pilares coordinados' },
+              { num: '2',       label: 'profesionales desde el inicio' },
+            ].map(({ num, label }) => (
+              <div>
+                <p style="font-family: var(--nt-font-display); font-size: 1.75rem; font-weight: 700; color: var(--nt-color-stone-50); line-height: 1; margin-bottom: 0.25rem">{num}</p>
+                <p style="font-family: var(--nt-font-ui); font-size: 0.8125rem; color: var(--nt-color-stone-400)">{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── QUÉ ES Y QUÉ NO ES ──────────────────────────── -->
+    <section style="
+      padding: var(--nt-space-3xl) var(--nt-space-md);
+      background: var(--nt-bg);
+    ">
+      <div style="max-width: var(--nt-container); margin: 0 auto">
+        <div class="method-intro-grid">
+
+          <!-- Texto principal -->
+          <div>
+            <p style="
+              font-family: var(--nt-font-ui);
+              font-size: 0.75rem;
+              font-weight: 500;
+              text-transform: uppercase;
+              letter-spacing: 0.14em;
+              color: var(--nt-highlight);
+              margin-bottom: var(--nt-space-sm);
+            ">Por qué existe el método</p>
+
+            <h2 style="
+              font-family: var(--nt-font-display);
+              font-size: clamp(1.75rem, 3vw, 2.5rem);
+              font-weight: 700;
+              line-height: 1.15;
+              letter-spacing: -0.02em;
+              color: var(--nt-color-green-900);
+              margin-bottom: var(--nt-space-md);
+            ">
+              El éxito se mide por el momento en que ya no nos necesitas
+            </h2>
+            <p style="font-family: var(--nt-font-body); font-size: 1.0625rem; line-height: 1.75; color: var(--nt-text-muted); margin-bottom: var(--nt-space-md)">
+              La mayoría de las consultas de nutrición trabajan con un único objetivo: que el cliente siga viniendo. Nosotros trabajamos para lo contrario.
+            </p>
+            <p style="font-family: var(--nt-font-body); font-size: 1.0625rem; line-height: 1.75; color: var(--nt-text-muted)">
+              El Método Nutroteca acompaña a cada persona desde su punto de partida real hasta la autonomía total sobre su propia salud. No medimos el éxito en kilos perdidos ni en meses de suscripción. Lo medimos en el momento en que el cliente ya no necesita al equipo para mantener lo que ha construido.
+            </p>
+          </div>
+
+          <!-- Columna: no es / sí es -->
+          <div style="
+            background: var(--nt-bg-muted);
+            border: 1px solid var(--nt-border);
+            border-radius: 4px;
+            overflow: hidden;
+          ">
+            <div style="padding: var(--nt-space-lg); border-bottom: 1px solid var(--nt-border)">
+              <p style="font-family: var(--nt-font-ui); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--nt-text-muted); margin-bottom: var(--nt-space-md)">
+                No es
+              </p>
+              {['Una dieta', 'Un plan de entrenamiento', 'Una terapia de bienestar', 'Una solución rápida', 'Un servicio de suscripción indefinida'].map(item => (
+                <div style="display: flex; gap: 0.75rem; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--nt-border)">
+                  <span style="color: var(--nt-color-earth-400); font-size: 1rem; flex-shrink: 0">✕</span>
+                  <p style="font-family: var(--nt-font-body); font-size: 0.9375rem; color: var(--nt-text-muted)">{item}</p>
+                </div>
+              ))}
+            </div>
+            <div style="padding: var(--nt-space-lg)">
+              <p style="font-family: var(--nt-font-ui); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--nt-color-green-600); margin-bottom: var(--nt-space-md)">
+                Sí es
+              </p>
+              {[
+                'Un proceso estructurado en 4 fases',
+                'Los 3 pilares trabajados de forma coordinada',
+                '2 profesionales desde la primera consulta',
+                'Un plan construido con tus datos, no una plantilla',
+                'Un camino hacia tu autonomía total',
+              ].map(item => (
+                <div style="display: flex; gap: 0.75rem; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--nt-border)">
+                  <span style="color: var(--nt-color-green-500); font-size: 1rem; flex-shrink: 0">✓</span>
+                  <p style="font-family: var(--nt-font-body); font-size: 0.9375rem; color: var(--nt-color-green-900)">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── FASES ─────────────────────────────────────────── -->
+    {phases.map((phase, i) => (
+      <section
+        style={`
+          padding: var(--nt-space-3xl) var(--nt-space-md);
+          background: ${i % 2 === 0 ? 'var(--nt-bg-muted)' : 'var(--nt-bg)'};
+          border-top: 1px solid var(--nt-border);
+        `}
+        aria-labelledby={`phase-${phase.num}-heading`}
+      >
+        <div style="max-width: var(--nt-container); margin: 0 auto">
+          <div class={`phase-grid ${phase.flip ? 'phase-grid--flip' : ''}`}>
+
+            <!-- Bloque de texto -->
+            <div class="phase-text">
+
+              <!-- Número grande de fondo -->
+              <div style="position: relative">
+                <span aria-hidden="true" style="
+                  position: absolute;
+                  top: -1.5rem;
+                  left: -0.5rem;
+                  font-family: var(--nt-font-display);
+                  font-size: 8rem;
+                  font-weight: 800;
+                  line-height: 1;
+                  color: var(--nt-color-stone-200);
+                  user-select: none;
+                  pointer-events: none;
+                  z-index: 0;
+                ">{phase.num}</span>
+
+                <div style="position: relative; z-index: 1; padding-top: var(--nt-space-xl)">
+
+                  <!-- Tag + duración -->
+                  <div style="display: flex; align-items: center; gap: var(--nt-space-md); flex-wrap: wrap; margin-bottom: var(--nt-space-md)">
+                    <p style="
+                      font-family: var(--nt-font-ui);
+                      font-size: 0.75rem;
+                      font-weight: 500;
+                      text-transform: uppercase;
+                      letter-spacing: 0.14em;
+                      color: var(--nt-highlight);
+                    ">{phase.tag}</p>
+                    <span style="
+                      font-family: var(--nt-font-ui);
+                      font-size: 0.75rem;
+                      font-weight: 500;
+                      background: var(--nt-color-green-100);
+                      color: var(--nt-color-green-700);
+                      padding: 0.2rem 0.75rem;
+                      border-radius: 99px;
+                    ">{phase.duration}</span>
+                  </div>
+
+                  <!-- Nombre de fase -->
+                  <h2
+                    id={`phase-${phase.num}-heading`}
+                    style="
+                      font-family: var(--nt-font-display);
+                      font-size: clamp(2rem, 3.5vw, 3rem);
+                      font-weight: 800;
+                      line-height: 1.1;
+                      letter-spacing: -0.025em;
+                      color: var(--nt-color-green-900);
+                      margin-bottom: var(--nt-space-sm);
+                    "
+                  >
+                    {phase.name}
+                  </h2>
+
+                  <!-- Tagline -->
+                  <p style="
+                    font-family: var(--nt-font-display);
+                    font-size: 1.125rem;
+                    font-style: italic;
+                    color: var(--nt-highlight);
+                    margin-bottom: var(--nt-space-lg);
+                  ">
+                    {phase.tagline}
+                  </p>
+
+                  <!-- Intro y body -->
+                  <p style="font-family: var(--nt-font-body); font-size: 1rem; line-height: 1.75; color: var(--nt-color-green-900); font-weight: 500; margin-bottom: var(--nt-space-sm)">
+                    {phase.intro}
+                  </p>
+                  <p style="font-family: var(--nt-font-body); font-size: 1rem; line-height: 1.75; color: var(--nt-text-muted); margin-bottom: var(--nt-space-lg)">
+                    {phase.body}
+                  </p>
+
+                  <!-- Lista de ítems -->
+                  <ul style="
+                    list-style: none;
+                    padding: 0;
+                    margin: 0 0 var(--nt-space-lg);
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+                  ">
+                    {phase.items.map(item => (
+                      <li style="
+                        display: flex;
+                        gap: 0.75rem;
+                        align-items: flex-start;
+                        font-family: var(--nt-font-body);
+                        font-size: 0.9375rem;
+                        line-height: 1.6;
+                        color: var(--nt-text-muted);
+                      ">
+                        <span style="color: var(--nt-color-green-500); flex-shrink: 0; margin-top: 0.1rem">◆</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <!-- Cita de fase -->
+                  <blockquote style="
+                    margin: 0;
+                    padding: var(--nt-space-md) var(--nt-space-lg);
+                    border-left: 3px solid var(--nt-color-earth-400);
+                    background: var(--nt-color-earth-100);
+                    border-radius: 0 4px 4px 0;
+                  ">
+                    <p style="
+                      font-family: var(--nt-font-display);
+                      font-size: 1rem;
+                      font-style: italic;
+                      color: var(--nt-color-earth-700);
+                      line-height: 1.6;
+                      margin: 0;
+                    ">"{phase.quote}"</p>
+                  </blockquote>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- Bloque de imagen / placeholder -->
+            <div class="phase-image" aria-hidden="true">
+              <div style="
+                position: sticky;
+                top: 7rem;
+                border-radius: 4px;
+                overflow: hidden;
+                border: 1px solid var(--nt-border);
+              ">
+                <!-- Placeholder imagen -->
+                <div style="
+                  aspect-ratio: 3/4;
+                  background: var(--nt-color-stone-100);
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 1rem;
+                  padding: 2rem;
+                  text-align: center;
+                  position: relative;
+                ">
+                  <!-- Número decorativo de fondo -->
+                  <span style="
+                    position: absolute;
+                    bottom: 1rem;
+                    right: 1.5rem;
+                    font-family: var(--nt-font-display);
+                    font-size: 6rem;
+                    font-weight: 800;
+                    color: var(--nt-color-stone-200);
+                    line-height: 1;
+                    user-select: none;
+                  ">{phase.num}</span>
+
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" style="color: var(--nt-color-stone-300); position: relative; z-index: 1">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                    <circle cx="12" cy="13" r="4"/>
+                  </svg>
+
+                  <div style="position: relative; z-index: 1">
+                    <p style="font-family: var(--nt-font-ui); font-size: 0.8125rem; font-weight: 500; color: var(--nt-color-stone-400); margin-bottom: 0.5rem">
+                      {phase.name}
+                    </p>
+                    <p style="font-family: var(--nt-font-ui); font-size: 0.75rem; color: var(--nt-text-muted); line-height: 1.6; max-width: 18rem; margin-bottom: 0.75rem">
+                      {phase.imgDesc}
+                    </p>
+                    <p style="font-family: var(--nt-font-ui); font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--nt-color-stone-300)">
+                      {phase.imgFile}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    ))}
+
+    <!-- ─── RESUMEN VISUAL / TIMELINE ───────────────────── -->
+    <section
+      class="nt-grain nt-grain-dark"
+      style="
+        background: var(--nt-gradient-dark);
+        padding: var(--nt-space-3xl) var(--nt-space-md);
+      "
+      aria-labelledby="timeline-heading"
+    >
+      <div style="max-width: var(--nt-container); margin: 0 auto; position: relative; z-index: 2">
+
+        <div style="text-align: center; margin-bottom: var(--nt-space-2xl)">
+          <p style="
+            font-family: var(--nt-font-ui);
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--nt-color-earth-400);
+            margin-bottom: var(--nt-space-sm);
+          ">El proceso completo</p>
+          <h2
+            id="timeline-heading"
+            style="
+              font-family: var(--nt-font-display);
+              font-size: clamp(1.75rem, 3vw, 2.5rem);
+              font-weight: 700;
+              letter-spacing: -0.02em;
+              color: var(--nt-color-stone-50);
+              margin-bottom: var(--nt-space-md);
+            "
+          >De 6 a 9 meses hacia la autonomía total</h2>
+          <p style="
+            font-family: var(--nt-font-body);
+            font-size: 1rem;
+            line-height: 1.75;
+            color: var(--nt-color-stone-400);
+            max-width: 36rem;
+            margin: 0 auto;
+          ">
+            Cada fase tiene su propio ritmo. El proceso no es lineal — se ajusta a cómo respondes tú, no a un calendario teórico.
+          </p>
+        </div>
+
+        <!-- Timeline cards -->
+        <div class="timeline-grid">
+          {phases.map((phase, i) => (
+            <div style="
+              background: rgba(255,255,255,0.04);
+              border: 1px solid rgba(255,255,255,0.08);
+              border-radius: 4px;
+              padding: var(--nt-space-lg);
+              position: relative;
+            ">
+              <!-- Conector línea (decorativo, solo desktop) -->
+              {i < phases.length - 1 && (
+                <div aria-hidden="true" class="timeline-connector" />
+              )}
+
+              <p style="
+                font-family: var(--nt-font-display);
+                font-size: 3rem;
+                font-weight: 800;
+                color: var(--nt-color-green-700);
+                line-height: 1;
+                margin-bottom: var(--nt-space-sm);
+              ">{phase.num}</p>
+
+              <p style="
+                font-family: var(--nt-font-ui);
+                font-size: 0.7rem;
+                font-weight: 500;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                color: var(--nt-color-earth-400);
+                margin-bottom: 0.375rem;
+              ">{phase.tag}</p>
+
+              <h3 style="
+                font-family: var(--nt-font-display);
+                font-size: 1.25rem;
+                font-weight: 700;
+                color: var(--nt-color-stone-100);
+                margin-bottom: var(--nt-space-sm);
+                line-height: 1.2;
+              ">{phase.name}</h3>
+
+              <p style="
+                font-family: var(--nt-font-body);
+                font-size: 0.875rem;
+                line-height: 1.65;
+                color: var(--nt-color-stone-400);
+                margin-bottom: var(--nt-space-md);
+              ">{phase.intro}</p>
+
+              <div style="display: flex; flex-direction: column; gap: 0.5rem">
+                <div style="display: flex; justify-content: space-between; align-items: center">
+                  <span style="font-family: var(--nt-font-ui); font-size: 0.75rem; color: var(--nt-color-stone-500)">Duración</span>
+                  <span style="font-family: var(--nt-font-ui); font-size: 0.75rem; font-weight: 500; color: var(--nt-color-green-400)">{phase.duration}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center">
+                  <span style="font-family: var(--nt-font-ui); font-size: 0.75rem; color: var(--nt-color-stone-500)">Foco</span>
+                  <span style="font-family: var(--nt-font-ui); font-size: 0.75rem; font-weight: 500; color: var(--nt-color-stone-300)">{phase.focus}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+    <CtaFinal />
+
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  /* Intro grid */
+  .method-intro-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-2xl);
+    align-items: start;
+  }
+
+  @media (min-width: 900px) {
+    .method-intro-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* Phase grid */
+  .phase-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-2xl);
+    align-items: start;
+  }
+
+  .phase-image {
+    display: none;
+  }
+
+  @media (min-width: 900px) {
+    .phase-grid {
+      grid-template-columns: 3fr 2fr;
+      align-items: start;
+    }
+
+    .phase-grid--flip {
+      grid-template-columns: 2fr 3fr;
+    }
+
+    .phase-grid--flip .phase-text {
+      order: 2;
+    }
+
+    .phase-grid--flip .phase-image {
+      order: 1;
+    }
+
+    .phase-image {
+      display: block;
+    }
+  }
+
+  /* Timeline */
+  .timeline-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-md);
+    position: relative;
+  }
+
+  .timeline-connector {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .timeline-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .timeline-connector {
+      display: block;
+      position: absolute;
+      top: 2.5rem;
+      right: -1.25rem;
+      width: 2.5rem;
+      height: 1px;
+      background: rgba(255,255,255,0.12);
+      z-index: 1;
+    }
+  }
+</style>
