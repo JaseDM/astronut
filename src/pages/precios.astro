@@ -1,0 +1,777 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaFinal from '../components/CtaFinal.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const siteUrl = 'https://jasedm.github.io/astronut';
+
+// ─── DATOS DE PLANES ────────────────────────────────────────────────────────
+interface PlanFeature { label: string; value: string }
+interface Plan {
+  id: string
+  eyebrow: string
+  name: string
+  price: number
+  unit: string
+  forWhom: string
+  features: PlanFeature[]
+  cta: string
+  highlighted: boolean
+  // Imagen placeholder sobre cada tarjeta de plan
+  // Proporción ideal: 16:9 — foto de estilo de vida que represente el perfil del plan
+  imgDesc: string
+  imgFile: string
+}
+
+const plans: Plan[] = [
+  {
+    id: 'esencial',
+    eyebrow: 'Para empezar',
+    name: 'Esencial',
+    price: 79,
+    unit: 'mes',
+    forWhom: 'Personas que quieren empezar con una base sólida y un ritmo de dos días de entrenamiento semanal.',
+    features: [
+      { label: 'Consulta base inicial con José Miguel',        value: 'incluida' },
+      { label: 'Plan nutricional personalizado de inicio',     value: 'incluido' },
+      { label: 'Entrenamiento funcional grupal',               value: '2 días/sem' },
+      { label: 'Tamaño de grupo',                              value: 'máx. 10 personas' },
+      { label: 'Seguimiento de nutrición al mes',              value: '1 consulta' },
+      { label: 'Seguimiento de enfermería al mes',             value: '1 consulta' },
+      { label: 'Talleres Nutroteca Academy',                   value: '—' },
+      { label: 'Entrenamiento personal',                       value: '—' },
+      { label: 'Plataforma Nutroteca',                         value: 'incluida' },
+      { label: 'VCI (valoración clínica de enfermería)',       value: 'opcional +59/129€' },
+    ],
+    cta: 'Empezar con Esencial',
+    highlighted: false,
+    imgDesc: 'Persona adulta (45-55 años) en primer día de entrenamiento grupal. Expresión de determinación tranquila. Exterior o espacio amplio.',
+    imgFile: 'plan-esencial.webp',
+  },
+  {
+    id: 'integral',
+    eyebrow: 'El más completo',
+    name: 'Integral',
+    price: 129,
+    unit: 'mes',
+    forWhom: 'Personas que buscan mayor intensidad de acompañamiento y valoran el componente formativo y comunitario.',
+    features: [
+      { label: 'Consulta base inicial con José Miguel',        value: 'incluida' },
+      { label: 'Plan nutricional personalizado de inicio',     value: 'incluido' },
+      { label: 'Entrenamiento funcional grupal',               value: '3 días/sem' },
+      { label: 'Tamaño de grupo',                              value: 'máx. 10 personas' },
+      { label: 'Seguimiento de nutrición al mes',              value: '2 consultas' },
+      { label: 'Seguimiento de enfermería al mes',             value: '1 consulta' },
+      { label: 'Talleres Nutroteca Academy',                   value: '1/mes' },
+      { label: 'Entrenamiento personal',                       value: '—' },
+      { label: 'Plataforma Nutroteca',                         value: 'incluida' },
+      { label: 'VCI (valoración clínica de enfermería)',       value: 'opcional +59/129€' },
+    ],
+    cta: 'Empezar con Integral',
+    highlighted: true,
+    imgDesc: 'Grupo pequeño (3-5 personas, adultos 45-65 años) en actividad de entrenamiento funcional, ambiente cálido y colaborativo.',
+    imgFile: 'plan-integral.webp',
+  },
+  {
+    id: 'premium',
+    eyebrow: 'Máximo acompañamiento',
+    name: 'Premium',
+    price: 189,
+    unit: 'mes',
+    forWhom: 'Personas que quieren el máximo nivel de personalización y acompañamiento desde el primer día.',
+    features: [
+      { label: 'Consulta base inicial con José Miguel',        value: 'incluida' },
+      { label: 'Plan nutricional con revisión continua',       value: 'incluido' },
+      { label: 'Entrenamiento funcional grupal',               value: 'ilimitado (máx. 1/día)' },
+      { label: 'Tamaño de grupo',                              value: 'máx. 10 personas' },
+      { label: 'Seguimiento de nutrición al mes',              value: '2 consultas' },
+      { label: 'Seguimiento de enfermería al mes',             value: '1 consulta' },
+      { label: 'Talleres Nutroteca Academy',                   value: 'todos incluidos' },
+      { label: 'Entrenamiento personal',                       value: '1 sesión/semana' },
+      { label: 'Plataforma Nutroteca',                         value: 'acceso prioritario' },
+      { label: 'VCI Completa (con médico del deporte)',        value: '1/año incluida' },
+    ],
+    cta: 'Empezar con Premium',
+    highlighted: false,
+    imgDesc: 'Persona activa (~55 años) en sesión de entrenamiento personal, movimiento preciso y confiado. Luz natural, espacio profesional.',
+    imgFile: 'plan-premium.webp',
+  },
+];
+
+// ─── TABLA COMPARATIVA ──────────────────────────────────────────────────────
+interface CompRow { feature: string; esencial: string; integral: string; premium: string }
+const compRows: CompRow[] = [
+  { feature: 'Consulta base inicial',          esencial: '✓',            integral: '✓',              premium: '✓' },
+  { feature: 'VCI incluida',                   esencial: '—',            integral: '—',              premium: '1/año' },
+  { feature: 'Entrenamiento grupal',           esencial: '2 días/sem',   integral: '3 días/sem',     premium: 'ilimitado' },
+  { feature: 'Entrenamiento personal',         esencial: '—',            integral: '—',              premium: '1/semana' },
+  { feature: 'Seguimiento nutrición/mes',      esencial: '1 consulta',   integral: '2 consultas',    premium: '2 consultas' },
+  { feature: 'Seguimiento enfermería/mes',     esencial: '1 consulta',   integral: '1 consulta',     premium: '1 consulta' },
+  { feature: 'Talleres Academy',               esencial: '—',            integral: '1/mes',          premium: 'todos' },
+  { feature: 'Plataforma Nutroteca',           esencial: '✓',            integral: '✓',              premium: 'prioritario' },
+  { feature: 'Sin permanencia',                esencial: '✓',            integral: '✓',              premium: '✓' },
+  { feature: 'Sin matrícula',                  esencial: '✓',            integral: '✓',              premium: '✓' },
+];
+
+// ─── SCHEMA ─────────────────────────────────────────────────────────────────
+const schemaBreadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Nutroteca', item: siteUrl },
+    { '@type': 'ListItem', position: 2, name: 'Planes y precios', item: `${siteUrl}/precios` },
+  ],
+};
+
+const schemaOffers = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Planes Nutroteca',
+  itemListElement: plans.map((p, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Offer',
+      name: `Nutroteca ${p.name}`,
+      description: p.forWhom,
+      price: p.price,
+      priceCurrency: 'EUR',
+      priceSpecification: { '@type': 'UnitPriceSpecification', price: p.price, priceCurrency: 'EUR', unitText: 'MONTH' },
+    },
+  })),
+};
+
+// Helper: color de celda en tabla comparativa
+function cellColor(val: string): string {
+  if (val === '✓' || val === 'todos' || val === 'ilimitado' || val === 'prioritario') return 'var(--nt-color-green-600)';
+  if (val === '—') return 'var(--nt-color-stone-400)';
+  return 'var(--nt-color-green-900)';
+}
+---
+
+<BaseLayout
+  title="Planes y precios — Nutroteca | Sin matrícula ni permanencia"
+  description="Descubre los planes de Nutroteca: Esencial (79€/mes), Integral (129€/mes) y Premium (189€/mes). Sin matrícula, sin permanencia. Primera consulta gratuita."
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaBreadcrumb)} slot="head" />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaOffers)} slot="head" />
+
+  <SiteNav />
+
+  <main>
+
+    <!-- ─── HERO ─────────────────────────────────────────── -->
+    <section
+      class="nt-grain nt-grain-dark nt-hex-pattern"
+      style="background: var(--nt-gradient-dark); padding: calc(var(--nt-space-3xl) + 4rem) var(--nt-space-md) var(--nt-space-3xl);"
+    >
+      <div style="max-width: var(--nt-container); margin: 0 auto; position: relative; z-index: 2;">
+
+        <nav aria-label="Ruta de navegación" style="margin-bottom: var(--nt-space-lg)">
+          <ol style="display:flex; gap:.5rem; align-items:center; list-style:none; padding:0; margin:0; font-family:var(--nt-font-ui); font-size:.8125rem; color:var(--nt-color-green-400)">
+            <li><a href={`${base}/`} style="color:var(--nt-color-green-400); text-decoration:none">Inicio</a></li>
+            <li aria-hidden="true" style="opacity:.4">·</li>
+            <li style="color:var(--nt-color-stone-300)">Planes y precios</li>
+          </ol>
+        </nav>
+
+        <div class="hero-pricing-grid">
+          <div>
+            <p style="font-family:var(--nt-font-ui); font-size:.75rem; font-weight:500; text-transform:uppercase; letter-spacing:.14em; color:var(--nt-color-earth-400); margin-bottom:var(--nt-space-md)">
+              Planes y precios
+            </p>
+            <h1 style="font-family:var(--nt-font-display); font-size:clamp(2.25rem,5vw,4rem); font-weight:800; line-height:1.1; letter-spacing:-.025em; color:var(--nt-color-stone-50); margin-bottom:var(--nt-space-lg)">
+              Sin matrícula.<br />
+              <em style="font-style:italic; color:var(--nt-color-earth-400)">Sin permanencia.</em>
+            </h1>
+            <p style="font-family:var(--nt-font-body); font-size:clamp(1rem,1.75vw,1.1875rem); line-height:1.75; color:var(--nt-color-stone-300); max-width:38rem; margin-bottom:var(--nt-space-xl)">
+              El precio mensual es el precio mensual. Puedes empezar, cambiar de plan o dejarlo cuando quieras — sin penalizaciones, sin letra pequeña.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:var(--nt-space-md)">
+              <a href={`${base}/contacto`} style="display:inline-flex; align-items:center; background:var(--nt-color-stone-50); color:var(--nt-color-green-900); font-family:var(--nt-font-ui); font-weight:600; font-size:.9375rem; padding:.875rem 2rem; border-radius:3px; text-decoration:none">
+                Primera consulta gratuita
+              </a>
+              <a href="#planes" style="display:inline-flex; align-items:center; gap:.375rem; color:var(--nt-color-stone-300); font-family:var(--nt-font-ui); font-weight:500; font-size:.9375rem; text-decoration:none">
+                Ver planes →
+              </a>
+            </div>
+          </div>
+
+          <!-- Placeholder imagen hero precios -->
+          <div aria-hidden="true" class="hero-pricing-img">
+            <div style="border-radius:4px; overflow:hidden; border:1px solid rgba(255,255,255,.10)">
+              <div style="aspect-ratio:4/3; background:rgba(255,255,255,.04); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem; padding:2rem; text-align:center; position:relative">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" style="color:rgba(255,255,255,.2)"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                <div>
+                  <p style="font-family:var(--nt-font-ui); font-size:.8125rem; font-weight:500; color:rgba(255,255,255,.35); margin-bottom:.375rem">Espacio Nutroteca</p>
+                  <p style="font-family:var(--nt-font-ui); font-size:.6875rem; color:rgba(255,255,255,.2); max-width:18rem">Sala de consulta y entrenamiento. Luz natural, ambiente cálido y profesional. Transmite confianza sin frialdad clínica.</p>
+                  <p style="font-family:var(--nt-font-ui); font-size:.625rem; text-transform:uppercase; letter-spacing:.08em; color:rgba(255,255,255,.15); margin-top:.5rem">espacio-nutroteca.webp</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Garantías rápidas -->
+        <div style="margin-top:var(--nt-space-2xl); padding-top:var(--nt-space-lg); border-top:1px solid rgba(255,255,255,.08); display:flex; flex-wrap:wrap; gap:var(--nt-space-xl)">
+          {[
+            { icon: '○', label: 'Sin matrícula' },
+            { icon: '○', label: 'Sin permanencia' },
+            { icon: '○', label: 'Cambio de plan en cualquier momento' },
+            { icon: '○', label: 'Primera consulta gratuita' },
+          ].map(({ icon, label }) => (
+            <div style="display:flex; align-items:center; gap:.625rem">
+              <span style="color:var(--nt-color-green-400); font-size:.875rem">{icon}</span>
+              <p style="font-family:var(--nt-font-ui); font-size:.875rem; color:var(--nt-color-stone-300)">{label}</p>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── ACCESO GRATUITO ───────────────────────────────── -->
+    <section style="padding:var(--nt-space-3xl) var(--nt-space-md); background:var(--nt-color-earth-100); border-bottom:1px solid var(--nt-border)">
+      <div style="max-width:var(--nt-container); margin:0 auto">
+        <div style="text-align:center; max-width:34rem; margin:0 auto var(--nt-space-2xl)">
+          <p style="font-family:var(--nt-font-ui); font-size:.75rem; font-weight:500; text-transform:uppercase; letter-spacing:.14em; color:var(--nt-color-earth-600); margin-bottom:var(--nt-space-sm)">
+            Antes de decidir
+          </p>
+          <h2 style="font-family:var(--nt-font-display); font-size:clamp(1.75rem,3vw,2.5rem); font-weight:700; letter-spacing:-.02em; color:var(--nt-color-green-900); margin-bottom:var(--nt-space-md)">
+            Prueba antes de comprometerte
+          </h2>
+          <p style="font-family:var(--nt-font-body); font-size:1rem; line-height:1.75; color:var(--nt-text-muted)">
+            Dos formas de conocer Nutroteca sin coste y sin compromiso. Sin presión, sin formularios interminables.
+          </p>
+        </div>
+
+        <div class="free-grid">
+
+          <!-- Toma de contacto -->
+          <article style="background:var(--nt-bg); border:1px solid var(--nt-border); border-radius:4px; overflow:hidden">
+            <!-- Placeholder imagen -->
+            <div style="aspect-ratio:4/3; background:var(--nt-color-stone-100); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.75rem; padding:1.5rem; text-align:center; border-bottom:1px solid var(--nt-border)" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" style="color:var(--nt-color-stone-300)"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <div>
+                <p style="font-family:var(--nt-font-ui); font-size:.75rem; font-weight:500; color:var(--nt-color-stone-400); margin-bottom:.25rem">Conversación inicial</p>
+                <p style="font-family:var(--nt-font-ui); font-size:.6875rem; color:var(--nt-text-muted); max-width:14rem; line-height:1.5">José Miguel o Erika frente a una persona. Ambiente cálido, escucha activa. Mesa de madera, luz natural.</p>
+                <p style="font-family:var(--nt-font-ui); font-size:.625rem; text-transform:uppercase; letter-spacing:.08em; color:var(--nt-color-stone-300); margin-top:.5rem">contacto-inicial.webp</p>
+              </div>
+            </div>
+            <div style="padding:var(--nt-space-lg)">
+              <span style="display:inline-block; background:var(--nt-color-green-100); color:var(--nt-color-green-700); font-family:var(--nt-font-ui); font-size:.75rem; font-weight:600; padding:.2rem .875rem; border-radius:99px; margin-bottom:var(--nt-space-md)">Gratis</span>
+              <h3 style="font-family:var(--nt-font-display); font-size:1.5rem; font-weight:700; color:var(--nt-color-green-900); margin-bottom:var(--nt-space-sm)">Toma de contacto inicial</h3>
+              <p style="font-family:var(--nt-font-body); font-size:.9375rem; line-height:1.7; color:var(--nt-text-muted); margin-bottom:var(--nt-space-md)">
+                Una conversación para conocer el método, los planes, el equipo y el espacio. Previo a la cita te pedimos un pequeño formulario (objetivos, motivación) para que la conversación sea útil desde el primer minuto.
+              </p>
+              <a href={`${base}/contacto`} style="display:inline-flex; align-items:center; background:var(--nt-color-green-800); color:var(--nt-color-stone-50); font-family:var(--nt-font-ui); font-weight:500; font-size:.9375rem; padding:.75rem 1.75rem; border-radius:3px; text-decoration:none">
+                Reservar cita gratuita
+              </a>
+            </div>
+          </article>
+
+          <!-- Clase de prueba -->
+          <article style="background:var(--nt-bg); border:1px solid var(--nt-border); border-radius:4px; overflow:hidden">
+            <div style="aspect-ratio:4/3; background:var(--nt-color-stone-100); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.75rem; padding:1.5rem; text-align:center; border-bottom:1px solid var(--nt-border)" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" style="color:var(--nt-color-stone-300)"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <div>
+                <p style="font-family:var(--nt-font-ui); font-size:.75rem; font-weight:500; color:var(--nt-color-stone-400); margin-bottom:.25rem">Clase grupal de prueba</p>
+                <p style="font-family:var(--nt-font-ui); font-size:.6875rem; color:var(--nt-text-muted); max-width:14rem; line-height:1.5">Grupo de ~8 personas (adultos 45-65 años) en entrenamiento funcional. Movimiento, energía y buen ambiente. Espacio amplio.</p>
+                <p style="font-family:var(--nt-font-ui); font-size:.625rem; text-transform:uppercase; letter-spacing:.08em; color:var(--nt-color-stone-300); margin-top:.5rem">clase-prueba-grupal.webp</p>
+              </div>
+            </div>
+            <div style="padding:var(--nt-space-lg)">
+              <span style="display:inline-block; background:var(--nt-color-green-100); color:var(--nt-color-green-700); font-family:var(--nt-font-ui); font-size:.75rem; font-weight:600; padding:.2rem .875rem; border-radius:99px; margin-bottom:var(--nt-space-md)">Gratis</span>
+              <h3 style="font-family:var(--nt-font-display); font-size:1.5rem; font-weight:700; color:var(--nt-color-green-900); margin-bottom:var(--nt-space-sm)">Clase de entrenamiento de prueba</h3>
+              <p style="font-family:var(--nt-font-body); font-size:.9375rem; line-height:1.7; color:var(--nt-text-muted); margin-bottom:var(--nt-space-md)">
+                Cualquier clase de las programadas durante la semana, sujeta a aforo disponible (grupos de máximo 10 personas). Para probar el espacio, el estilo y el equipo antes de decidir. Sin compromiso.
+              </p>
+              <a href={`${base}/contacto`} style="display:inline-flex; align-items:center; background:var(--nt-color-green-800); color:var(--nt-color-stone-50); font-family:var(--nt-font-ui); font-weight:500; font-size:.9375rem; padding:.75rem 1.75rem; border-radius:3px; text-decoration:none">
+                Reservar clase gratuita
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── LOS PLANES ───────────────────────────────────── -->
+    <section id="planes" style="padding:var(--nt-space-3xl) var(--nt-space-md); background:var(--nt-bg)">
+      <div style="max-width:var(--nt-container); margin:0 auto">
+
+        <div style="text-align:center; max-width:36rem; margin:0 auto var(--nt-space-2xl)">
+          <p style="font-family:var(--nt-font-ui); font-size:.75rem; font-weight:500; text-transform:uppercase; letter-spacing:.14em; color:var(--nt-highlight); margin-bottom:var(--nt-space-sm)">
+            Suscripciones mensuales
+          </p>
+          <h2 style="font-family:var(--nt-font-display); font-size:clamp(1.75rem,3vw,2.5rem); font-weight:700; letter-spacing:-.02em; color:var(--nt-color-green-900); margin-bottom:var(--nt-space-md)">
+            Elige tu nivel de acompañamiento
+          </h2>
+          <p style="font-family:var(--nt-font-body); font-size:1rem; line-height:1.75; color:var(--nt-text-muted)">
+            Todos los planes incluyen la consulta base inicial con José Miguel. Ninguno tiene matrícula ni permanencia.
+          </p>
+        </div>
+
+        <div class="plans-grid">
+          {plans.map((plan) => (
+            <article style={`
+              background: ${plan.highlighted ? 'var(--nt-color-green-900)' : 'var(--nt-bg)'};
+              border: ${plan.highlighted ? '2px solid var(--nt-color-green-600)' : '1px solid var(--nt-border)'};
+              border-radius: 4px;
+              overflow: hidden;
+              display: flex;
+              flex-direction: column;
+              position: relative;
+            `}>
+
+              <!-- Badge "Más popular" -->
+              {plan.highlighted && (
+                <div style="position:absolute; top:1rem; right:1rem; background:var(--nt-color-earth-500); color:white; font-family:var(--nt-font-ui); font-size:.6875rem; font-weight:600; text-transform:uppercase; letter-spacing:.08em; padding:.25rem .75rem; border-radius:99px">
+                  Más popular
+                </div>
+              )}
+
+              <!-- Imagen placeholder -->
+              <div style={`aspect-ratio:16/9; background:${plan.highlighted ? 'rgba(255,255,255,.06)' : 'var(--nt-color-stone-100)'}; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.75rem; padding:1.25rem; text-align:center; border-bottom:1px solid ${plan.highlighted ? 'rgba(255,255,255,.08)' : 'var(--nt-border)'}`} aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" style={`color:${plan.highlighted ? 'rgba(255,255,255,.2)' : 'var(--nt-color-stone-300)'}`}><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                <p style={`font-family:var(--nt-font-ui); font-size:.6875rem; line-height:1.5; max-width:16rem; color:${plan.highlighted ? 'rgba(255,255,255,.25)' : 'var(--nt-text-muted)'}`}>{plan.imgDesc}</p>
+                <p style={`font-family:var(--nt-font-ui); font-size:.625rem; text-transform:uppercase; letter-spacing:.08em; color:${plan.highlighted ? 'rgba(255,255,255,.15)' : 'var(--nt-color-stone-300)'}`}>{plan.imgFile}</p>
+              </div>
+
+              <!-- Contenido -->
+              <div style="padding:var(--nt-space-lg); display:flex; flex-direction:column; flex:1; gap:var(--nt-space-md)">
+
+                <!-- Eyebrow + nombre -->
+                <div>
+                  <p style={`font-family:var(--nt-font-ui); font-size:.7rem; font-weight:500; text-transform:uppercase; letter-spacing:.12em; margin-bottom:.375rem; color:${plan.highlighted ? 'var(--nt-color-earth-400)' : 'var(--nt-highlight)'}`}>{plan.eyebrow}</p>
+                  <h3 style={`font-family:var(--nt-font-display); font-size:1.75rem; font-weight:700; line-height:1.1; color:${plan.highlighted ? 'var(--nt-color-stone-50)' : 'var(--nt-color-green-900)'}`}>
+                    Nutroteca {plan.name}
+                  </h3>
+                </div>
+
+                <!-- Precio -->
+                <div style={`padding:var(--nt-space-md) 0; border-top:1px solid ${plan.highlighted ? 'rgba(255,255,255,.08)' : 'var(--nt-border)'}; border-bottom:1px solid ${plan.highlighted ? 'rgba(255,255,255,.08)' : 'var(--nt-border)'}`}>
+                  <div style="display:flex; align-items:baseline; gap:.375rem">
+                    <span style={`font-family:var(--nt-font-display); font-size:3rem; font-weight:800; line-height:1; color:${plan.highlighted ? 'var(--nt-color-stone-50)' : 'var(--nt-color-green-900)'}`}>{plan.price}€</span>
+                    <span style={`font-family:var(--nt-font-ui); font-size:.875rem; color:${plan.highlighted ? 'var(--nt-color-stone-400)' : 'var(--nt-text-muted)'}`}>/{plan.unit}</span>
+                  </div>
+                  <p style={`font-family:var(--nt-font-ui); font-size:.75rem; margin-top:.25rem; color:${plan.highlighted ? 'var(--nt-color-stone-400)' : 'var(--nt-text-muted)'}`}>Sin matrícula · Sin permanencia</p>
+                </div>
+
+                <!-- Para quién -->
+                <p style={`font-family:var(--nt-font-body); font-size:.9375rem; line-height:1.6; color:${plan.highlighted ? 'var(--nt-color-stone-300)' : 'var(--nt-text-muted)'}`}>{plan.forWhom}</p>
+
+                <!-- Features -->
+                <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.5rem; flex:1">
+                  {plan.features.map(({ label, value }) => (
+                    <li style={`display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:.5rem 0; border-bottom:1px solid ${plan.highlighted ? 'rgba(255,255,255,.06)' : 'var(--nt-border)'}`}>
+                      <span style={`font-family:var(--nt-font-body); font-size:.875rem; line-height:1.4; color:${plan.highlighted ? 'var(--nt-color-stone-300)' : 'var(--nt-text-muted)'}`}>{label}</span>
+                      <span style={`font-family:var(--nt-font-ui); font-size:.8125rem; font-weight:500; text-align:right; flex-shrink:0; color:${value === '—' ? (plan.highlighted ? 'rgba(255,255,255,.2)' : 'var(--nt-color-stone-300)') : (plan.highlighted ? 'var(--nt-color-green-400)' : 'var(--nt-color-green-700)')}`}>{value}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <!-- CTA -->
+                <a href={`${base}/contacto`} style={`display:inline-flex; align-items:center; justify-content:center; font-family:var(--nt-font-ui); font-weight:600; font-size:.9375rem; padding:.875rem 1.75rem; border-radius:3px; text-decoration:none; margin-top:auto; ${plan.highlighted ? 'background:var(--nt-color-stone-50); color:var(--nt-color-green-900)' : 'background:var(--nt-color-green-800); color:var(--nt-color-stone-50)'}`}>
+                  {plan.cta}
+                </a>
+
+              </div>
+            </article>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── TABLA COMPARATIVA ─────────────────────────────── -->
+    <section style="padding:var(--nt-space-3xl) var(--nt-space-md); background:var(--nt-bg-muted); border-top:1px solid var(--nt-border)">
+      <div style="max-width:var(--nt-container); margin:0 auto">
+
+        <div style="text-align:center; max-width:32rem; margin:0 auto var(--nt-space-2xl)">
+          <p style="font-family:var(--nt-font-ui); font-size:.75rem; font-weight:500; text-transform:uppercase; letter-spacing:.14em; color:var(--nt-highlight); margin-bottom:var(--nt-space-sm)">Comparativa</p>
+          <h2 style="font-family:var(--nt-font-display); font-size:clamp(1.5rem,2.5vw,2rem); font-weight:700; letter-spacing:-.02em; color:var(--nt-color-green-900)">¿Qué incluye cada plan?</h2>
+        </div>
+
+        <div style="overflow-x:auto; -webkit-overflow-scrolling:touch">
+          <table style="width:100%; border-collapse:collapse; min-width:560px">
+            <thead>
+              <tr>
+                <th scope="col" style="text-align:left; padding:var(--nt-space-md) var(--nt-space-md) var(--nt-space-md) 0; font-family:var(--nt-font-ui); font-size:.75rem; font-weight:500; text-transform:uppercase; letter-spacing:.1em; color:var(--nt-text-muted); border-bottom:2px solid var(--nt-border); min-width:14rem">Incluye</th>
+                {['Esencial', 'Integral', 'Premium'].map((name, i) => (
+                  <th scope="col" style={`text-align:center; padding:var(--nt-space-md); font-family:var(--nt-font-display); font-size:1rem; font-weight:700; color:${i === 1 ? 'var(--nt-color-green-900)' : 'var(--nt-color-green-900)'}; border-bottom:${i === 1 ? '3px solid var(--nt-color-green-700)' : '2px solid var(--nt-border)'}; background:${i === 1 ? 'var(--nt-color-green-100)' : 'transparent'}; min-width:8rem`}>
+                    {name}
+                    <span style={`display:block; font-family:var(--nt-font-ui); font-size:.75rem; font-weight:500; margin-top:.25rem; color:var(--nt-text-muted)`}>
+                      {i === 0 ? '79€/mes' : i === 1 ? '129€/mes' : '189€/mes'}
+                    </span>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {compRows.map(({ feature, esencial, integral, premium }, i) => (
+                <tr style={`background:${i % 2 === 0 ? 'rgba(255,255,255,.5)' : 'transparent'}`}>
+                  <td style="padding:.875rem var(--nt-space-md) .875rem 0; font-family:var(--nt-font-body); font-size:.9375rem; color:var(--nt-color-green-900); border-bottom:1px solid var(--nt-border)">{feature}</td>
+                  <td style="text-align:center; padding:.875rem; border-bottom:1px solid var(--nt-border)">
+                    <span style={`font-family:var(--nt-font-ui); font-size:${esencial === '✓' || esencial === '—' ? '1.125rem' : '.8125rem'}; font-weight:500; color:${cellColor(esencial)}`}>{esencial}</span>
+                  </td>
+                  <td style="text-align:center; padding:.875rem; border-bottom:1px solid var(--nt-color-green-100); background:var(--nt-color-green-100)">
+                    <span style={`font-family:var(--nt-font-ui); font-size:${integral === '✓' || integral === '—' ? '1.125rem' : '.8125rem'}; font-weight:500; color:${cellColor(integral)}`}>{integral}</span>
+                  </td>
+                  <td style="text-align:center; padding:.875rem; border-bottom:1px solid var(--nt-border)">
+                    <span style={`font-family:var(--nt-font-ui); font-size:${premium === '✓' || premium === '—' ? '1.125rem' : '.8125rem'}; font-weight:500; color:${cellColor(premium)}`}>{premium}</span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── VCI ───────────────────────────────────────────── -->
+    <section class="nt-grain" style="background:var(--nt-gradient-earth); padding:var(--nt-space-3xl) var(--nt-space-md); border-top:1px solid var(--nt-border)">
+      <div style="max-width:var(--nt-container); margin:0 auto; position:relative; z-index:2">
+
+        <div class="vci-intro-grid">
+          <!-- Foto Erika placeholder -->
+          <div aria-hidden="true">
+            <div style="border-radius:4px; overflow:hidden; border:1px solid var(--nt-border)">
+              <div style="aspect-ratio:3/4; background:var(--nt-color-earth-100); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem; padding:2rem; text-align:center">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" style="color:var(--nt-color-earth-400)"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                <div>
+                  <p style="font-family:var(--nt-font-ui); font-size:.8125rem; font-weight:500; color:var(--nt-color-earth-600); margin-bottom:.375rem">Erika · Enfermera</p>
+                  <p style="font-family:var(--nt-font-ui); font-size:.6875rem; color:var(--nt-text-muted); max-width:14rem; line-height:1.5">Retrato profesional de Erika en contexto de enfermería o consulta. Cálido, cercano. No quirófano.</p>
+                  <p style="font-family:var(--nt-font-ui); font-size:.625rem; text-transform:uppercase; letter-spacing:.08em; color:var(--nt-color-stone-300); margin-top:.5rem">erika-vci.webp</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Texto VCI -->
+          <div>
+            <p style="font-family:var(--nt-font-ui); font-size:.75rem; font-weight:500; text-transform:uppercase; letter-spacing:.14em; color:var(--nt-color-earth-600); margin-bottom:var(--nt-space-sm)">Servicio diferencial</p>
+            <h2 style="font-family:var(--nt-font-display); font-size:clamp(1.75rem,3vw,2.5rem); font-weight:700; letter-spacing:-.02em; color:var(--nt-color-green-900); margin-bottom:var(--nt-space-md)">
+              Valoración Clínica Inicial (VCI)
+            </h2>
+            <p style="font-family:var(--nt-font-body); font-size:1rem; line-height:1.75; color:var(--nt-text-muted); margin-bottom:var(--nt-space-md)">
+              A cargo de Erika — enfermera con Máster en Enfermería del Deporte. No es una consulta médica, es una valoración de enfermería especializada en deporte y hábitos de salud. Puedes contratarla antes de suscribirte, al mismo tiempo o en cualquier momento del proceso.
+            </p>
+
+            <div class="vci-cards-grid">
+
+              <!-- VCI Básica -->
+              <div style="background:var(--nt-bg); border:1px solid var(--nt-border); border-radius:4px; padding:var(--nt-space-lg)">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:var(--nt-space-md)">
+                  <div>
+                    <p style="font-family:var(--nt-font-ui); font-size:.7rem; font-weight:500; text-transform:uppercase; letter-spacing:.1em; color:var(--nt-highlight); margin-bottom:.375rem">VCI Básica</p>
+                    <h3 style="font-family:var(--nt-font-display); font-size:1.375rem; font-weight:700; color:var(--nt-color-green-900)">Valoración de base</h3>
+                  </div>
+                  <span style="font-family:var(--nt-font-display); font-size:2rem; font-weight:800; color:var(--nt-color-green-900); white-space:nowrap">59€</span>
+                </div>
+                <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.5rem">
+                  {[
+                    'Anamnesis de enfermería deportiva',
+                    'Composición corporal: bioimpedancia, plicometría y contornos',
+                    'Revisión de analíticas aportadas por tu médico',
+                    'Informe de resultados con orientación de hábitos',
+                  ].map(item => (
+                    <li style="display:flex; gap:.75rem; align-items:flex-start; font-family:var(--nt-font-body); font-size:.875rem; line-height:1.5; color:var(--nt-text-muted)">
+                      <span style="color:var(--nt-color-green-500); flex-shrink:0; margin-top:.1rem">◆</span>{item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <!-- VCI Completa -->
+              <div style="background:var(--nt-color-green-900); border:1px solid var(--nt-color-green-700); border-radius:4px; padding:var(--nt-space-lg)">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:var(--nt-space-md)">
+                  <div>
+                    <p style="font-family:var(--nt-font-ui); font-size:.7rem; font-weight:500; text-transform:uppercase; letter-spacing:.1em; color:var(--nt-color-earth-400); margin-bottom:.375rem">VCI Completa</p>
+                    <h3 style="font-family:var(--nt-font-display); font-size:1.375rem; font-weight:700; color:var(--nt-color-stone-50)">Valoración completa</h3>
+                  </div>
+                  <span style="font-family:var(--nt-font-display); font-size:2rem; font-weight:800; color:var(--nt-color-stone-50); white-space:nowrap">129€</span>
+                </div>
+                <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.5rem; margin-bottom:var(--nt-space-md)">
+                  {[
+                    'Todo lo incluido en la VCI Básica',
+                    'ECG en reposo',
+                    'Espirometría básica',
+                    'Analítica nueva con orientación del médico del deporte colaborador',
+                    'Informe completo con recomendaciones integradas',
+                  ].map(item => (
+                    <li style="display:flex; gap:.75rem; align-items:flex-start; font-family:var(--nt-font-body); font-size:.875rem; line-height:1.5; color:var(--nt-color-stone-300)">
+                      <span style="color:var(--nt-color-green-400); flex-shrink:0; margin-top:.1rem">◆</span>{item}
+                    </li>
+                  ))}
+                </ul>
+                <p style="font-family:var(--nt-font-ui); font-size:.75rem; color:var(--nt-color-stone-500); font-style:italic; padding-top:var(--nt-space-sm); border-top:1px solid rgba(255,255,255,.08)">
+                  Incluida una vez al año en el plan Premium. Disponible como servicio independiente para cualquier plan.
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── SERVICIOS SUELTOS ─────────────────────────────── -->
+    <section style="padding:var(--nt-space-3xl) var(--nt-space-md); background:var(--nt-bg)">
+      <div style="max-width:var(--nt-container); margin:0 auto">
+
+        <div style="max-width:36rem; margin-bottom:var(--nt-space-2xl)">
+          <p style="font-family:var(--nt-font-ui); font-size:.75rem; font-weight:500; text-transform:uppercase; letter-spacing:.14em; color:var(--nt-highlight); margin-bottom:var(--nt-space-sm)">Sin suscripción</p>
+          <h2 style="font-family:var(--nt-font-display); font-size:clamp(1.75rem,3vw,2.5rem); font-weight:700; letter-spacing:-.02em; color:var(--nt-color-green-900); margin-bottom:var(--nt-space-md)">Servicios por separado</h2>
+          <p style="font-family:var(--nt-font-body); font-size:1rem; line-height:1.75; color:var(--nt-text-muted)">Para quienes prefieren contratar algo concreto sin compromiso, o añadir servicios extra a su plan.</p>
+        </div>
+
+        <div class="services-grid">
+
+          <!-- Nutrición -->
+          <div style="background:var(--nt-bg-muted); border:1px solid var(--nt-border); border-radius:4px; overflow:hidden">
+            <div style="padding:var(--nt-space-md) var(--nt-space-lg); background:var(--nt-color-green-900); display:flex; align-items:center; gap:var(--nt-space-sm)">
+              <span style="font-size:1.25rem" aria-hidden="true">🥗</span>
+              <h3 style="font-family:var(--nt-font-display); font-size:1.25rem; font-weight:700; color:var(--nt-color-stone-50)">Nutrición</h3>
+            </div>
+            <div style="padding:var(--nt-space-md) var(--nt-space-lg)">
+              {[
+                { label: 'Consulta inicial de nutrición',    duration: '45 min',  price: '55€' },
+                { label: 'Consulta de seguimiento',          duration: '30 min',  price: '35€' },
+                { label: 'Bono 10 consultas de seguimiento', duration: '—',       price: '290€ (~29€/u)' },
+              ].map(({ label, duration, price }) => (
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:.75rem 0; border-bottom:1px solid var(--nt-border); gap:1rem">
+                  <div>
+                    <p style="font-family:var(--nt-font-body); font-size:.9375rem; color:var(--nt-color-green-900)">{label}</p>
+                    {duration !== '—' && <p style="font-family:var(--nt-font-ui); font-size:.75rem; color:var(--nt-text-muted)">{duration}</p>}
+                  </div>
+                  <span style="font-family:var(--nt-font-display); font-size:1.125rem; font-weight:700; color:var(--nt-color-green-900); white-space:nowrap; flex-shrink:0">{price}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Entrenamiento -->
+          <div style="background:var(--nt-bg-muted); border:1px solid var(--nt-border); border-radius:4px; overflow:hidden">
+            <div style="padding:var(--nt-space-md) var(--nt-space-lg); background:var(--nt-color-green-900); display:flex; align-items:center; gap:var(--nt-space-sm)">
+              <span style="font-size:1.25rem" aria-hidden="true">🏃</span>
+              <h3 style="font-family:var(--nt-font-display); font-size:1.25rem; font-weight:700; color:var(--nt-color-stone-50)">Entrenamiento</h3>
+            </div>
+            <div style="padding:var(--nt-space-md) var(--nt-space-lg)">
+              {[
+                { label: 'Sesión grupal suelta',             duration: '1h',      price: '12€' },
+                { label: 'Bono 10 sesiones grupales',        duration: '—',       price: '90€ (~9€/u)' },
+                { label: 'Sesión de entrenamiento personal', duration: '1h',      price: '45€' },
+                { label: 'Bono 10 sesiones personales',      duration: '—',       price: '380€ (~38€/u)' },
+              ].map(({ label, duration, price }) => (
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:.75rem 0; border-bottom:1px solid var(--nt-border); gap:1rem">
+                  <div>
+                    <p style="font-family:var(--nt-font-body); font-size:.9375rem; color:var(--nt-color-green-900)">{label}</p>
+                    {duration !== '—' && <p style="font-family:var(--nt-font-ui); font-size:.75rem; color:var(--nt-text-muted)">{duration}</p>}
+                  </div>
+                  <span style="font-family:var(--nt-font-display); font-size:1.125rem; font-weight:700; color:var(--nt-color-green-900); white-space:nowrap; flex-shrink:0">{price}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- VCI servicios sueltos -->
+          <div style="background:var(--nt-bg-muted); border:1px solid var(--nt-border); border-radius:4px; overflow:hidden">
+            <div style="padding:var(--nt-space-md) var(--nt-space-lg); background:var(--nt-color-earth-700); display:flex; align-items:center; gap:var(--nt-space-sm)">
+              <span style="font-size:1.25rem" aria-hidden="true">📋</span>
+              <h3 style="font-family:var(--nt-font-display); font-size:1.25rem; font-weight:700; color:var(--nt-color-stone-50)">Valoración VCI</h3>
+            </div>
+            <div style="padding:var(--nt-space-md) var(--nt-space-lg)">
+              {[
+                { label: 'VCI Básica',    sub: 'Anamnesis + composición corporal + informe',              price: '59€' },
+                { label: 'VCI Completa',  sub: 'VCI Básica + ECG + espirometría + analítica con médico',  price: '129€' },
+              ].map(({ label, sub, price }) => (
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:.75rem 0; border-bottom:1px solid var(--nt-border); gap:1rem">
+                  <div>
+                    <p style="font-family:var(--nt-font-body); font-size:.9375rem; color:var(--nt-color-green-900)">{label}</p>
+                    <p style="font-family:var(--nt-font-ui); font-size:.75rem; color:var(--nt-text-muted)">{sub}</p>
+                  </div>
+                  <span style="font-family:var(--nt-font-display); font-size:1.125rem; font-weight:700; color:var(--nt-color-green-900); white-space:nowrap; flex-shrink:0">{price}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Talleres -->
+          <div style="background:var(--nt-bg-muted); border:1px solid var(--nt-border); border-radius:4px; overflow:hidden">
+            <div style="padding:var(--nt-space-md) var(--nt-space-lg); background:var(--nt-color-green-900); display:flex; align-items:center; gap:var(--nt-space-sm)">
+              <span style="font-size:1.25rem" aria-hidden="true">🌱</span>
+              <h3 style="font-family:var(--nt-font-display); font-size:1.25rem; font-weight:700; color:var(--nt-color-stone-50)">Talleres Academy</h3>
+            </div>
+            <div style="padding:var(--nt-space-md) var(--nt-space-lg)">
+              {[
+                { label: 'Taller grupal',                    duration: '90–120 min', price: '20€/persona' },
+                { label: 'Sesión individual bienestar',      duration: '60 min',     price: '50€*' },
+              ].map(({ label, duration, price }) => (
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:.75rem 0; border-bottom:1px solid var(--nt-border); gap:1rem">
+                  <div>
+                    <p style="font-family:var(--nt-font-body); font-size:.9375rem; color:var(--nt-color-green-900)">{label}</p>
+                    <p style="font-family:var(--nt-font-ui); font-size:.75rem; color:var(--nt-text-muted)">{duration}</p>
+                  </div>
+                  <span style="font-family:var(--nt-font-display); font-size:1.125rem; font-weight:700; color:var(--nt-color-green-900); white-space:nowrap; flex-shrink:0">{price}</span>
+                </div>
+              ))}
+              <p style="font-family:var(--nt-font-ui); font-size:.75rem; color:var(--nt-text-muted); font-style:italic; padding-top:var(--nt-space-sm)">* Precio provisional pendiente de revisión</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PLAN DE MANTENIMIENTO ─────────────────────────── -->
+    <section style="padding:var(--nt-space-3xl) var(--nt-space-md); background:var(--nt-bg-muted); border-top:1px solid var(--nt-border)">
+      <div style="max-width:var(--nt-container); margin:0 auto">
+        <div class="maintenance-grid">
+
+          <div>
+            <p style="font-family:var(--nt-font-ui); font-size:.75rem; font-weight:500; text-transform:uppercase; letter-spacing:.14em; color:var(--nt-highlight); margin-bottom:var(--nt-space-sm)">Después del método</p>
+            <h2 style="font-family:var(--nt-font-display); font-size:clamp(1.5rem,2.5vw,2rem); font-weight:700; letter-spacing:-.02em; color:var(--nt-color-green-900); margin-bottom:var(--nt-space-md)">Plan de mantenimiento post-alta</h2>
+            <p style="font-family:var(--nt-font-body); font-size:1rem; line-height:1.75; color:var(--nt-text-muted)">
+              Para quienes han completado el Método Nutroteca y quieren seguir perteneciendo a la comunidad. Una vez que has construido algo, merece la pena cuidarlo.
+            </p>
+          </div>
+
+          <div style="background:var(--nt-bg); border:1px solid var(--nt-border); border-radius:4px; padding:var(--nt-space-lg)">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:var(--nt-space-md)">
+              <h3 style="font-family:var(--nt-font-display); font-size:1.5rem; font-weight:700; color:var(--nt-color-green-900)">Mantenimiento</h3>
+              <span style="font-family:var(--nt-font-display); font-size:2rem; font-weight:800; color:var(--nt-color-green-900)">~79€<span style="font-family:var(--nt-font-ui); font-size:.875rem; font-weight:400; color:var(--nt-text-muted)">/mes</span></span>
+            </div>
+            <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.5rem">
+              {[
+                'Entrenamientos grupales (2 días/semana)',
+                'Talleres Academy según disponibilidad',
+                'Acceso a plataforma Nutroteca',
+                'Solo para clientes que han completado el método',
+              ].map(item => (
+                <li style="display:flex; gap:.75rem; align-items:flex-start; font-family:var(--nt-font-body); font-size:.9375rem; line-height:1.5; color:var(--nt-text-muted)">
+                  <span style="color:var(--nt-color-green-500); flex-shrink:0; margin-top:.1rem">◆</span>{item}
+                </li>
+              ))}
+            </ul>
+            <p style="font-family:var(--nt-font-ui); font-size:.75rem; color:var(--nt-text-muted); font-style:italic; margin-top:var(--nt-space-md); padding-top:var(--nt-space-sm); border-top:1px solid var(--nt-border)">Precio definitivo por confirmar</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SIN PERMANENCIA ───────────────────────────────── -->
+    <section class="nt-grain nt-grain-dark" style="background:var(--nt-gradient-dark); padding:var(--nt-space-3xl) var(--nt-space-md)">
+      <div style="max-width:var(--nt-container); margin:0 auto; position:relative; z-index:2">
+        <div style="text-align:center; max-width:32rem; margin:0 auto var(--nt-space-2xl)">
+          <h2 style="font-family:var(--nt-font-display); font-size:clamp(1.75rem,3vw,2.25rem); font-weight:700; letter-spacing:-.02em; color:var(--nt-color-stone-50); margin-bottom:var(--nt-space-md)">Sin trampa. Sin letra pequeña.</h2>
+          <p style="font-family:var(--nt-font-body); font-size:1rem; line-height:1.75; color:var(--nt-color-stone-400)">Nuestra política de precios es tan sencilla como el método.</p>
+        </div>
+        <div class="policy-grid">
+          {[
+            { icon: '○', title: 'Sin permanencia', body: 'Puedes cancelar tu suscripción en cualquier momento, sin penalización y sin explicaciones.' },
+            { icon: '○', title: 'Sin matrícula', body: 'El primer mes cuesta lo mismo que el duodécimo. No hay cobros de activación ni tasas de entrada.' },
+            { icon: '○', title: 'Cambio de plan libre', body: 'Si quieres subir o bajar de plan, solo pagas la diferencia. Sin penalizaciones y en cualquier momento.' },
+          ].map(({ icon, title, body }) => (
+            <div style="background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:4px; padding:var(--nt-space-lg)">
+              <span style="font-family:var(--nt-font-display); font-size:2rem; color:var(--nt-color-green-600); display:block; margin-bottom:var(--nt-space-md)" aria-hidden="true">{icon}</span>
+              <h3 style="font-family:var(--nt-font-display); font-size:1.375rem; font-weight:700; color:var(--nt-color-stone-50); margin-bottom:var(--nt-space-sm)">{title}</h3>
+              <p style="font-family:var(--nt-font-body); font-size:.9375rem; line-height:1.7; color:var(--nt-color-stone-400)">{body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <CtaFinal />
+
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .hero-pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-2xl);
+    align-items: center;
+  }
+  .hero-pricing-img { display: none; }
+
+  @media (min-width: 900px) {
+    .hero-pricing-grid { grid-template-columns: 1fr 1fr; }
+    .hero-pricing-img { display: block; }
+  }
+
+  .free-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-lg);
+  }
+  @media (min-width: 720px) {
+    .free-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  .plans-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-md);
+  }
+  @media (min-width: 768px) {
+    .plans-grid { grid-template-columns: repeat(3, 1fr); align-items: start; }
+  }
+
+  .vci-intro-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-2xl);
+    align-items: start;
+  }
+  @media (min-width: 900px) {
+    .vci-intro-grid { grid-template-columns: 1fr 2fr; }
+  }
+
+  .vci-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-md);
+    margin-top: var(--nt-space-lg);
+  }
+  @media (min-width: 640px) {
+    .vci-cards-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-md);
+  }
+  @media (min-width: 640px) {
+    .services-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  .maintenance-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-2xl);
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .maintenance-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  .policy-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-md);
+  }
+  @media (min-width: 768px) {
+    .policy-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
