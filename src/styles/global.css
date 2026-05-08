@@ -36,7 +36,7 @@
 
     /* ─── Tipografía ──────────────────────────────────── */
     --nt-font-display: 'Playfair Display', Georgia, serif;
-    --nt-font-body:    'Source Serif 4', Georgia, serif;
+    --nt-font-body:    'DM Sans', system-ui, sans-serif;
     --nt-font-ui:      'DM Sans', system-ui, sans-serif;
 
     /* ─── Espaciado ───────────────────────────────────── */
