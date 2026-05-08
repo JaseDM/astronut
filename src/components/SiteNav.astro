@@ -3,11 +3,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const currentPath = Astro.url.pathname;
 
 const links = [
-  { href: `${base}/metodologia`, label: 'Metodología' },
-  { href: `${base}/precios`,     label: 'Precios' },
-  { href: `${base}/alimentos`,   label: 'Alimentos' },
-  { href: `${base}/herramientas`,label: 'Herramientas' },
-  { href: `${base}/blog`,        label: 'Blog' },
+  { href: `${base}/nutricion`,              label: 'Nutrición' },
+  { href: `${base}/entrenamiento-funcional`,label: 'Entrenamiento' },
+  { href: `${base}/metodologia`,            label: 'Método' },
+  { href: `${base}/precios`,                label: 'Precios' },
+  { href: `${base}/alimentos`,              label: 'Alimentos' },
+  { href: `${base}/herramientas`,           label: 'Herramientas' },
+  { href: `${base}/blog`,                   label: 'Blog' },
 ];
 ---
 
@@ -58,7 +60,7 @@ const links = [
         list-style: none;
         margin: 0;
         padding: 0;
-        gap: var(--nt-space-lg);
+        gap: 1.25rem;
         align-items: center;
       "
       class="nav-links"

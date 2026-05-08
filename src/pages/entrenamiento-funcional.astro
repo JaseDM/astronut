@@ -1,0 +1,782 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaFinal from '../components/CtaFinal.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const siteUrl = 'https://nutroteca.es';
+
+const principios = [
+  {
+    num: '01',
+    titulo: 'Movimiento funcional, no estético',
+    desc: 'El objetivo no es cómo te ves en el espejo. Es que puedas subir escaleras sin fatiga, cargar la compra, jugar con tus nietos o caminar una hora sin dolor. La función primero, siempre.',
+  },
+  {
+    num: '02',
+    titulo: 'Adaptado a tu punto de partida real',
+    desc: 'No hay dos programas iguales porque no hay dos cuerpos iguales. La valoración inicial determina la intensidad, los ejercicios y las progresiones adecuadas para ti, no para un perfil teórico.',
+  },
+  {
+    num: '03',
+    titulo: 'Grupos pequeños, atención real',
+    desc: 'Máximo 10 personas por sesión. No es un gimnasio masivo donde eres un número. Es un espacio donde el entrenador conoce tu historial, tus limitaciones y cómo estás cada día.',
+  },
+  {
+    num: '04',
+    titulo: 'Coordinado con tu plan nutricional',
+    desc: 'Lo que entrenas determina lo que comes. Lo que comes afecta cómo entrenas. El programa de entrenamiento y el plan nutricional se diseñan juntos y se ajustan juntos. No son servicios paralelos.',
+  },
+];
+
+const queTrabajas = [
+  {
+    categoria: 'Movilidad y flexibilidad',
+    desc: 'Recuperar y mantener el rango de movimiento articular. Reducir rigidez. Mejorar la calidad del movimiento cotidiano.',
+  },
+  {
+    categoria: 'Fuerza funcional',
+    desc: 'Construir músculo con sentido práctico: los patrones de empuje, tracción, bisagra de cadera, sentadilla y carga que usas cada día.',
+  },
+  {
+    categoria: 'Equilibrio y coordinación',
+    desc: 'Prevención de caídas. Mejora de la propiocepción. Trabajo de estabilidad que protege articulaciones y reduce riesgo de lesión.',
+  },
+  {
+    categoria: 'Capacidad cardiovascular',
+    desc: 'No correr maratones. Tener el fondo suficiente para vivir activo sin fatigarte, con ejercicio adaptado a tu condición cardiorrespiratoria actual.',
+  },
+  {
+    categoria: 'Composición corporal',
+    desc: 'El entrenamiento de fuerza es el aliado principal de la nutrición para mejorar la composición corporal: más masa muscular, menos grasa, mejor metabolismo.',
+  },
+  {
+    categoria: 'Adherencia a largo plazo',
+    desc: 'El mejor programa es el que puedes mantener. Trabajamos para que el movimiento deje de ser una obligación y se convierta en algo que quieres hacer.',
+  },
+];
+
+const paraQuien = [
+  'Tienes más de 45 años y llevas tiempo sin moverte o con movimiento irregular',
+  'Has probado gimnasios o clases sin saber si lo que hacías tenía sentido para ti',
+  'Tienes limitaciones físicas, dolores o patologías que hacen inviable el entrenamiento estándar',
+  'Quieres perder peso pero sabes que sin músculo el resultado no dura',
+  'Buscas una actividad que puedas hacer 10 o 20 años, no solo 3 meses',
+  'Quieres que el entrenamiento esté alineado con tu plan de nutrición y salud',
+];
+
+const formato = [
+  { label: 'Modalidad', value: 'Grupal presencial (Asturias) + online' },
+  { label: 'Tamaño de grupo', value: 'Máximo 10 personas' },
+  { label: 'Frecuencia', value: '2–3 sesiones por semana' },
+  { label: 'Duración por sesión', value: '50–60 minutos' },
+  { label: 'Equipo necesario', value: 'Proporcionado en consulta' },
+  { label: 'Nivel de partida', value: 'Cualquiera — se adapta a ti' },
+];
+
+// Schema.org
+const schemaBreadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Nutroteca', item: siteUrl },
+    { '@type': 'ListItem', position: 2, name: 'Entrenamiento Funcional', item: `${siteUrl}/entrenamiento-funcional` },
+  ],
+};
+
+const schemaService = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Entrenamiento Funcional — Nutroteca',
+  description: 'Entrenamiento funcional orientado a mejorar el movimiento, la autonomía y la calidad de vida. Grupos pequeños, adaptado a mayores de 45 años, coordinado con nutrición clínica.',
+  provider: {
+    '@type': 'LocalBusiness',
+    name: 'Nutroteca',
+    url: siteUrl,
+    areaServed: ['Asturias', 'España'],
+  },
+  serviceType: 'Entrenamiento funcional',
+  areaServed: 'España',
+};
+---
+
+<BaseLayout
+  title="Entrenamiento Funcional — Movimiento para la vida real"
+  description="Entrenamiento funcional en grupos pequeños, adaptado a mayores de 45 años y coordinado con tu plan nutricional. No fitness estético: movimiento con propósito para vivir mejor. Nutroteca, Asturias."
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaBreadcrumb)} slot="head" />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaService)} slot="head" />
+
+  <SiteNav />
+
+  <main>
+
+    <!-- ─── HERO ───────────────────────────────────────────── -->
+    <section
+      class="nt-grain nt-grain-dark nt-hex-pattern"
+      style="
+        background: var(--nt-gradient-dark);
+        padding: calc(var(--nt-space-3xl) + 4rem) var(--nt-space-md) var(--nt-space-3xl);
+        position: relative;
+      "
+    >
+      <div style="max-width: var(--nt-container); margin: 0 auto; position: relative; z-index: 2">
+
+        <!-- Breadcrumb -->
+        <nav aria-label="Ruta de navegación" style="margin-bottom: var(--nt-space-lg)">
+          <ol style="display: flex; gap: 0.5rem; align-items: center; list-style: none; padding: 0; margin: 0; font-family: var(--nt-font-ui); font-size: 0.8125rem; color: var(--nt-color-green-400)">
+            <li><a href={`${base}/`} style="color: var(--nt-color-green-400); text-decoration: none">Inicio</a></li>
+            <li aria-hidden="true" style="opacity: 0.4">·</li>
+            <li style="color: var(--nt-color-stone-300)">Entrenamiento Funcional</li>
+          </ol>
+        </nav>
+
+        <div class="hero-grid">
+          <!-- Columna izquierda: texto -->
+          <div>
+            <p style="
+              font-family: var(--nt-font-ui);
+              font-size: 0.75rem;
+              font-weight: 500;
+              text-transform: uppercase;
+              letter-spacing: 0.14em;
+              color: var(--nt-color-earth-400);
+              margin-bottom: var(--nt-space-md);
+            ">
+              Pilar 02 — Entrenamiento
+            </p>
+
+            <h1 style="
+              font-family: var(--nt-font-display);
+              font-size: clamp(2.25rem, 5vw, 4rem);
+              font-weight: 800;
+              line-height: 1.1;
+              letter-spacing: -0.025em;
+              color: var(--nt-color-stone-50);
+              margin-bottom: var(--nt-space-lg);
+            ">
+              Entrenar para vivir,<br />
+              <em style="font-style: italic; color: var(--nt-color-earth-400)">no para competir.</em>
+            </h1>
+
+            <p style="
+              font-family: var(--nt-font-body);
+              font-size: clamp(1rem, 1.75vw, 1.1875rem);
+              line-height: 1.75;
+              color: var(--nt-color-stone-300);
+              margin-bottom: var(--nt-space-xl);
+              max-width: 38rem;
+            ">
+              El entrenamiento funcional en Nutroteca no va de marcas, de cuerpos perfectos ni de sufrir en el gimnasio.
+              Va de recuperar o mantener la capacidad de moverte bien, de tener energía, de envejecer activo.
+              Y de hacerlo coordinado con tu nutrición, porque los dos se necesitan.
+            </p>
+
+            <div style="display: flex; flex-wrap: wrap; gap: var(--nt-space-md)">
+              <a
+                href={`${base}/contacto`}
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  background: var(--nt-color-stone-50);
+                  color: var(--nt-color-green-900);
+                  font-family: var(--nt-font-ui);
+                  font-weight: 600;
+                  font-size: 0.9375rem;
+                  padding: 0.75rem 1.75rem;
+                  border-radius: 3px;
+                  text-decoration: none;
+                "
+              >
+                Primera consulta gratuita
+              </a>
+              <a
+                href={`${base}/precios`}
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  color: var(--nt-color-stone-400);
+                  font-family: var(--nt-font-ui);
+                  font-weight: 500;
+                  font-size: 0.9375rem;
+                  text-decoration: none;
+                "
+              >
+                Ver planes y precios →
+              </a>
+            </div>
+          </div>
+
+          <!-- Columna derecha: formato en cards -->
+          <div style="
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 4px;
+            overflow: hidden;
+          ">
+            <div style="
+              padding: var(--nt-space-md) var(--nt-space-lg);
+              border-bottom: 1px solid rgba(255,255,255,0.06);
+            ">
+              <p style="font-family: var(--nt-font-ui); font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--nt-color-green-400)">
+                Formato
+              </p>
+            </div>
+            {formato.map(({ label, value }) => (
+              <div style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.875rem var(--nt-space-lg);
+                border-bottom: 1px solid rgba(255,255,255,0.06);
+                gap: var(--nt-space-md);
+              ">
+                <span style="font-family: var(--nt-font-ui); font-size: 0.875rem; color: var(--nt-color-stone-500)">{label}</span>
+                <span style="font-family: var(--nt-font-ui); font-size: 0.875rem; font-weight: 500; color: var(--nt-color-stone-200); text-align: right">{value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── QUÉ ES / QUÉ NO ES ────────────────────────────── -->
+    <section style="
+      padding: var(--nt-space-3xl) var(--nt-space-md);
+      background: var(--nt-bg);
+    ">
+      <div style="max-width: var(--nt-container); margin: 0 auto">
+        <div class="intro-grid">
+
+          <div>
+            <p style="
+              font-family: var(--nt-font-ui);
+              font-size: 0.75rem;
+              font-weight: 500;
+              text-transform: uppercase;
+              letter-spacing: 0.14em;
+              color: var(--nt-highlight);
+              margin-bottom: var(--nt-space-sm);
+            ">Nuestra forma de entender el movimiento</p>
+
+            <h2 style="
+              font-family: var(--nt-font-display);
+              font-size: clamp(1.75rem, 3vw, 2.5rem);
+              font-weight: 700;
+              line-height: 1.15;
+              letter-spacing: -0.02em;
+              color: var(--nt-color-green-900);
+              margin-bottom: var(--nt-space-md);
+            ">
+              El músculo no es vanidad.<br />
+              <em style="color: var(--nt-highlight); font-style: italic">Es el órgano más importante del envejecimiento.</em>
+            </h2>
+
+            <p style="font-family: var(--nt-font-body); font-size: 1.0625rem; line-height: 1.75; color: var(--nt-text-muted); margin-bottom: var(--nt-space-md)">
+              La evidencia científica es clara: la masa muscular es el predictor más potente de autonomía, salud metabólica y calidad de vida a partir de los 50 años. No es una opinión de fitness. Es fisiología.
+            </p>
+            <p style="font-family: var(--nt-font-body); font-size: 1.0625rem; line-height: 1.75; color: var(--nt-text-muted); margin-bottom: var(--nt-space-md)">
+              A partir de los 30, el cuerpo pierde entre un 3% y un 8% de masa muscular por década si no hace nada para evitarlo. A partir de los 60, ese ritmo se acelera. El entrenamiento de fuerza funcional no es opcional si quieres envejecer bien.
+            </p>
+            <p style="font-family: var(--nt-font-body); font-size: 1.0625rem; line-height: 1.75; color: var(--nt-text-muted)">
+              Pero no cualquier entrenamiento. Uno adaptado a ti, coordinado con tu nutrición y diseñado para durar.
+            </p>
+          </div>
+
+          <!-- Cifras clave -->
+          <div style="
+            display: flex;
+            flex-direction: column;
+            gap: var(--nt-space-md);
+          ">
+            {[
+              {
+                num: '3–8%',
+                label: 'de masa muscular se pierde por década sin entrenamiento de fuerza',
+                bg: 'var(--nt-color-green-900)',
+                numColor: 'var(--nt-color-stone-50)',
+                labelColor: 'var(--nt-color-stone-400)',
+              },
+              {
+                num: '+40%',
+                label: 'de reducción del riesgo de caídas con entrenamiento funcional regular en mayores de 60',
+                bg: 'var(--nt-bg-muted)',
+                numColor: 'var(--nt-color-green-900)',
+                labelColor: 'var(--nt-text-muted)',
+              },
+              {
+                num: '2x',
+                label: 'más eficaz para la composición corporal cuando el entrenamiento y la nutrición están coordinados',
+                bg: 'var(--nt-color-earth-100)',
+                numColor: 'var(--nt-color-earth-700)',
+                labelColor: 'var(--nt-color-earth-600)',
+              },
+            ].map(({ num, label, bg, numColor, labelColor }) => (
+              <div style={`
+                background: ${bg};
+                border: 1px solid var(--nt-border);
+                border-radius: 4px;
+                padding: var(--nt-space-lg);
+              `}>
+                <p style={`font-family: var(--nt-font-display); font-size: 2.25rem; font-weight: 800; color: ${numColor}; line-height: 1; margin-bottom: 0.5rem`}>{num}</p>
+                <p style={`font-family: var(--nt-font-ui); font-size: 0.875rem; color: ${labelColor}; line-height: 1.55; margin: 0`}>{label}</p>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── QUÉ TRABAJAS ──────────────────────────────────── -->
+    <section
+      style="
+        padding: var(--nt-space-3xl) var(--nt-space-md);
+        background: var(--nt-bg-muted);
+        border-top: 1px solid var(--nt-border);
+      "
+      aria-labelledby="que-trabajas-heading"
+    >
+      <div style="max-width: var(--nt-container); margin: 0 auto">
+
+        <div style="max-width: 42rem; margin-bottom: var(--nt-space-2xl)">
+          <p style="
+            font-family: var(--nt-font-ui);
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--nt-highlight);
+            margin-bottom: var(--nt-space-sm);
+          ">Contenido del programa</p>
+          <h2
+            id="que-trabajas-heading"
+            style="
+              font-family: var(--nt-font-display);
+              font-size: clamp(1.75rem, 3vw, 2.5rem);
+              font-weight: 700;
+              line-height: 1.15;
+              letter-spacing: -0.02em;
+              color: var(--nt-color-green-900);
+              margin-bottom: var(--nt-space-md);
+            "
+          >
+            Qué trabajamos en cada sesión
+          </h2>
+          <p style="font-family: var(--nt-font-body); font-size: 1.0625rem; line-height: 1.75; color: var(--nt-text-muted)">
+            Las sesiones no tienen un formato rígido. Se adaptan a las necesidades del grupo y a la fase del proceso en la que está cada persona.
+          </p>
+        </div>
+
+        <div class="que-trabajas-grid">
+          {queTrabajas.map(({ categoria, desc }) => (
+            <article style="
+              background: var(--nt-bg);
+              border: 1px solid var(--nt-border);
+              border-radius: 4px;
+              padding: var(--nt-space-lg);
+            ">
+              <p style="
+                font-family: var(--nt-font-ui);
+                font-size: 0.7rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.12em;
+                color: var(--nt-highlight);
+                margin-bottom: var(--nt-space-sm);
+              ">Área</p>
+              <h3 style="
+                font-family: var(--nt-font-display);
+                font-size: 1.125rem;
+                font-weight: 700;
+                color: var(--nt-color-green-900);
+                margin-bottom: var(--nt-space-md);
+                line-height: 1.3;
+              ">{categoria}</h3>
+              <p style="
+                font-family: var(--nt-font-body);
+                font-size: 0.9375rem;
+                line-height: 1.75;
+                color: var(--nt-text-muted);
+                margin: 0;
+              ">{desc}</p>
+            </article>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── PRINCIPIOS ────────────────────────────────────── -->
+    <section
+      style="
+        padding: var(--nt-space-3xl) var(--nt-space-md);
+        background: var(--nt-bg);
+        border-top: 1px solid var(--nt-border);
+      "
+      aria-labelledby="principios-heading"
+    >
+      <div style="max-width: var(--nt-container); margin: 0 auto">
+
+        <div style="max-width: 42rem; margin-bottom: var(--nt-space-2xl)">
+          <p style="
+            font-family: var(--nt-font-ui);
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--nt-highlight);
+            margin-bottom: var(--nt-space-sm);
+          ">Cómo lo hacemos</p>
+          <h2
+            id="principios-heading"
+            style="
+              font-family: var(--nt-font-display);
+              font-size: clamp(1.75rem, 3vw, 2.5rem);
+              font-weight: 700;
+              line-height: 1.15;
+              letter-spacing: -0.02em;
+              color: var(--nt-color-green-900);
+            "
+          >
+            Los cuatro principios de nuestro entrenamiento
+          </h2>
+        </div>
+
+        <div class="principios-grid">
+          {principios.map((p) => (
+            <div style="
+              display: flex;
+              gap: var(--nt-space-lg);
+              align-items: flex-start;
+              padding: var(--nt-space-lg) 0;
+              border-bottom: 1px solid var(--nt-border);
+            ">
+              <span style="
+                font-family: var(--nt-font-display);
+                font-size: 2rem;
+                font-weight: 800;
+                color: var(--nt-color-stone-200);
+                line-height: 1;
+                flex-shrink: 0;
+                width: 3rem;
+                text-align: right;
+              ">{p.num}</span>
+              <div>
+                <h3 style="
+                  font-family: var(--nt-font-display);
+                  font-size: 1.125rem;
+                  font-weight: 700;
+                  color: var(--nt-color-green-900);
+                  margin-bottom: var(--nt-space-sm);
+                  line-height: 1.3;
+                ">{p.titulo}</h3>
+                <p style="
+                  font-family: var(--nt-font-body);
+                  font-size: 0.9375rem;
+                  line-height: 1.75;
+                  color: var(--nt-text-muted);
+                  margin: 0;
+                ">{p.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── PARA QUIÉN ─────────────────────────────────────── -->
+    <section
+      style="
+        padding: var(--nt-space-3xl) var(--nt-space-md);
+        background: var(--nt-bg-muted);
+        border-top: 1px solid var(--nt-border);
+      "
+      aria-labelledby="para-quien-heading"
+    >
+      <div style="max-width: var(--nt-container); margin: 0 auto">
+        <div class="para-quien-grid">
+
+          <div>
+            <p style="
+              font-family: var(--nt-font-ui);
+              font-size: 0.75rem;
+              font-weight: 500;
+              text-transform: uppercase;
+              letter-spacing: 0.14em;
+              color: var(--nt-highlight);
+              margin-bottom: var(--nt-space-sm);
+            ">¿Es para mí?</p>
+
+            <h2
+              id="para-quien-heading"
+              style="
+                font-family: var(--nt-font-display);
+                font-size: clamp(1.75rem, 3vw, 2.5rem);
+                font-weight: 700;
+                line-height: 1.15;
+                letter-spacing: -0.02em;
+                color: var(--nt-color-green-900);
+                margin-bottom: var(--nt-space-md);
+              "
+            >
+              Para quien quiere moverse<br />
+              <em style="color: var(--nt-highlight); font-style: italic">con criterio, no con prisa.</em>
+            </h2>
+
+            <p style="font-family: var(--nt-font-body); font-size: 1.0625rem; line-height: 1.75; color: var(--nt-text-muted); margin-bottom: var(--nt-space-lg)">
+              No hace falta ninguna condición física de partida. Hace falta querer mejorar y estar dispuesto a seguir un proceso con coherencia.
+            </p>
+
+            <a
+              href={`${base}/contacto`}
+              style="
+                display: inline-flex;
+                align-items: center;
+                background: var(--nt-color-green-800);
+                color: var(--nt-color-stone-50);
+                font-family: var(--nt-font-ui);
+                font-weight: 500;
+                font-size: 0.9375rem;
+                padding: 0.75rem 1.75rem;
+                border-radius: 3px;
+                text-decoration: none;
+              "
+            >
+              Solicitar primera consulta
+            </a>
+          </div>
+
+          <ul style="
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+          ">
+            {paraQuien.map((item) => (
+              <li style="
+                display: flex;
+                gap: var(--nt-space-md);
+                align-items: flex-start;
+                padding: var(--nt-space-md) 0;
+                border-bottom: 1px solid var(--nt-border);
+              ">
+                <span style="
+                  width: 1.5rem;
+                  height: 1.5rem;
+                  background: var(--nt-color-green-100);
+                  border-radius: 99px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  flex-shrink: 0;
+                  margin-top: 0.125rem;
+                ">
+                  <span style="color: var(--nt-color-green-600); font-size: 0.75rem">◆</span>
+                </span>
+                <p style="
+                  font-family: var(--nt-font-body);
+                  font-size: 0.9375rem;
+                  line-height: 1.65;
+                  color: var(--nt-color-green-900);
+                  margin: 0;
+                ">{item}</p>
+              </li>
+            ))}
+          </ul>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── INTEGRACIÓN CON LOS 3 PILARES ─────────────────── -->
+    <section
+      class="nt-grain"
+      style="
+        background: var(--nt-gradient-earth);
+        padding: var(--nt-space-3xl) var(--nt-space-md);
+        border-top: 1px solid var(--nt-border);
+      "
+      aria-labelledby="pilares-heading"
+    >
+      <div style="max-width: var(--nt-container); margin: 0 auto; position: relative; z-index: 2">
+
+        <div style="text-align: center; max-width: 42rem; margin: 0 auto var(--nt-space-2xl)">
+          <p style="
+            font-family: var(--nt-font-ui);
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--nt-color-earth-600);
+            margin-bottom: var(--nt-space-sm);
+          ">El sistema completo</p>
+          <h2
+            id="pilares-heading"
+            style="
+              font-family: var(--nt-font-display);
+              font-size: clamp(1.75rem, 3vw, 2.5rem);
+              font-weight: 700;
+              line-height: 1.15;
+              letter-spacing: -0.02em;
+              color: var(--nt-color-green-900);
+              margin-bottom: var(--nt-space-md);
+            "
+          >
+            El entrenamiento solo tampoco es suficiente
+          </h2>
+          <p style="font-family: var(--nt-font-body); font-size: 1.0625rem; line-height: 1.75; color: var(--nt-text-muted)">
+            En Nutroteca el entrenamiento no vive en un silo. Se diseña y ajusta junto al plan nutricional y al trabajo emocional porque el cuerpo funciona como un sistema, no por compartimentos.
+          </p>
+        </div>
+
+        <div class="pilares-grid">
+          {[
+            {
+              pilar: 'Entrenamiento + Nutrición',
+              desc: 'Cada mesociclo de entrenamiento lleva asociado un ajuste en el plan nutricional: energía disponible, proteína, distribución de macros. No son planes paralelos, son uno solo.',
+              link: `${base}/nutricion`,
+              linkLabel: 'Ver nutrición clínica',
+              highlight: true,
+            },
+            {
+              pilar: 'Entrenamiento + Bienestar emocional',
+              desc: 'El movimiento es una de las herramientas más potentes para la gestión del estrés y el bienestar emocional. Lo integramos de forma explícita, no como efecto secundario.',
+              link: `${base}/metodologia`,
+              linkLabel: 'Ver el Método Nutroteca',
+              highlight: false,
+            },
+          ].map(({ pilar, desc, link, linkLabel, highlight }) => (
+            <div style={`
+              background: ${highlight ? 'var(--nt-color-green-900)' : 'var(--nt-bg)'};
+              border: 1px solid ${highlight ? 'transparent' : 'var(--nt-border)'};
+              border-radius: 4px;
+              padding: var(--nt-space-xl);
+            `}>
+              <p style={`
+                font-family: var(--nt-font-display);
+                font-size: 1.375rem;
+                font-weight: 700;
+                color: ${highlight ? 'var(--nt-color-stone-50)' : 'var(--nt-color-green-900)'};
+                margin-bottom: var(--nt-space-md);
+                line-height: 1.25;
+              `}>{pilar}</p>
+              <p style={`
+                font-family: var(--nt-font-body);
+                font-size: 0.9375rem;
+                line-height: 1.75;
+                color: ${highlight ? 'var(--nt-color-stone-400)' : 'var(--nt-text-muted)'};
+                margin-bottom: var(--nt-space-lg);
+              `}>{desc}</p>
+              <a
+                href={link}
+                style={`
+                  font-family: var(--nt-font-ui);
+                  font-size: 0.875rem;
+                  font-weight: 500;
+                  color: ${highlight ? 'var(--nt-color-green-400)' : 'var(--nt-highlight)'};
+                  text-decoration: none;
+                `}
+              >{linkLabel} →</a>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+    <CtaFinal />
+
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-2xl);
+    align-items: start;
+  }
+
+  @media (min-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 3fr 2fr;
+    }
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-2xl);
+    align-items: start;
+  }
+
+  @media (min-width: 900px) {
+    .intro-grid {
+      grid-template-columns: 3fr 2fr;
+    }
+  }
+
+  .que-trabajas-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-md);
+  }
+
+  @media (min-width: 640px) {
+    .que-trabajas-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .que-trabajas-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .principios-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  @media (min-width: 900px) {
+    .principios-grid {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: var(--nt-space-2xl);
+    }
+  }
+
+  .para-quien-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-2xl);
+    align-items: start;
+  }
+
+  @media (min-width: 900px) {
+    .para-quien-grid {
+      grid-template-columns: 2fr 3fr;
+    }
+  }
+
+  .pilares-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-md);
+  }
+
+  @media (min-width: 768px) {
+    .pilares-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

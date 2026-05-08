@@ -9,6 +9,7 @@
     --nt-color-stone-300: #ccc0ac;
     --nt-color-stone-400: #a89070;
     --nt-color-stone-500: #8a7055;
+    --nt-color-stone-600: #6b5540;
 
     --nt-color-green-900: #1a2e1e;
     --nt-color-green-800: #243b28;
@@ -28,11 +29,11 @@
     --nt-bg:          var(--nt-color-stone-50);
     --nt-bg-muted:    var(--nt-color-stone-100);
     --nt-text:        var(--nt-color-green-900);
-    --nt-text-muted:  var(--nt-color-stone-500);
+    --nt-text-muted:  var(--nt-color-stone-600);
     --nt-border:      var(--nt-color-stone-200);
     --nt-accent:      var(--nt-color-green-700);
     --nt-accent-hover:var(--nt-color-green-600);
-    --nt-highlight:   var(--nt-color-earth-500);
+    --nt-highlight:   var(--nt-color-earth-600);
 
     /* ─── Tipografía ──────────────────────────────────── */
     --nt-font-display: 'Playfair Display', Georgia, serif;

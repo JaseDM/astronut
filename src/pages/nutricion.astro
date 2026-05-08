@@ -1,0 +1,673 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaFinal from '../components/CtaFinal.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const siteUrl = 'https://nutroteca.es';
+
+const queHacemos = [
+  {
+    num: '01',
+    titulo: 'Valoración nutricional real',
+    desc: 'Antes de proponer nada, medimos. Anamnesis completa, composición corporal, análisis de analíticas y evaluación de hábitos alimentarios. No estimamos: obtenemos datos objetivos para construir un plan que funcione.',
+  },
+  {
+    num: '02',
+    titulo: 'Plan personalizado, no plantilla',
+    desc: 'Tu plan nutricional se construye con tus datos, tu historial, tus preferencias y tus objetivos reales. No hay dos planes iguales. No hay dietas de temporada ni restricciones sin evidencia.',
+  },
+  {
+    num: '03',
+    titulo: 'Seguimiento y ajuste continuo',
+    desc: 'El plan inicial es solo el punto de partida. Tu cuerpo responde a su ritmo, tu vida cambia, las circunstancias evolucionan. El seguimiento regular permite ajustar lo que necesita ser ajustado.',
+  },
+  {
+    num: '04',
+    titulo: 'Nutrición integrada con movimiento y bienestar',
+    desc: 'Lo que comes afecta cómo entrenas. Cómo entrenas afecta lo que necesitas comer. Cómo te sientes emocionalmente afecta a ambos. En Nutroteca, los tres pilares se trabajan como un sistema coordinado.',
+  },
+];
+
+const paraQuien = [
+  'Has probado dietas sin resultados duraderos y estás harto de empezar de cero cada vez',
+  'Quieres entender qué le pasa a tu cuerpo, no solo recibir una lista de alimentos',
+  'Tu médico te ha dicho que deberías cambiar hábitos, pero nadie te ha explicado cómo',
+  'Tienes más de 45 años y notas que lo que funcionaba antes ya no funciona',
+  'Buscas un cambio real y sostenible, no una solución de tres semanas',
+  'Vives o trabajas en Asturias, o buscas atención nutricional online seria',
+];
+
+const noes = [
+  'Una dieta de moda o un protocolo genérico',
+  'Restricciones sin evidencia científica',
+  'Suplementos ni productos que vender',
+  'Un servicio que te mantenga dependiente',
+  'Promesas de transformaciones rápidas',
+];
+
+const sis = [
+  'Un plan construido con tus datos reales',
+  'Evidencia clínica como base de cada decisión',
+  'Coordinación directa con el pilar de entrenamiento',
+  'Seguimiento real, no automatizado',
+  'Un objetivo claro: que aprendas a gestionar tu propia alimentación',
+];
+
+// Schema.org
+const schemaBreadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Nutroteca', item: siteUrl },
+    { '@type': 'ListItem', position: 2, name: 'Nutrición', item: `${siteUrl}/nutricion` },
+  ],
+};
+
+const schemaService = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Nutrición Clínica — Nutroteca',
+  description: 'Planes nutricionales personalizados basados en valoración real. Sin dietas genéricas, sin restricciones sin evidencia. Nutrición clínica integrada con entrenamiento funcional y bienestar emocional.',
+  provider: {
+    '@type': 'LocalBusiness',
+    name: 'Nutroteca',
+    url: siteUrl,
+    areaServed: ['Asturias', 'España'],
+  },
+  serviceType: 'Nutrición clínica',
+  areaServed: 'España',
+};
+---
+
+<BaseLayout
+  title="Nutrición Clínica — Planes personalizados basados en evidencia"
+  description="Planes nutricionales construidos con tus datos reales, no con plantillas genéricas. Nutrición clínica integrada con entrenamiento funcional y salud emocional en Nutroteca, Asturias."
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaBreadcrumb)} slot="head" />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaService)} slot="head" />
+
+  <SiteNav />
+
+  <main>
+
+    <!-- ─── HERO ───────────────────────────────────────────── -->
+    <section
+      class="nt-grain nt-grain-dark nt-hex-pattern"
+      style="
+        background: var(--nt-gradient-dark);
+        padding: calc(var(--nt-space-3xl) + 4rem) var(--nt-space-md) var(--nt-space-3xl);
+        position: relative;
+      "
+    >
+      <div style="max-width: var(--nt-container); margin: 0 auto; position: relative; z-index: 2">
+
+        <!-- Breadcrumb -->
+        <nav aria-label="Ruta de navegación" style="margin-bottom: var(--nt-space-lg)">
+          <ol style="display: flex; gap: 0.5rem; align-items: center; list-style: none; padding: 0; margin: 0; font-family: var(--nt-font-ui); font-size: 0.8125rem; color: var(--nt-color-green-400)">
+            <li><a href={`${base}/`} style="color: var(--nt-color-green-400); text-decoration: none">Inicio</a></li>
+            <li aria-hidden="true" style="opacity: 0.4">·</li>
+            <li style="color: var(--nt-color-stone-300)">Nutrición</li>
+          </ol>
+        </nav>
+
+        <div class="hero-grid">
+          <!-- Columna izquierda: texto -->
+          <div>
+            <p style="
+              font-family: var(--nt-font-ui);
+              font-size: 0.75rem;
+              font-weight: 500;
+              text-transform: uppercase;
+              letter-spacing: 0.14em;
+              color: var(--nt-color-earth-400);
+              margin-bottom: var(--nt-space-md);
+            ">
+              Pilar 01 — Nutrición
+            </p>
+
+            <h1 style="
+              font-family: var(--nt-font-display);
+              font-size: clamp(2.25rem, 5vw, 4rem);
+              font-weight: 800;
+              line-height: 1.1;
+              letter-spacing: -0.025em;
+              color: var(--nt-color-stone-50);
+              margin-bottom: var(--nt-space-lg);
+            ">
+              Comer bien no es<br />
+              <em style="font-style: italic; color: var(--nt-color-earth-400)">seguir una dieta.</em>
+            </h1>
+
+            <p style="
+              font-family: var(--nt-font-body);
+              font-size: clamp(1rem, 1.75vw, 1.1875rem);
+              line-height: 1.75;
+              color: var(--nt-color-stone-300);
+              margin-bottom: var(--nt-space-xl);
+              max-width: 38rem;
+            ">
+              La nutrición clínica no va de prohibir alimentos ni de contar calorías hasta el límite.
+              Va de entender cómo funciona tu cuerpo y construir hábitos que se sostengan en el tiempo.
+              Sin restricciones arbitrarias. Sin plantillas genéricas. Con tus datos.
+            </p>
+
+            <div style="display: flex; flex-wrap: wrap; gap: var(--nt-space-md)">
+              <a
+                href={`${base}/contacto`}
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  background: var(--nt-color-stone-50);
+                  color: var(--nt-color-green-900);
+                  font-family: var(--nt-font-ui);
+                  font-weight: 600;
+                  font-size: 0.9375rem;
+                  padding: 0.75rem 1.75rem;
+                  border-radius: 3px;
+                  text-decoration: none;
+                "
+              >
+                Primera consulta gratuita
+              </a>
+              <a
+                href={`${base}/metodologia`}
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  color: var(--nt-color-stone-400);
+                  font-family: var(--nt-font-ui);
+                  font-weight: 500;
+                  font-size: 0.9375rem;
+                  text-decoration: none;
+                "
+              >
+                Ver el Método →
+              </a>
+            </div>
+          </div>
+
+          <!-- Columna derecha: datos rápidos -->
+          <div style="
+            display: flex;
+            flex-direction: column;
+            gap: var(--nt-space-md);
+          ">
+            {[
+              { num: '100%', label: 'planes individualizados — ninguno es una copia' },
+              { num: '+15', label: 'años de evidencia clínica en nutrición adulta' },
+              { num: '3', label: 'pilares coordinados en un único plan' },
+            ].map(({ num, label }) => (
+              <div style="
+                background: rgba(255,255,255,0.05);
+                border: 1px solid rgba(255,255,255,0.08);
+                border-radius: 4px;
+                padding: var(--nt-space-lg);
+              ">
+                <p style="font-family: var(--nt-font-display); font-size: 2.5rem; font-weight: 800; color: var(--nt-color-stone-50); line-height: 1; margin-bottom: 0.5rem">{num}</p>
+                <p style="font-family: var(--nt-font-ui); font-size: 0.875rem; color: var(--nt-color-stone-400); line-height: 1.5">{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── QUÉ ES / QUÉ NO ES ────────────────────────────── -->
+    <section style="
+      padding: var(--nt-space-3xl) var(--nt-space-md);
+      background: var(--nt-bg);
+    ">
+      <div style="max-width: var(--nt-container); margin: 0 auto">
+        <div class="intro-grid">
+
+          <!-- Texto principal -->
+          <div>
+            <p style="
+              font-family: var(--nt-font-ui);
+              font-size: 0.75rem;
+              font-weight: 500;
+              text-transform: uppercase;
+              letter-spacing: 0.14em;
+              color: var(--nt-highlight);
+              margin-bottom: var(--nt-space-sm);
+            ">Nuestra forma de entender la nutrición</p>
+
+            <h2 style="
+              font-family: var(--nt-font-display);
+              font-size: clamp(1.75rem, 3vw, 2.5rem);
+              font-weight: 700;
+              line-height: 1.15;
+              letter-spacing: -0.02em;
+              color: var(--nt-color-green-900);
+              margin-bottom: var(--nt-space-md);
+            ">
+              La dieta perfecta no existe.<br />
+              El plan adecuado para ti, sí.
+            </h2>
+
+            <p style="font-family: var(--nt-font-body); font-size: 1.0625rem; line-height: 1.75; color: var(--nt-text-muted); margin-bottom: var(--nt-space-md)">
+              Llevamos décadas saturados de información nutricional contradictoria: que si el gluten, que si las grasas, que si el ayuno intermitente. Cada año hay una nueva verdad absoluta que sustituye a la anterior.
+            </p>
+            <p style="font-family: var(--nt-font-body); font-size: 1.0625rem; line-height: 1.75; color: var(--nt-text-muted); margin-bottom: var(--nt-space-md)">
+              En Nutroteca trabajamos con lo que la evidencia científica actual respalda: que no hay alimentos prohibidos, que el contexto importa más que la lista de ingredientes, y que un plan nutricional que no se puede sostener en el tiempo no es un buen plan, independientemente de lo eficaz que sea a corto plazo.
+            </p>
+            <p style="font-family: var(--nt-font-body); font-size: 1.0625rem; line-height: 1.75; color: var(--nt-text-muted)">
+              El objetivo no es que comas "bien" durante tres meses. Es que en tres años sigas comiendo bien sin pensar en ello.
+            </p>
+          </div>
+
+          <!-- No es / Sí es -->
+          <div style="
+            background: var(--nt-bg-muted);
+            border: 1px solid var(--nt-border);
+            border-radius: 4px;
+            overflow: hidden;
+          ">
+            <div style="padding: var(--nt-space-lg); border-bottom: 1px solid var(--nt-border)">
+              <p style="font-family: var(--nt-font-ui); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--nt-text-muted); margin-bottom: var(--nt-space-md)">
+                La nutrición en Nutroteca no es
+              </p>
+              {noes.map(item => (
+                <div style="display: flex; gap: 0.75rem; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--nt-border)">
+                  <span style="color: var(--nt-color-earth-400); font-size: 1rem; flex-shrink: 0">✕</span>
+                  <p style="font-family: var(--nt-font-body); font-size: 0.9375rem; color: var(--nt-text-muted); margin: 0">{item}</p>
+                </div>
+              ))}
+            </div>
+            <div style="padding: var(--nt-space-lg)">
+              <p style="font-family: var(--nt-font-ui); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--nt-color-green-600); margin-bottom: var(--nt-space-md)">
+                Sí es
+              </p>
+              {sis.map(item => (
+                <div style="display: flex; gap: 0.75rem; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--nt-border)">
+                  <span style="color: var(--nt-color-green-500); font-size: 1rem; flex-shrink: 0">✓</span>
+                  <p style="font-family: var(--nt-font-body); font-size: 0.9375rem; color: var(--nt-color-green-900); margin: 0">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CÓMO TRABAJAMOS ───────────────────────────────── -->
+    <section
+      style="
+        padding: var(--nt-space-3xl) var(--nt-space-md);
+        background: var(--nt-bg-muted);
+        border-top: 1px solid var(--nt-border);
+      "
+      aria-labelledby="proceso-heading"
+    >
+      <div style="max-width: var(--nt-container); margin: 0 auto">
+
+        <div style="max-width: 42rem; margin-bottom: var(--nt-space-2xl)">
+          <p style="
+            font-family: var(--nt-font-ui);
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--nt-highlight);
+            margin-bottom: var(--nt-space-sm);
+          ">Proceso nutricional</p>
+          <h2
+            id="proceso-heading"
+            style="
+              font-family: var(--nt-font-display);
+              font-size: clamp(1.75rem, 3vw, 2.5rem);
+              font-weight: 700;
+              line-height: 1.15;
+              letter-spacing: -0.02em;
+              color: var(--nt-color-green-900);
+              margin-bottom: var(--nt-space-md);
+            "
+          >
+            Cómo trabajamos la nutrición
+          </h2>
+          <p style="font-family: var(--nt-font-body); font-size: 1.0625rem; line-height: 1.75; color: var(--nt-text-muted)">
+            No hay atajos. Hay un proceso claro, con pasos definidos y un objetivo en cada uno de ellos.
+          </p>
+        </div>
+
+        <div class="proceso-grid">
+          {queHacemos.map((paso) => (
+            <article style="
+              background: var(--nt-bg);
+              border: 1px solid var(--nt-border);
+              border-radius: 4px;
+              padding: var(--nt-space-lg);
+              position: relative;
+              overflow: hidden;
+            ">
+              <span aria-hidden="true" style="
+                position: absolute;
+                top: -1rem;
+                right: 1rem;
+                font-family: var(--nt-font-display);
+                font-size: 5rem;
+                font-weight: 800;
+                color: var(--nt-color-stone-200);
+                line-height: 1;
+                user-select: none;
+              ">{paso.num}</span>
+
+              <p style="
+                font-family: var(--nt-font-ui);
+                font-size: 0.7rem;
+                font-weight: 500;
+                text-transform: uppercase;
+                letter-spacing: 0.12em;
+                color: var(--nt-highlight);
+                margin-bottom: var(--nt-space-sm);
+                position: relative;
+              ">Paso {paso.num}</p>
+
+              <h3 style="
+                font-family: var(--nt-font-display);
+                font-size: 1.25rem;
+                font-weight: 700;
+                color: var(--nt-color-green-900);
+                margin-bottom: var(--nt-space-md);
+                line-height: 1.25;
+                position: relative;
+              ">{paso.titulo}</h3>
+
+              <p style="
+                font-family: var(--nt-font-body);
+                font-size: 0.9375rem;
+                line-height: 1.75;
+                color: var(--nt-text-muted);
+                position: relative;
+                margin: 0;
+              ">{paso.desc}</p>
+            </article>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── PARA QUIÉN ─────────────────────────────────────── -->
+    <section
+      style="
+        padding: var(--nt-space-3xl) var(--nt-space-md);
+        background: var(--nt-bg);
+        border-top: 1px solid var(--nt-border);
+      "
+      aria-labelledby="para-quien-heading"
+    >
+      <div style="max-width: var(--nt-container); margin: 0 auto">
+        <div class="para-quien-grid">
+
+          <!-- Columna texto -->
+          <div>
+            <p style="
+              font-family: var(--nt-font-ui);
+              font-size: 0.75rem;
+              font-weight: 500;
+              text-transform: uppercase;
+              letter-spacing: 0.14em;
+              color: var(--nt-highlight);
+              margin-bottom: var(--nt-space-sm);
+            ">¿Es para mí?</p>
+
+            <h2
+              id="para-quien-heading"
+              style="
+                font-family: var(--nt-font-display);
+                font-size: clamp(1.75rem, 3vw, 2.5rem);
+                font-weight: 700;
+                line-height: 1.15;
+                letter-spacing: -0.02em;
+                color: var(--nt-color-green-900);
+                margin-bottom: var(--nt-space-md);
+              "
+            >
+              Para quien ya sabe que<br />
+              <em style="color: var(--nt-highlight); font-style: italic">la fuerza de voluntad no es suficiente.</em>
+            </h2>
+
+            <p style="font-family: var(--nt-font-body); font-size: 1.0625rem; line-height: 1.75; color: var(--nt-text-muted); margin-bottom: var(--nt-space-lg)">
+              No trabajamos con personas que buscan una solución rápida o un reto de 30 días. Trabajamos con personas que han decidido tomarse su salud en serio y quieren hacerlo bien, con el apoyo de alguien que sabe lo que hace.
+            </p>
+
+            <a
+              href={`${base}/contacto`}
+              style="
+                display: inline-flex;
+                align-items: center;
+                background: var(--nt-color-green-800);
+                color: var(--nt-color-stone-50);
+                font-family: var(--nt-font-ui);
+                font-weight: 500;
+                font-size: 0.9375rem;
+                padding: 0.75rem 1.75rem;
+                border-radius: 3px;
+                text-decoration: none;
+              "
+            >
+              Solicitar primera consulta
+            </a>
+          </div>
+
+          <!-- Lista de perfiles -->
+          <div>
+            <ul style="
+              list-style: none;
+              padding: 0;
+              margin: 0;
+              display: flex;
+              flex-direction: column;
+              gap: 0;
+            ">
+              {paraQuien.map((item) => (
+                <li style="
+                  display: flex;
+                  gap: var(--nt-space-md);
+                  align-items: flex-start;
+                  padding: var(--nt-space-md) 0;
+                  border-bottom: 1px solid var(--nt-border);
+                ">
+                  <span style="
+                    width: 1.5rem;
+                    height: 1.5rem;
+                    background: var(--nt-color-green-100);
+                    border-radius: 99px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                    margin-top: 0.125rem;
+                  ">
+                    <span style="color: var(--nt-color-green-600); font-size: 0.75rem">◆</span>
+                  </span>
+                  <p style="
+                    font-family: var(--nt-font-body);
+                    font-size: 0.9375rem;
+                    line-height: 1.65;
+                    color: var(--nt-color-green-900);
+                    margin: 0;
+                  ">{item}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── INTEGRACIÓN CON LOS 3 PILARES ─────────────────── -->
+    <section
+      class="nt-grain"
+      style="
+        background: var(--nt-gradient-earth);
+        padding: var(--nt-space-3xl) var(--nt-space-md);
+        border-top: 1px solid var(--nt-border);
+      "
+      aria-labelledby="pilares-heading"
+    >
+      <div style="max-width: var(--nt-container); margin: 0 auto; position: relative; z-index: 2">
+
+        <div style="text-align: center; max-width: 42rem; margin: 0 auto var(--nt-space-2xl)">
+          <p style="
+            font-family: var(--nt-font-ui);
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--nt-color-earth-600);
+            margin-bottom: var(--nt-space-sm);
+          ">El sistema completo</p>
+          <h2
+            id="pilares-heading"
+            style="
+              font-family: var(--nt-font-display);
+              font-size: clamp(1.75rem, 3vw, 2.5rem);
+              font-weight: 700;
+              line-height: 1.15;
+              letter-spacing: -0.02em;
+              color: var(--nt-color-green-900);
+              margin-bottom: var(--nt-space-md);
+            "
+          >
+            La nutrición sola no es suficiente
+          </h2>
+          <p style="font-family: var(--nt-font-body); font-size: 1.0625rem; line-height: 1.75; color: var(--nt-text-muted)">
+            El plan nutricional que diseñamos se construye teniendo en cuenta cómo entrenas y cómo te encuentras emocionalmente. Los tres pilares se coordinan para que cada decisión refuerce a las demás, no para que compitan entre ellas.
+          </p>
+        </div>
+
+        <div class="pilares-grid">
+          {[
+            {
+              pilar: 'Nutrición + Entrenamiento',
+              icon: '↔',
+              desc: 'El plan nutricional se ajusta a la intensidad y tipo de entrenamiento de cada semana. Lo que comes potencia el movimiento, y el movimiento informa lo que necesitas comer.',
+              link: `${base}/entrenamiento-funcional`,
+              linkLabel: 'Ver entrenamiento funcional',
+              highlight: true,
+            },
+            {
+              pilar: 'Nutrición + Bienestar emocional',
+              icon: '↔',
+              desc: 'La relación con la comida tiene una dimensión emocional que ninguna dieta resuelve por sí sola. Trabajamos el hambre emocional, la culpa y la alimentación consciente como parte integral del proceso.',
+              link: `${base}/metodologia`,
+              linkLabel: 'Ver el Método Nutroteca',
+              highlight: false,
+            },
+          ].map(({ pilar, icon, desc, link, linkLabel, highlight }) => (
+            <div style={`
+              background: ${highlight ? 'var(--nt-color-green-900)' : 'var(--nt-bg)'};
+              border: 1px solid ${highlight ? 'transparent' : 'var(--nt-border)'};
+              border-radius: 4px;
+              padding: var(--nt-space-xl);
+            `}>
+              <p style={`
+                font-family: var(--nt-font-display);
+                font-size: 1.375rem;
+                font-weight: 700;
+                color: ${highlight ? 'var(--nt-color-stone-50)' : 'var(--nt-color-green-900)'};
+                margin-bottom: var(--nt-space-md);
+                line-height: 1.25;
+              `}>{pilar}</p>
+              <p style={`
+                font-family: var(--nt-font-body);
+                font-size: 0.9375rem;
+                line-height: 1.75;
+                color: ${highlight ? 'var(--nt-color-stone-400)' : 'var(--nt-text-muted)'};
+                margin-bottom: var(--nt-space-lg);
+              `}>{desc}</p>
+              <a
+                href={link}
+                style={`
+                  font-family: var(--nt-font-ui);
+                  font-size: 0.875rem;
+                  font-weight: 500;
+                  color: ${highlight ? 'var(--nt-color-green-400)' : 'var(--nt-highlight)'};
+                  text-decoration: none;
+                `}
+              >{linkLabel} →</a>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+    <CtaFinal />
+
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-2xl);
+    align-items: start;
+  }
+
+  @media (min-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 3fr 2fr;
+    }
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-2xl);
+    align-items: start;
+  }
+
+  @media (min-width: 900px) {
+    .intro-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .proceso-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-md);
+  }
+
+  @media (min-width: 640px) {
+    .proceso-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .para-quien-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-2xl);
+    align-items: start;
+  }
+
+  @media (min-width: 900px) {
+    .para-quien-grid {
+      grid-template-columns: 2fr 3fr;
+    }
+  }
+
+  .pilares-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nt-space-md);
+  }
+
+  @media (min-width: 768px) {
+    .pilares-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
